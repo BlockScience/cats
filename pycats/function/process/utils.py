@@ -1,8 +1,5 @@
-import json
-import os, subprocess, boto3
-# ToDo: place imports that can be serialized here
-# ToDo: isolate repeat functionality due to venv
-import time
+import os, subprocess, boto3, json, time
+# ToDo: Move worker dirs to top level as (can be used as ENV VARS)
 
 s3 = boto3.client(
     's3',
@@ -10,6 +7,26 @@ s3 = boto3.client(
     aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
     aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
 )
+s3_resource = boto3.resource(
+    's3',
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+)
+session = boto3.Session(
+    region_name='us-east-2',
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+)
+
+WORK_DIR = '/opt/spark/work-dir'
+INVOICE_DIR = f"{WORK_DIR}/job/invoice"
+
+INPUT_DIR = f"{WORK_DIR}/job/input"
+INPUT = f"{WORK_DIR}/job/input/df"
+OUTPUT = f"{WORK_DIR}/job/output/df"
+
+TRANSFORM_DIR = f"{WORK_DIR}/job/transformation"
+IPFS_DIR = f'{WORK_DIR}/ipfs'
 
 
 def get_s3_keys(bucket, part_path):
@@ -26,17 +43,6 @@ def get_s3_keys(bucket, part_path):
 
 # def content_address_tranformation(transform_uri):
 def content_address_tranformer(transform_uri):
-    # import s3 from package here
-    import boto3, json
-    s3 = boto3.client(
-        's3',
-        region_name='us-east-2',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-    )
-    WORK_DIR = '/opt/spark/work-dir'
-    TRANSFORM_DIR = f"{WORK_DIR}/job/transformation"
-    IPFS_DIR = f'{WORK_DIR}/ipfs'
     # 's3a://cats-public/cad-store/cad/transformation/transform.py'
     transform_bucket = transform_uri.split('s3a://')[-1].split('/')[0]
     transform_key = transform_uri.split('s3a://')[-1].split(transform_bucket)[-1][1:]
@@ -64,11 +70,9 @@ def content_address_tranformer(transform_uri):
     return partial_bom
 
 def save_bom(bom_type: str = 'cao'):
+    BOM_DIR = f"{WORK_DIR}/job/bom"
+    BOM_FILE = f'{BOM_DIR}/{bom_type}_bom.json'
     def f(partial_bom):
-        import json
-        WORK_DIR = '/opt/spark/work-dir'
-        BOM_DIR = f"{WORK_DIR}/job/bom"
-        BOM_FILE = f'{BOM_DIR}/{bom_type}_bom.json'
         subprocess.check_call(f"mkdir -p {BOM_DIR}".split(' '))
         with open(BOM_FILE, 'w') as fp:
             json.dump(partial_bom, fp)
@@ -80,18 +84,6 @@ def save_bom(bom_type: str = 'cao'):
 
 # Ingest
 def cad_part_invoice(cad_part_id_dict):
-    # import s3 from package here
-    import boto3
-    s3 = boto3.client(
-        's3',
-        region_name='us-east-2',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-    )
-
-    WORK_DIR = '/opt/spark/work-dir'
-    INPUT = f"{WORK_DIR}/job/input/df"
-
     bucket = 'cats-public'
     file_path_key = cad_part_id_dict["FilePathKey"]
     file_name = file_path_key.split('/')[-1]
@@ -125,17 +117,6 @@ def ipfs_connect(cad_part_invoice):
 
 
 def s3_ingest(cad_part_invoice):
-    import boto3
-    s3 = boto3.client(
-        's3',
-        region_name='us-east-2',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-    )
-    WORK_DIR = '/opt/spark/work-dir'
-    INPUT = f"{WORK_DIR}/job/input/df"
-
-
     cid = cad_part_invoice['cid']
     filename = cad_part_invoice['filename']
     bucket = 'cats-public'
@@ -172,9 +153,6 @@ def get_upload_path(cad_part_invoice):
 
 # CAT
 def link_ipfs_id(file_path_key):
-    import json
-    WORK_DIR = '/opt/spark/work-dir'
-    IPFS_DIR = f'{WORK_DIR}/ipfs'
     ipfs_id = open(f'{IPFS_DIR}/ipfs_id.json')
     cad_part_id_dict = json.load(ipfs_id)
     cad_part_id_dict["FilePathKey"] = file_path_key
@@ -183,18 +161,6 @@ def link_ipfs_id(file_path_key):
 
 
 def output_CAD(cad_part_id_dict):
-    # import s3 from package here
-    import boto3
-    s3 = boto3.client(
-        's3',
-        region_name='us-east-2',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-    )
-
-    WORK_DIR = '/opt/spark/work-dir'
-    OUTPUT = f"{WORK_DIR}/job/output/df"
-
     bucket = 'cats-public'
     file_path_key = cad_part_id_dict["FilePathKey"]
     file_name = file_path_key.split('/')[-1]
@@ -220,13 +186,6 @@ def output_CAD(cad_part_id_dict):
     }
 
 def save_invoice(invoice_uri):
-    s3 = boto3.resource('s3',
-                        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-                        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-                        )
-    WORK_DIR = '/opt/spark/work-dir'
-    INVOICE_DIR = f"{WORK_DIR}/job/invoice"
-    IPFS_DIR = f'{WORK_DIR}/ipfs'
     subprocess.check_call(f"mkdir -p {INVOICE_DIR}".split(' '))
 
     def download_s3_folder(bucket_name, s3_folder, local_dir=None):
@@ -237,7 +196,7 @@ def save_invoice(invoice_uri):
             s3_folder: the folder path in the s3 bucket
             local_dir: a relative or absolute directory path in the local file system
         """
-        bucket = s3.Bucket(bucket_name)
+        bucket = s3_resource.Bucket(bucket_name)
         for obj in bucket.objects.filter(Prefix=s3_folder):
             target = obj.key if local_dir is None \
                 else os.path.join(local_dir, os.path.relpath(obj.key, s3_folder))
@@ -256,7 +215,6 @@ def save_invoice(invoice_uri):
     invoice_cid_cmd = f'ipfs add -Qr --only-hash {INVOICE_DIR}'.split(' ')
     invoice_cid = subprocess.check_output(invoice_cid_cmd).decode('ascii').replace('\n', '').split(' ')[0]
 
-
     ipfs_id = open(f'{IPFS_DIR}/ipfs_id.json')
     ipfs_addresses = json.load(ipfs_id)["Addresses"]
     ip4_tcp_addresses = [x for x in ipfs_addresses if ('tcp' in x) and ('ip4' in x) and ('127.0.0.1' not in x)]
@@ -268,11 +226,6 @@ def cad_invoicing(file_path_key):
 
 
 def upload_files(path, bucket_name):
-    session = boto3.Session(
-        region_name='us-east-2',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-    )
     s3 = session.resource('s3')
     bucket = s3.Bucket(bucket_name)
 
@@ -295,8 +248,6 @@ def _connect(addresses):
 
 def get_bom(x):
     bom_cid, addresses = x[0], x[1]
-    WORK_DIR = '/opt/spark/work-dir'
-    INPUT_DIR = f"{WORK_DIR}/job/input"
     subprocess.check_call(f"mkdir -p {INPUT_DIR}".split(' '))
     os.chdir(INPUT_DIR)
 
@@ -319,16 +270,6 @@ def get_bom(x):
 
 def transfer_invoice(bom):
     invoice_uri = 's3a://cats-public/cad-store/cad/input/invoice'
-    import boto3
-    s3 = boto3.client(
-        's3',
-        region_name='us-east-2',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-    )
-
-    WORK_DIR = '/opt/spark/work-dir'
-    INPUT_DIR = f"{WORK_DIR}/job/input"
     subprocess.check_call(f"mkdir -p {INPUT_DIR}".split(' '))
 
     os.chdir(INPUT_DIR)
@@ -342,7 +283,7 @@ def transfer_invoice(bom):
     bom['invoice_uri'] = invoice_uri
     bucket = invoice_uri.split('s3a://')[1].split('/')[0]
     prefix = invoice_uri.split('s3a://')[1].split(bucket)[1][1:]
-    INVOICE_DIR = f'{INPUT_DIR}/invoice'
+    INVOICE_DIR = f'{INPUT_DIR}/invoice' # ToDo: disambiguate
     os.chdir(INVOICE_DIR)
     filenames = os.listdir(INVOICE_DIR)
     for filename in filenames:
@@ -353,17 +294,6 @@ def transfer_invoice(bom):
 
 
 def save_tranformer(transform_uri):
-    # import s3 from package here
-    import boto3, json
-    s3 = boto3.client(
-        's3',
-        region_name='us-east-2',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-    )
-    WORK_DIR = '/opt/spark/work-dir'
-    TRANSFORM_DIR = f"{WORK_DIR}/job/transformation"
-    IPFS_DIR = f'{WORK_DIR}/ipfs'
     # 's3a://cats-public/cad-store/cad/transformation/transform.py'
     transform_bucket = transform_uri.split('s3a://')[-1].split('/')[0]
     transform_key = transform_uri.split('s3a://')[-1].split(transform_bucket)[-1][1:]
@@ -385,9 +315,7 @@ def save_tranformer(transform_uri):
     return partial_bom
 
 def save_invoice2(invoice_uri):
-    WORK_DIR = '/opt/spark/work-dir'
-    INPUT_DIR = f"{WORK_DIR}/job/input"
-    INVOICE_DIR = f"{WORK_DIR}/job/input/invoice"
+    INVOICE_DIR = f"{WORK_DIR}/job/input/invoice" # ToDo: disambiguate
     bucket = invoice_uri.split('s3a://')[1].split('/')[0]
     prefix = invoice_uri.split('s3a://')[1].split(bucket)[1][1:]
     uri = 's3a://' + bucket + prefix
