@@ -1,0 +1,10 @@
+.idea
+build
+old
+job_data
+*.egg-info
+spark-warehouse
+df.csv
+venv
+venv.tar.gz
+cadStore
