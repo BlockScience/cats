@@ -1,5 +1,6 @@
 import os, subprocess, boto3, json, time
 # ToDo: Move worker dirs to top level as (can be used as ENV VARS)
+from pprint import pprint
 
 s3 = boto3.client(
     's3',
@@ -91,9 +92,17 @@ def cad_part_invoice(cad_part_id_dict):
     ipfs_addresses = cad_part_id_dict["Addresses"]
     ip4_tcp_addresses = [x for x in ipfs_addresses if ('tcp' in x) and ('ip4' in x) and ('127.0.0.1' not in x)]
 
+    INPUT = f"{WORK_DIR}/job/input/df"
+    OUTPUT = f"{WORK_DIR}/job/output/df"
     subprocess.check_call(f"mkdir -p {INPUT}".split(' '))
-    s3.download_file(Bucket=bucket, Key=file_path_key, Filename=NODE_FILE_PATH)  # delete after transfer
-    ipfs_add = f'ipfs add {INPUT}/{file_name}'.split(' ')
+    subprocess.check_call(f"mkdir -p {OUTPUT}".split(' '))
+    if '/job/input/df' in NODE_FILE_PATH:
+        s3.download_file(Bucket=bucket, Key=file_path_key, Filename=NODE_FILE_PATH)  # delete after transfer
+        ipfs_add = f'ipfs add {INPUT}/{file_name}'.split(' ')
+    else:
+        NODE_FILE_PATH = f"{OUTPUT}/{file_name}"
+        s3.download_file(Bucket=bucket, Key=file_path_key, Filename=NODE_FILE_PATH)
+        ipfs_add = f'ipfs add {OUTPUT}/{file_name}'.split(' ')
     [ipfs_action, cid, _file_name] = subprocess.check_output(ipfs_add).decode('ascii').replace('\n', '').split(' ')
 
     return {

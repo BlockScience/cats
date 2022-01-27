@@ -20,5 +20,3 @@ def transform(cad):
     """
     cao = cad.spark.sql(trans_2_sql)
     return cao
-
-# transform = f

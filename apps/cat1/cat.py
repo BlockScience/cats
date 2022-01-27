@@ -35,12 +35,16 @@ if __name__ == "__main__":
     # IPFS_DIR = '/home/jjodesty/Projects/Research/cats/cadStore'
     # cai_bom_file = open(f'{IPFS_DIR}/bom.json')
     # cai_bom = json.load(cai_bom_file)
+    # ToDO: save cao data
     cat.transform(
         input_bom_path='s3://cats-public/cad-store/cad/cai/bom/bom.json',
-        output_bom_path='s3://cats-public/cad-store/cad/cao/bom/output_bom.json'
-        # cai_bom = cai_bom
-        # cai_invoice_uri='s3a://cats-public/cad-store/cad/cai/invoices',
-        # cao_data_uri='s3a://cats-public/cad-store/cad/cao/data'
+        output_bom_path='s3://cats-public/cad-store/cad/cao/bom/output_bom.json',
+        input_bom_update={},
+        output_bom_update={
+            'cai_data_uri': 's3a://cats-public/cad-store/cad/cai2/data',
+            'cai_invoice_uri': 's3a://cats-public/cad-store/cad/cai2/invoices',
+            'transformer_uri': 's3a://cats-public/cad-store/cad/transformation/transform2.py'
+        }
     )
     print()
     pprint(cat.cai_bom)
@@ -48,47 +52,9 @@ if __name__ == "__main__":
     pprint(cat.cao_bom)
     print()
     pprint(cat.catContext)
-
-    # pprint(cat.cai_invoice)
-
-    # transform = SourceFileLoader(
-    #     "transform",
-    #     "apps/cat1/transform.py"
-    # ).load_module()
-
-    # catContext = cat.execute(
-    #     cai_uri='s3a://cats-public/cad-store/cad/cai',
-    #     cao_uri='s3a://cats-public/cad-store/cad/cao',
-    #     transform_func=transform.transform
-    # )
-    # pprint(catContext)
     # print()
-    # pprint(cat.cai_bom)
-    # print()
-    # pprint(cat.cao_bom)
-
-    # print()
-    # cai_invoice = cat.caiInvoice.collect()
-    # print()
-    # cao_invoice = cat.caoInvoice.collect()
-    # # cat.cai.show()
-    # pprint(cai_invoice)
-    # print()
-    # # cat.cao.show()
-    # # print(cat.cao.rdd.getNumPartitions())
-    # pprint(cao_invoice)
-    # print()
-    # pprint(catContext)
-    # print()
-    # pprint(cat.cad.bom)
-    # pprint(cat.cao_bom)
-    # print()
-    # # pprint(spark.sparkContext.getConf().getAll())
-
-    # cad = CAD(spark)
-    # t = transform
-    # cao = cad.transform(t, 's3a://cats-public/cad-store/cad/cai/invoices').cao
-    # cao.show()
+    # cao = cat.catContext['cao']
+    # pprint(cao.show())
 
     while True:
         time.sleep(1)
