@@ -33,10 +33,11 @@ if __name__ == "__main__":
     # ToDo: bom creation and mutation occur on driver
     cat = Processor(
         sparkSession=spark,  # plant=???
+
         # init_pipeline=True (Default Set to False)
         # cai_uri='s3a://cats-public/cad-store/cad/cai', # causes error
         # transformer_uri='s3a://cats-public/cad-store/cad/transformation/transform.py'
-    )
+    ).start_daemon()
     # local_bom_write_path = '/home/jjodesty/Projects/Research/cats/cadStore/bom.json',
     cai_bom, input_cad_invoice = cat.content_address_input(
         s3_input_data_path='s3://cats-public/input/df', # I

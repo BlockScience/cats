@@ -43,7 +43,7 @@ def get_s3_keys(bucket, part_path):
 
 
 # def content_address_tranformation(transform_uri):
-def content_address_tranformer(transform_uri):
+def content_address_transformer(transform_uri):
     # 's3a://cats-public/cad-store/cad/transformation/transform.py'
     transform_bucket = transform_uri.split('s3a://')[-1].split('/')[0]
     transform_key = transform_uri.split('s3a://')[-1].split(transform_bucket)[-1][1:]
@@ -60,11 +60,11 @@ def content_address_tranformer(transform_uri):
     ipfs_addresses = json.load(ipfs_id)["Addresses"]
     ip4_tcp_addresses = [x for x in ipfs_addresses if ('tcp' in x) and ('ip4' in x) and ('127.0.0.1' not in x)]
 
-    partial_bom =  {
+    partial_bom = {
         'action': ipfs_action,
         'transform_cid': cid,
         'transform_uri': transform_uri,
-        'addresses': ip4_tcp_addresses,
+        'transformer_addresses': ip4_tcp_addresses,
         'transform_filename': transform_filename,
         'transform_node_path': NODE_FILE_PATH
     }
@@ -247,7 +247,7 @@ def upload_files(path, bucket_name):
 
 def _connect(addresses):
     for address in addresses:
-        output = subprocess.check_output(f"ipfs swarm connect {address}".split(' ')) \
+        output = subprocess.check_output(f"ipfs swarm connect {address}", shell=True) \
             .decode('ascii').replace('\n', '').split(' ')
         if output[2] == 'success':
             return address
@@ -338,19 +338,40 @@ def save_invoice2(invoice_uri):
             file.close()
             return uri
 
-# def input2(self, addresses, bom_cid, transformer_uri=None):
-#     IPFS_DIR = '/home/jjodesty/Projects/Research/cats/cadStore'
-#     import time, subprocess
-#     ipfs_daemon = f'ipfs daemon'
-#     proc = subprocess.Popen(
-#         ipfs_daemon, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-#     )
-#     pid = proc.pid
-#     time.sleep(15)
-#     ipfs_id_cmd = f'ipfs id > {IPFS_DIR}/ipfs_id.json'
-#     subprocess.check_call(ipfs_id_cmd, shell=True)
-#     ipfs_id = open(f'{IPFS_DIR}/ipfs_id.json')
-#     ipfs_addresses = json.load(ipfs_id)["Addresses"]
-#     ip4_tcp_addresses = [x for x in ipfs_addresses if ('tcp' in x) and ('ip4' in x) and ('127.0.0.1' not in x)]
-#     proc.kill()
-#     return ip4_tcp_addresses
+def content_address_transformer_on_driver(self, bom):
+    if bom['transformer_uri'] is not None:
+        TMP_DIR = '/tmp'
+        self.transformer_uri = bom['transformer_uri']
+
+        transform_bucket = self.transformer_uri.split('s3a://')[-1].split('/')[0]
+        transform_key = self.transformer_uri.split('s3a://')[-1].split(transform_bucket)[-1][1:]
+        transform_filename = transform_key.split('/')[-1]
+        NODE_FILE_PATH = f"{TMP_DIR}/{transform_filename}"
+
+        subprocess.check_call(f"mkdir -p {TMP_DIR}".split(' '))
+        # if doesnt exist
+        s3.download_file(Bucket=transform_bucket, Key=transform_key, Filename=NODE_FILE_PATH)
+        ipfs_add = f'ipfs add {NODE_FILE_PATH}'.split(' ')
+        [ipfs_action, cid, _file_name] = subprocess.check_output(ipfs_add).decode('ascii').replace('\n', '').split(' ')
+
+        with open(f'{TMP_DIR}/ipfs_id.json', 'w') as fp:
+            pass
+        fp.close()
+        os.chdir(TMP_DIR)
+        subprocess.check_output(f'ipfs id > ipfs_id.json', shell=True)
+        ipfs_id_file = open(f'ipfs_id.json')
+        ipfs_addresses = json.load(ipfs_id_file)["Addresses"]
+        ipfs_id_file.close()
+        ip4_tcp_addresses = [x for x in ipfs_addresses if ('tcp' in x) and ('ip4' in x) and ('127.0.0.1' not in x)]
+
+        bom['action'] = ipfs_action
+        bom['transform_cid'] = cid
+        bom['transformer_addresses'] = ip4_tcp_addresses
+        bom['transform_filename'] = transform_filename
+        bom['transform_node_path'] = NODE_FILE_PATH
+    else:
+        bom['transform_cid'] = ''
+        bom['transform_filename'] = ''
+        bom['transform_node_path'] = ''
+        bom['transform_uri'] = ''
+    return bom
