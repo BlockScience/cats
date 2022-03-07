@@ -1,6 +1,6 @@
 import os, subprocess, boto3, json, time
 # ToDo: Move worker dirs to top level as (can be used as ENV VARS)
-from pprint import pprint
+# from pprint import pprint
 
 s3 = boto3.client(
     's3',

@@ -1,7 +1,7 @@
 import time
 from pprint import pprint
 
-from pycats.function.process import Processor
+from pycats.function.process.cat import Processor
 from pycats.structure.plant.spark import SparkSession
 
 
