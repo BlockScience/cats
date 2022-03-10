@@ -3,40 +3,25 @@ from importlib.machinery import SourceFileLoader
 
 import numpy as np
 from multimethod import isa, overload
-from pycats.function.process.cad import CAD
-from pyspark import RDD
-from pyspark.sql import SparkSession, DataFrame
 
-from pycats.function.process.utils import \
-    get_s3_keys, s3, ipfs_caching, content_address_transformer, \
-    save_bom, save_invoice, get_bom, transfer_invoice, _connect
+from pycats.structure.plant.spark import Plant
+from pycats.function.process.utils import get_s3_keys, s3, _connect
 
 
-class Processor(object):
+class Processor(Plant):
     def __init__(self,
-        sparkSession: SparkSession,
+        plantSession = None,
         DRIVER_IPFS_DIR='/home/jjodesty/Projects/Research/cats/cadStore'
     ):
-        self.spark: SparkSession = sparkSession
-        self.sc = self.spark.sparkContext
-        self.sc._jsc. \
-            hadoopConfiguration().set("mapreduce.input.fileinputformat.input.dir.recursive", "true")
+        Plant.__init__(self, plantSession)
         self.DRIVER_IPFS_DIR = DRIVER_IPFS_DIR
-        self.cad: CAD = CAD(
-            spark=self.spark
-        )
 
         self.cai_invoice_cid = None
         self.cao_invoice_cid: str = None
         self.transform_func = None
         # self.transform_cid = None
 
-        self.catContext = {}
         self.cai_bom_cid = None
-        self.cai: DataFrame = None
-        self.cao: DataFrame = None
-        self.caiInvoice: RDD = None
-        self.caoInvoice: RDD = None
         self.cai_bom = {}
         self.cao_bom = {}
 
@@ -69,42 +54,11 @@ class Processor(object):
         ]
         return self
 
-
-    def content_address_transformer(self, bom):
-        if bom['transformer_uri'] is not None:
-            self.transformer_uri = bom['transformer_uri']
-            partial_bom: dict = self.spark.sparkContext \
-                .parallelize([self.transformer_uri]) \
-                .repartition(1) \
-                .map(content_address_transformer) \
-                .collect()[0]
-            bom.update(partial_bom)
-        else:
-            bom['transform_cid'] = ''
-            bom['transform_uri'] = ''
-            bom['transformer_addresses'] = ''
-            bom['transform_filename'] = ''
-            bom['transform_node_path'] = ''
-            raise Exception('transformer_uri is None')
-        return bom
-
-
     def content_address_dataset(self, bucket, input_path, cai_invoice_uri):
         s3_input_keys = get_s3_keys(bucket, input_path)
-        partition_count = len(s3_input_keys)
-        input_cad_invoice: RDD = self.sc \
-            .parallelize(s3_input_keys) \
-            .repartition(partition_count) \
-            .map(ipfs_caching) # .map(lambda x: link_ipfs_id(x))
-        input_cad_invoice_df: DataFrame = input_cad_invoice.toDF()
-        input_cad_invoice_df.write.json(cai_invoice_uri, mode='overwrite')
-        invoice_cid, ip4_tcp_addresses = self.sc \
-            .parallelize([cai_invoice_uri]) \
-            .repartition(1) \
-            .map(save_invoice) \
-            .collect()[0]
+        input_cad_invoice = self.generate_input_invoice(s3_input_keys, cai_invoice_uri)
+        invoice_cid, ip4_tcp_addresses = self.cid_input_invoice(cai_invoice_uri)
         return input_cad_invoice, str(invoice_cid), ip4_tcp_addresses
-
 
     def content_address_input(
             self,
@@ -114,23 +68,18 @@ class Processor(object):
             bom_write_path_uri,
             local_bom_write_path='/tmp/bom.json',
             transformer_uri=None):
-        s3_input_data_path = input_data_uri
-        cai_invoice_uri = invoice_uri
-        cao_data_uri = output_data_uri
-        s3_bom_write_path = bom_write_path_uri
-        self.catContext['cai_invoice_uri'] = cai_invoice_uri
+        self.catContext['cai_invoice_uri'] = invoice_uri
 
         self.cai_bom['transformer_uri'] = transformer_uri
-        self.cai_bom['cai_invoice_uri'] = cai_invoice_uri
-        self.cai_bom['cao_data_uri'] = cao_data_uri
-        self.cai_bom['cad_bom_uri'] = s3_bom_write_path
+        self.cai_bom['cai_invoice_uri'] = invoice_uri
+        self.cai_bom['cai_data_uri'] = output_data_uri
+        self.cai_bom['bom_uri'] = bom_write_path_uri
         self.cai_bom['action'] = ''
-        self.cai_bom['cai_cid'] = ''
+        self.cai_bom['input_bom_cid'] = ''
         self.cai_bom = self.content_address_transformer(self.cai_bom)
-        # self.cai_bom = self.content_address_transformer(self.cai_bom)
 
-        bucket = s3_input_data_path.split('s3://')[1].split('/')[0]
-        input_path = s3_input_data_path.split('s3://')[1].split(bucket)[1][1:]+'/'
+        bucket = input_data_uri.split('s3://')[1].split('/')[0]
+        input_path = input_data_uri.split('s3://')[1].split(bucket)[1][1:]+'/'
         (
             input_cad_invoice,
             self.cai_bom['invoice_cid'],
@@ -139,80 +88,56 @@ class Processor(object):
         self.cai_bom['addresses'] = np.unique(
             np.array(ip4_tcp_addresses)
         ).tolist()
-        cai_bom_rdd = self.sc \
-            .parallelize([self.cai_bom]) \
-            .repartition(1) \
-            .map(save_bom('cai'))
-        self.cai_bom = cai_bom_rdd.collect()[0]
+        self.cai_bom = self.save_bom(self.cai_bom, 'cai')
         self.cai_invoice_cid = self.cai_bom['invoice_cid']
-        cai_bom_df = self.spark.createDataFrame([self.cai_bom]).repartition(1)
+        cai_bom_df = self.create_bom_df(self.cai_bom)
         # cai_bom_df.write.json(self.cai_bom_uri, mode='overwrite')
         # return input_cad_invoice
         with open(local_bom_write_path, 'w') as fp:
-            cai_bom_dict = cai_bom_df.rdd.map(lambda row: row.asDict()).collect()[0]
+            cai_bom_dict = self.bom_df_to_dict(cai_bom_df)
             json.dump(cai_bom_dict, fp)
 
-        if 's3a://' in s3_bom_write_path:
-            s3_bom_write_path = s3_bom_write_path.replace('s3a://', 's3://')
+        if 's3a://' in bom_write_path_uri:
+            bom_write_path_uri = bom_write_path_uri.replace('s3a://', 's3://')
 
-        aws_cp = f'aws s3 cp {local_bom_write_path} {s3_bom_write_path}'
+        aws_cp = f'aws s3 cp {local_bom_write_path} {bom_write_path_uri}'
         subprocess.check_call(aws_cp.split(' '))
         return cai_bom_dict, input_cad_invoice
 
 
     def content_address_output(self, cao_bom: isa(dict), local_bom_write_path: isa(str)):
-        s3_input_data_path = cao_bom['cai_data_uri']  # I
+        cai_data_uri = cao_bom['cai_data_uri']  # I
         cai_invoice_uri = cao_bom['cai_invoice_uri']  # O
         s3_bom_write_path = cao_bom['cad_bom_uri']  # O
         cao_bom['cao_data_uri'] = ''
         cao_bom['action'] = ''
-        cao_bom = self.content_address_transformer(cao_bom)
+        self.cao_bom = self.content_address_transformer(cao_bom)
 
-        if 's3a://' in s3_input_data_path:
-            s3_input_data_path = s3_input_data_path.replace("s3a:", "s3:")
-        bucket = s3_input_data_path.split('s3://')[1].split('/')[0]
-        input_path = s3_input_data_path.split('s3://')[1].split(bucket)[1][1:] + '/'
+        if 's3a://' in cai_data_uri:
+            cai_data_uri = cai_data_uri.replace("s3a:", "s3:")
+        bucket = cai_data_uri.split('s3://')[1].split('/')[0]
+        input_path = cai_data_uri.split('s3://')[1].split(bucket)[1][1:] + '/'
 
         (
             output_cad_invoice,
-            cao_bom['invoice_cid'],
+            self.cao_bom['invoice_cid'],
             ip4_tcp_addresses
         ) = self.content_address_dataset(bucket, input_path, cai_invoice_uri)
-        cao_bom['addresses'] = np.unique(
+        self.cao_bom['addresses'] = np.unique(
             np.array(ip4_tcp_addresses)
         ).tolist()
-        cao_bom_rdd = self.sc \
-            .parallelize([cao_bom]) \
-            .repartition(1) \
-            .map(save_bom('cao'))
-        cao_bom = cao_bom_rdd.collect()[0]
-        cao_bom_df = self.spark.createDataFrame([cao_bom]).repartition(1)
-
+        self.cao_bom = self.save_bom(self.cao_bom, 'cao')
+        cao_bom_df = self.create_bom_df(self.cao_bom)
         with open(local_bom_write_path, 'w') as fp:
-            cao_bom_dict = cao_bom_df.rdd.map(lambda row: row.asDict()).collect()[0]
+            cao_bom_dict = self.bom_df_to_dict(cao_bom_df)
             json.dump(cao_bom_dict, fp)
 
         if 's3a://' in s3_bom_write_path:
             s3_bom_write_path = s3_bom_write_path.replace('s3a://', 's3://')
         aws_cp = f'aws s3 cp {local_bom_write_path} {s3_bom_write_path}'
         subprocess.check_call(aws_cp.split(' '))
-
+        self.write_rdd_as_parquet(output_cad_invoice, self.cao_bom['cai_invoice_uri'])
         return cao_bom_dict, output_cad_invoice
-
-    def get_bom_worker(self, addresses, bom_cid):
-        bom_rdd: RDD = self.spark.sparkContext \
-            .parallelize([
-                [
-                    bom_cid,
-                    addresses
-                ]
-            ]) \
-            .repartition(1) \
-            .map(get_bom).map(transfer_invoice)
-
-        bom = bom_rdd.collect()[0]
-        return bom
-
 
     def get_bom_from_s3(self, bom_path, tmp_bom_filepath):
         bom_bucket = bom_path.split('s3://')[1].split('/')[0]
@@ -243,7 +168,7 @@ class Processor(object):
         cao_bom = {}
         cao_bom['action'] = ''
         cao_bom['addresses'] = ip4_tcp_addresses
-        cao_bom['cai_cid'] = cai_bom['cad_cid']
+        cao_bom['input_bom_cid'] = cai_bom['bom_cid']
         cao_bom['cai_invoice_uri'] = ''
         cao_bom['invoice_cid'] = ''  # rename to cai_invoice_cid
         cao_bom['transform_cid'] = ''
@@ -266,7 +191,7 @@ class Processor(object):
             cao_data_uri=self.cao_data_uri,
             transform_func=self.transform_func
         )
-        catContext['cao'].write.parquet(cao_bom['cai_data_uri'], mode='overwrite')
+        self.write_df_as_parquet(catContext['cao'], cao_bom['cai_data_uri'])
         return catContext, cai_bom, cao_bom
 
     @overload
@@ -302,7 +227,6 @@ class Processor(object):
                 cao_bom=self.cao_bom,
                 local_bom_write_path='/tmp/bom.json'
             )
-            output_cad_invoice.toDF().write.parquet(self.cao_bom['cai_invoice_uri'], mode='overwrite')
         else:
             self.catContext, self.cai_bom, self.cao_bom = self.transform(self.cai_bom, self.cao_bom)
 

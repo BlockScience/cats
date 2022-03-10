@@ -79,7 +79,7 @@ def save_bom(bom_type: str = 'cao'):
             json.dump(partial_bom, fp)
         ipfs_add = f'ipfs add {BOM_FILE}'.split(' ')
         [_, bom_cid, _file_name] = subprocess.check_output(ipfs_add).decode('ascii').replace('\n', '').split(' ')
-        partial_bom['cad_cid'] = bom_cid
+        partial_bom['bom_cid'] = bom_cid
         return partial_bom
     return f
 

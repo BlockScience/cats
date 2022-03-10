@@ -15,7 +15,7 @@ $SPARK_HOME/bin/docker-image-tool.sh -r pyspark -t latest -p $SPARK_HOME/$DOCKER
 ##cp $CATS_HOME/spark-cluster/executor/run_ipl.sh $SPARK_HOME/$DOCKERFILE_LOCATION
 #cp $CAT_HOME/spark-cluster/executor/run_ipfs_compute_cli.sh $SPARK_HOME/$DOCKERFILE_LOCATION
 ##cp $CATS_HOME/script2.ipl $SPARK_HOME/$DOCKERFILE_LOCATION
-#cp $CATS_HOME/pycats/apps/ipfs_caching.py $SPARK_HOME/examples/src/main/python/
+#cp $CATS_HOME/pycats/apps/id_content.py $SPARK_HOME/examples/src/main/python/
 ##wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk/1.11.375/aws-java-sdk-1.11.375.jar -P /usr/local/spark/jars/
 ##wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.2.0/hadoop-aws-3.2.0.jar -P /usr/local/spark/jars/
 ##wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-common/3.2.0/hadoop-common-3.2.0.jar -P /usr/local/spark/jars/

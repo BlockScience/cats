@@ -2,11 +2,10 @@ import json
 from multimethod import isa, overload
 from pyspark import RDD
 from pyspark.sql import SparkSession, DataFrame
-
 from pycats.function.process.utils import cluster_fs_ingest, get_upload_path
 
 
-class CAD(object): # CAD invoice of partition transactions
+class sparkCAD(object): # CAD invoice of partition transactions
     def __init__(self,
         spark: SparkSession,
         df: DataFrame = None,
@@ -91,3 +90,5 @@ class CAD(object): # CAD invoice of partition transactions
         # self.catContext['cai_invoice_uri'] = cai_invoice_uri
         self.catContext['cao_invoice_uri'] = f"{cao_data_uri.split('/parts')[0]}/invoices"
         return self.catContext
+
+

@@ -2,14 +2,14 @@ import time
 from pprint import pprint
 
 from pycats.function.process.cat import Processor
-from pycats.structure.plant.spark import SparkSession
+from pycats.structure.plant.spark import catSparkSession
 
 
-spark = SparkSession
+spark = catSparkSession
 
 if __name__ == "__main__":
     cat = Processor(
-        sparkSession=spark,
+        plantSession=spark,
         DRIVER_IPFS_DIR='/home/jjodesty/Projects/Research/cats/cadStore'
         # ToDO: add local transformer path as configuration
         # ToDO: rename sparkSession to plantSession
@@ -21,7 +21,9 @@ if __name__ == "__main__":
     cat.transform(
         input_bom_path='s3://cats-public/cad-store/cad/cai/bom/bom.json',
         output_bom_path='s3://cats-public/cad-store/cad/cao/bom/output_bom.json',
-        input_bom_update={},
+        input_bom_update={
+            'cao_data_uri': 's3a://cats-public/cad-store/cad/cao/data'
+        },
         output_bom_update={
             'cai_data_uri': 's3a://cats-public/cad-store/cad/cai2/data',
             'cai_invoice_uri': 's3a://cats-public/cad-store/cad/cai2/invoices',

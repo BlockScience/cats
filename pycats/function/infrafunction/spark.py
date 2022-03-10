@@ -36,6 +36,6 @@ venv-pack -o venv.tar.gz --force
 spark-submit  \
 --packages com.amazonaws:aws-java-sdk:1.11.375 \
 --packages org.apache.hadoop:hadoop-aws:3.2.0  \
---archives venv.tar.gz#environment file:///home/jjodesty/Projects/Research/cats/apps/cat0/ipfs_caching.py
+--archives venv.tar.gz#environment file:///home/jjodesty/Projects/Research/cats/apps/cat0/id_content.py
 """
 

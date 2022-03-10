@@ -2,9 +2,9 @@ import os, time, boto3, subprocess
 from pprint import pprint
 
 from pycats.function.process.cat import Processor
-from pycats.structure.plant.spark import SparkSession
+from pycats.structure.plant.spark import catSparkSession
 
-spark = SparkSession
+spark = catSparkSession
 sc = spark.sparkContext
 if __name__ == "__main__":
     """
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     # ToDo: bom creation and mutation occur on driver
     cat = Processor(
-        sparkSession=spark,  # plant=???
+        plantSession=spark,  # plant=???
 
         # init_pipeline=True (Default Set to False)
         # cai_uri='s3a://cats-public/cad-store/cad/cai', # causes error
