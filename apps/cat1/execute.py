@@ -1,5 +1,5 @@
 from pycats.utils import build_software
-from pycats.function.infrafunction.spark import spark_submit
+from pycats.function.infrafunction.plant.spark import spark_submit
 
 
 HOME = '/home/jjodesty'

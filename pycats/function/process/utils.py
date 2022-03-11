@@ -1,8 +1,9 @@
 import os, subprocess, boto3, json, time
 # ToDo: Move worker dirs to top level as (can be used as ENV VARS)
 # from pprint import pprint
+from pycats.function import WORK_DIR, INPUT, IPFS_DIR, OUTPUT, INVOICE_DIR, INPUT_DIR, TRANSFORM_DIR
 
-s3 = boto3.client(
+s3_client = boto3.client(
     's3',
     region_name='us-east-2',
     aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
@@ -19,27 +20,22 @@ session = boto3.Session(
     aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
 )
 
-WORK_DIR = '/opt/spark/work-dir'
-INVOICE_DIR = f"{WORK_DIR}/job/invoice"
 
-INPUT_DIR = f"{WORK_DIR}/job/input"
-INPUT = f"{WORK_DIR}/job/input/df"
-OUTPUT = f"{WORK_DIR}/job/output/df"
+class s3Utils():
+    def __init__(self):
+        pass
 
-TRANSFORM_DIR = f"{WORK_DIR}/job/transformation"
-IPFS_DIR = f'{WORK_DIR}/ipfs'
+    def get_s3_bucket_prefix_pair(self, path):
+        scheme = f"{path.split(':')[0]}://"
+        bucket = path.split(scheme)[1].split('/')[0]
+        prefix = path.split(scheme)[1].split(bucket)[1][1:] + '/'
+        return bucket, prefix
 
-
-def get_s3_keys(bucket, part_path):
-    """Get a list of keys in an S3 bucket."""
-    keys = []
-    # resp = s3.list_objects_v2(Bucket=bucket, Prefix='input/df/')
-    resp = s3.list_objects_v2(Bucket=bucket, Prefix=part_path)
-    for obj in resp['Contents']:
-        keys.append(obj['Key'])
-    if part_path in keys:
-        keys.remove(part_path)
-    return keys
+    def get_s3_bucket_key_pair(self, path):
+        scheme = f"{path.split(':')[0]}://"
+        bucket = path.split(scheme)[1].split('/')[0]
+        key = path.split(scheme)[1].split(bucket)[1][1:]
+        return bucket, key
 
 
 # def content_address_tranformation(transform_uri):
@@ -52,7 +48,7 @@ def content_address_transformer(transform_uri):
 
     subprocess.check_call(f"mkdir -p {TRANSFORM_DIR}".split(' '))
     # if doesnt exist
-    s3.download_file(Bucket=transform_bucket, Key=transform_key, Filename=NODE_FILE_PATH)
+    s3_client.download_file(Bucket=transform_bucket, Key=transform_key, Filename=NODE_FILE_PATH)
     ipfs_add = f'ipfs add {NODE_FILE_PATH}'.split(' ')
     [ipfs_action, cid, _file_name] = subprocess.check_output(ipfs_add).decode('ascii').replace('\n', '').split(' ')
 
@@ -69,6 +65,7 @@ def content_address_transformer(transform_uri):
         'transform_node_path': NODE_FILE_PATH
     }
     return partial_bom
+
 
 def save_bom(bom_type: str = 'cao'):
     BOM_DIR = f"{WORK_DIR}/job/bom"
@@ -97,11 +94,11 @@ def cad_part_invoice(cad_part_id_dict):
     subprocess.check_call(f"mkdir -p {INPUT}".split(' '))
     subprocess.check_call(f"mkdir -p {OUTPUT}".split(' '))
     if '/job/input/df' in NODE_FILE_PATH:
-        s3.download_file(Bucket=bucket, Key=file_path_key, Filename=NODE_FILE_PATH)  # delete after transfer
+        s3_client.download_file(Bucket=bucket, Key=file_path_key, Filename=NODE_FILE_PATH)  # delete after transfer
         ipfs_add = f'ipfs add {INPUT}/{file_name}'.split(' ')
     else:
         NODE_FILE_PATH = f"{OUTPUT}/{file_name}"
-        s3.download_file(Bucket=bucket, Key=file_path_key, Filename=NODE_FILE_PATH)
+        s3_client.download_file(Bucket=bucket, Key=file_path_key, Filename=NODE_FILE_PATH)
         ipfs_add = f'ipfs add {OUTPUT}/{file_name}'.split(' ')
     [ipfs_action, cid, _file_name] = subprocess.check_output(ipfs_add).decode('ascii').replace('\n', '').split(' ')
 
@@ -139,7 +136,7 @@ def s3_ingest(cad_part_invoice):
         subprocess.check_call(f"mv {cid} {filename}".split(' '))
         try:
             file = open(filename, "rb")
-            s3.upload_fileobj(file, Bucket=bucket, Key=key)
+            s3_client.upload_fileobj(file, Bucket=bucket, Key=key)
             cad_part_invoice['upload_path'] = uri
             return cad_part_invoice
         except Exception as e:
@@ -182,7 +179,7 @@ def output_CAD(cad_part_id_dict):
     cad_part_id_dict["output_key"] = output_key
 
     subprocess.check_call(f"mkdir -p {OUTPUT}".split(' '))
-    s3.download_file(Bucket=bucket, Key=output_key, Filename=NODE_FILE_PATH)
+    s3_client.download_file(Bucket=bucket, Key=output_key, Filename=NODE_FILE_PATH)
     ipfs_add = f'ipfs add {OUTPUT}/{file_name}'.split(' ')
     [ipfs_action, cid, _file_name] = subprocess.check_output(ipfs_add).decode('ascii').replace('\n', '').split(' ')
 
@@ -245,36 +242,28 @@ def upload_files(path, bucket_name):
                 bucket.put_object(Key=full_path[len(path) + 1:], Body=data)
 
 
-def _connect(addresses):
-    for address in addresses:
-        output = subprocess.check_output(f"ipfs swarm connect {address}", shell=True) \
-            .decode('ascii').replace('\n', '').split(' ')
-        if output[2] == 'success':
-            return address
-        else:
-            return None
 
 
-def get_bom(x):
-    bom_cid, addresses = x[0], x[1]
-    subprocess.check_call(f"mkdir -p {INPUT_DIR}".split(' '))
-    os.chdir(INPUT_DIR)
-
-    _connect(addresses)
-    output = subprocess.check_output(f"ipfs get {bom_cid}".split(' ')).decode('ascii').replace('\n', '')
-    subprocess.check_call(f"mv {bom_cid} bom.json".split(' '))
-    bom_file = open(f'{INPUT_DIR}/bom.json')
-    bom = json.load(bom_file) #["addresses"]
-    return bom
-    # for filename in os.listdir(INVOICE_DIR):
-    #     try:
-    #         file = open(filename, "rb")
-    #         s3.upload_fileobj(file, Bucket=bucket, Key=prefix)
-    #         file.close()
-    #         return uri
-    #     except Exception as e:
-    #         file.close()
-    #         return uri
+# def get_bom(x):
+#     bom_cid, addresses = x[0], x[1]
+#     subprocess.check_call(f"mkdir -p {INPUT_DIR}".split(' '))
+#     os.chdir(INPUT_DIR)
+#
+#     ipfs_swarm_connect(addresses)
+#     output = subprocess.check_output(f"ipfs get {bom_cid}".split(' ')).decode('ascii').replace('\n', '')
+#     subprocess.check_call(f"mv {bom_cid} bom.json".split(' '))
+#     bom_file = open(f'{INPUT_DIR}/bom.json')
+#     bom = json.load(bom_file) #["addresses"]
+#     return bom
+#     # for filename in os.listdir(INVOICE_DIR):
+#     #     try:
+#     #         file = open(filename, "rb")
+#     #         s3_client.upload_fileobj(file, Bucket=bucket, Key=prefix)
+#     #         file.close()
+#     #         return uri
+#     #     except Exception as e:
+#     #         file.close()
+#     #         return uri
 
 
 def transfer_invoice(bom):
@@ -297,7 +286,7 @@ def transfer_invoice(bom):
     filenames = os.listdir(INVOICE_DIR)
     for filename in filenames:
         file = open(filename, "rb")
-        s3.upload_fileobj(file, Bucket=bucket, Key=prefix+f'/{filename}')
+        s3_client.upload_fileobj(file, Bucket=bucket, Key=prefix + f'/{filename}')
 
     return bom
 
@@ -311,7 +300,7 @@ def save_tranformer(transform_uri):
 
     subprocess.check_call(f"mkdir -p {TRANSFORM_DIR}".split(' '))
     # if doesnt exist
-    s3.download_file(Bucket=transform_bucket, Key=transform_key, Filename=NODE_FILE_PATH)
+    s3_client.download_file(Bucket=transform_bucket, Key=transform_key, Filename=NODE_FILE_PATH)
     ipfs_add = f'ipfs add {NODE_FILE_PATH}'.split(' ')
     [_, cid, _file_name] = subprocess.check_output(ipfs_add).decode('ascii').replace('\n', '').split(' ')
 
@@ -331,7 +320,7 @@ def save_invoice2(invoice_uri):
     for filename in os.listdir(INVOICE_DIR):
         try:
             file = open(filename, "rb")
-            s3.upload_fileobj(file, Bucket=bucket, Key=prefix)
+            s3_client.upload_fileobj(file, Bucket=bucket, Key=prefix)
             file.close()
             return uri
         except Exception as e:
@@ -350,7 +339,7 @@ def content_address_transformer_on_driver(self, bom):
 
         subprocess.check_call(f"mkdir -p {TMP_DIR}".split(' '))
         # if doesnt exist
-        s3.download_file(Bucket=transform_bucket, Key=transform_key, Filename=NODE_FILE_PATH)
+        s3_client.download_file(Bucket=transform_bucket, Key=transform_key, Filename=NODE_FILE_PATH)
         ipfs_add = f'ipfs add {NODE_FILE_PATH}'.split(' ')
         [ipfs_action, cid, _file_name] = subprocess.check_output(ipfs_add).decode('ascii').replace('\n', '').split(' ')
 

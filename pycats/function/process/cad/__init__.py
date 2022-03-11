@@ -5,7 +5,7 @@ from pyspark.sql import SparkSession, DataFrame
 from pycats.function.process.utils import cluster_fs_ingest, get_upload_path
 
 
-class sparkCAD(object): # CAD invoice of partition transactions
+class Spark(object): # CAD invoice of partition transactions
     def __init__(self,
         spark: SparkSession,
         df: DataFrame = None,

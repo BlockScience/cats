@@ -1,20 +1,22 @@
-import os, subprocess, time, json
+import numpy as np
+import os, subprocess, json
+from multimethod import isa, overload
 from importlib.machinery import SourceFileLoader
 
-import numpy as np
-from multimethod import isa, overload
-
+from pycats.function import TRANSFORM_DIR, IPFS_DIR
 from pycats.structure.plant.spark import Plant
-from pycats.function.process.utils import get_s3_keys, s3, _connect
+from pycats.function.infrafunction.client.s3 import Client as S3client
+from pycats.function.infrafunction.client.ipfs import IPFS as IPFSclient
 
 
-class Processor(Plant):
+class Processor(Plant, IPFSclient, S3client):
     def __init__(self,
-        plantSession = None,
+        plantSession,
         DRIVER_IPFS_DIR='/home/jjodesty/Projects/Research/cats/cadStore'
     ):
         Plant.__init__(self, plantSession)
-        self.DRIVER_IPFS_DIR = DRIVER_IPFS_DIR
+        IPFSclient.__init__(self, DRIVER_IPFS_DIR)
+        S3client.__init__(self)
 
         self.cai_invoice_cid = None
         self.cao_invoice_cid: str = None
@@ -30,35 +32,15 @@ class Processor(Plant):
         self.daemon_proc = None
         self.ip4_tcp_addresses = None
 
-    def start_daemon(self):
-        ipfs_daemon = f'ipfs daemon'
-        self.daemon_proc = subprocess.Popen(
-            ipfs_daemon, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
-        self.daemon_pid = self.daemon_proc.pid
-        time.sleep(15)
-        ipfs_id_cmd = f'ipfs id > {self.DRIVER_IPFS_DIR}/ipfs_id.json'
-        output = subprocess.check_output(ipfs_id_cmd, shell=True)
-        self.ipfs_id = open(f'{self.DRIVER_IPFS_DIR}/ipfs_id.json') # ToDO: change from file
-        ipfs_addresses = json.load(self.ipfs_id)["Addresses"]
-        self.ip4_tcp_addresses = [
-            x for x in ipfs_addresses if ('tcp' in x) and ('ip4' in x) and ('127.0.0.1' not in x) and ('172.17.0.3' not in x)
-        ]
-        return self
+    @overload
+    def content_address_dataset(self, s3_bucket, s3_prefix, cai_invoice_uri):
+        s3_input_keys = self.get_s3_keys(s3_bucket, s3_prefix)
+        return self.create_invoice(s3_input_keys, cai_invoice_uri)
 
-    def get_driver_ipfs_id(self):
-        self.ipfs_id = open(f'{self.DRIVER_IPFS_DIR}/ipfs_id.json') # ToDO: change from file
-        ipfs_addresses = json.load(self.ipfs_id)["Addresses"]
-        self.ip4_tcp_addresses = [
-            x for x in ipfs_addresses if ('tcp' in x) and ('ip4' in x) and ('127.0.0.1' not in x) and ('172.17.0.3' not in x)
-        ]
-        return self
-
-    def content_address_dataset(self, bucket, input_path, cai_invoice_uri):
-        s3_input_keys = get_s3_keys(bucket, input_path)
-        input_cad_invoice = self.generate_input_invoice(s3_input_keys, cai_invoice_uri)
-        invoice_cid, ip4_tcp_addresses = self.cid_input_invoice(cai_invoice_uri)
-        return input_cad_invoice, str(invoice_cid), ip4_tcp_addresses
+    @overload
+    def content_address_dataset(self, s3_dataset_uri, cai_invoice_uri):
+        dataset_s3_bucket, dataset_s3_prefix = self.get_s3_bucket_prefix_pair(s3_dataset_uri)
+        return self.content_address_dataset(dataset_s3_bucket, dataset_s3_prefix, cai_invoice_uri)
 
     def content_address_input(
             self,
@@ -67,7 +49,8 @@ class Processor(Plant):
             output_data_uri,
             bom_write_path_uri,
             local_bom_write_path='/tmp/bom.json',
-            transformer_uri=None):
+            transformer_uri=None
+    ):
         self.catContext['cai_invoice_uri'] = invoice_uri
 
         self.cai_bom['transformer_uri'] = transformer_uri
@@ -76,15 +59,16 @@ class Processor(Plant):
         self.cai_bom['bom_uri'] = bom_write_path_uri
         self.cai_bom['action'] = ''
         self.cai_bom['input_bom_cid'] = ''
-        self.cai_bom = self.content_address_transformer(self.cai_bom)
+        self.cai_bom = self.content_address_transform(self.cai_bom) # ToDo: make generic for plant
 
-        bucket = input_data_uri.split('s3://')[1].split('/')[0]
-        input_path = input_data_uri.split('s3://')[1].split(bucket)[1][1:]+'/'
+        # bucket = input_data_uri.split('s3://')[1].split('/')[0]
+        # input_path = input_data_uri.split('s3://')[1].split(bucket)[1][1:]+'/'
+        # input_data_s3_bucket, input_data_s3_prefix = self.get_s3_bucket_prefix_pair(input_data_uri)
         (
             input_cad_invoice,
             self.cai_bom['invoice_cid'],
             ip4_tcp_addresses
-        ) = self.content_address_dataset(bucket, input_path, self.catContext['cai_invoice_uri'])
+        ) = self.content_address_dataset(input_data_uri, self.catContext['cai_invoice_uri'])
         self.cai_bom['addresses'] = np.unique(
             np.array(ip4_tcp_addresses)
         ).tolist()
@@ -100,10 +84,11 @@ class Processor(Plant):
         if 's3a://' in bom_write_path_uri:
             bom_write_path_uri = bom_write_path_uri.replace('s3a://', 's3://')
 
-        aws_cp = f'aws s3 cp {local_bom_write_path} {bom_write_path_uri}'
-        subprocess.check_call(aws_cp.split(' '))
+        # aws_cp = f'aws s3 cp {local_bom_write_path} {bom_write_path_uri}'
+        # subprocess.check_call(aws_cp.split(' '))
+        # self.boto3_cp(local_bom_write_path, bom_write_path_uri)
+        self.aws_cli_cp(local_bom_write_path, bom_write_path_uri)
         return cai_bom_dict, input_cad_invoice
-
 
     def content_address_output(self, cao_bom: isa(dict), local_bom_write_path: isa(str)):
         cai_data_uri = cao_bom['cai_data_uri']  # I
@@ -111,18 +96,15 @@ class Processor(Plant):
         s3_bom_write_path = cao_bom['cad_bom_uri']  # O
         cao_bom['cao_data_uri'] = ''
         cao_bom['action'] = ''
-        self.cao_bom = self.content_address_transformer(cao_bom)
+        self.cao_bom = self.content_address_transform(cao_bom) # ToDo: make generic for plant
 
         if 's3a://' in cai_data_uri:
             cai_data_uri = cai_data_uri.replace("s3a:", "s3:")
-        bucket = cai_data_uri.split('s3://')[1].split('/')[0]
-        input_path = cai_data_uri.split('s3://')[1].split(bucket)[1][1:] + '/'
-
         (
             output_cad_invoice,
             self.cao_bom['invoice_cid'],
             ip4_tcp_addresses
-        ) = self.content_address_dataset(bucket, input_path, cai_invoice_uri)
+        ) = self.content_address_dataset(cai_data_uri, cai_invoice_uri)
         self.cao_bom['addresses'] = np.unique(
             np.array(ip4_tcp_addresses)
         ).tolist()
@@ -134,35 +116,10 @@ class Processor(Plant):
 
         if 's3a://' in s3_bom_write_path:
             s3_bom_write_path = s3_bom_write_path.replace('s3a://', 's3://')
-        aws_cp = f'aws s3 cp {local_bom_write_path} {s3_bom_write_path}'
-        subprocess.check_call(aws_cp.split(' '))
+        # upload
+        self.aws_cli_cp(local_bom_write_path, s3_bom_write_path)
         self.write_rdd_as_parquet(output_cad_invoice, self.cao_bom['cai_invoice_uri'])
         return cao_bom_dict, output_cad_invoice
-
-    def get_bom_from_s3(self, bom_path, tmp_bom_filepath):
-        bom_bucket = bom_path.split('s3://')[1].split('/')[0]
-        bom_prefix = bom_path.split('s3://')[1].split(bom_bucket)[1][1:]
-        s3.download_file(Bucket=bom_bucket, Key=bom_prefix, Filename=tmp_bom_filepath)
-        with open(tmp_bom_filepath) as bom_file:
-            bom = json.load(bom_file)
-        bom_file.close()
-        return bom
-
-    def get_input_bom_from_s3(self, input_bom_path, tmp_bom_filepath='/tmp/input_bom.json'):
-        return self.get_bom_from_s3(input_bom_path, tmp_bom_filepath)
-
-    def get_transform_func(self, bom):
-        # transform_filename = bom['transform_sourcefile'].split('/')[-1]
-        transform_filename = bom['transform_filename']
-        os.chdir('/tmp/')
-        subprocess.check_call(f"ipfs get {bom['transform_cid']}", shell=True)
-        subprocess.check_call(f"mv {bom['transform_cid']} {transform_filename}", shell=True)
-        tmp_transform_sourcefile = f"/tmp/{transform_filename}"
-        transform = SourceFileLoader(
-            "transform",
-            tmp_transform_sourcefile
-        ).load_module()
-        return transform.transform
 
     def set_cao_bom(self, ip4_tcp_addresses, cai_bom, output_bom_path):
         cao_bom = {}
@@ -206,7 +163,7 @@ class Processor(Plant):
         if input_bom_update is not None:
             self.cai_bom.update(input_bom_update)
 
-        _connect(self.cai_bom['addresses'])
+        self.ipfs_swarm_connect(self.cai_bom['addresses'])
 
         self.transform_func = self.get_transform_func(self.cai_bom)
 
@@ -218,9 +175,8 @@ class Processor(Plant):
             self.catContext, self.cai_bom, self.cao_bom = self.transform(self.cai_bom, self.cao_bom)
 
             with open(self.cao_bom['transform_sourcefile'], 'rb') as cao_transform_file:
-                bucket = self.cao_bom['transformer_uri'].split('s3a://')[1].split('/')[0]
-                prefix = self.cao_bom['transformer_uri'].split('s3a://')[1].split(bucket)[1][1:]
-                s3.upload_fileobj(cao_transform_file, Bucket=bucket, Key=prefix)
+                transformer_bucket, transformer_key = self.get_s3_bucket_key_pair(self.cao_bom['transformer_uri'])
+                self.s3_client.upload_fileobj(cao_transform_file, Bucket=transformer_bucket, Key=transformer_key)
             cao_transform_file.close()
 
             self.cao_bom, output_cad_invoice = self.content_address_output(
@@ -233,14 +189,12 @@ class Processor(Plant):
         CAO_BOM_FILE_PATH = '/tmp/output_bom.json'
         with open(CAO_BOM_FILE_PATH, 'w') as f:
             json.dump(self.cao_bom, f)
-            ipfs_add = f'ipfs add {CAO_BOM_FILE_PATH}'.split(' ')
-            [_, self.cao_bom['cad_cid'], _] = subprocess.check_output(ipfs_add) \
-                .decode('ascii').replace('\n', '').split(' ')
+            [_, self.cao_bom['cad_cid'], _] = self.ipfs_add(CAO_BOM_FILE_PATH)
             json.dump(self.cao_bom, f)
         f.close()
         with open(CAO_BOM_FILE_PATH, 'rb') as f:
-            output_bom_bucket = self.cao_bom['cad_bom_uri'].split('s3://')[1].split('/')[0]
-            output_bom_prefix = self.cao_bom['cad_bom_uri'].split('s3://')[1].split(output_bom_bucket)[1][1:]
-            s3.upload_fileobj(f, Bucket=output_bom_bucket, Key=output_bom_prefix)
+            output_bom_bucket, output_bom_key = self.get_s3_bucket_key_pair(self.cao_bom['cad_bom_uri'])
+            self.s3_client.upload_fileobj(f, Bucket=output_bom_bucket, Key=output_bom_key)
         f.close()
+
         return self

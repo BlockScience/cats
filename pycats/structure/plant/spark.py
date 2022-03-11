@@ -1,10 +1,12 @@
 import os
-from pycats.function.process.cad import sparkCAD
+
+
 from pyspark import RDD
 from pyspark.sql import SparkSession, DataFrame
-
-from pycats.function.process.utils import ipfs_caching, content_address_transformer, \
-    save_bom, save_invoice, get_bom, transfer_invoice
+from pycats.function.process.cad import Spark as sparkCAD
+from pycats.function.process.ipfs import Proc as IPFSproc
+from pycats.function.process.utils import ipfs_caching, save_bom, save_invoice, get_bom, transfer_invoice, \
+    content_address_transformer
 
 # InfraStructure
 catSparkSession: SparkSession = SparkSession \
@@ -42,11 +44,13 @@ class SparkConfig(object):
         self.sc = self.spark.sparkContext
 
 
-class Spark(SparkConfig):
+class Spark(SparkConfig, IPFSproc):
     def __init__(self,
-        sparkSession: SparkSession
+        sparkSession: SparkSession,
+        DRIVER_IPFS_DIR = '/home/jjodesty/Projects/Research/cats/cadStore'
     ):
         SparkConfig.__init__(self, sparkSession)
+        IPFSproc.__init__(self, DRIVER_IPFS_DIR)
         self.sc._jsc. \
             hadoopConfiguration().set("mapreduce.input.fileinputformat.input.dir.recursive", "true")
         self.cad: CAD = CAD(spark=self.spark)
@@ -57,7 +61,7 @@ class Spark(SparkConfig):
         self.caiInvoice: RDD = None
         self.caoInvoice: RDD = None
 
-    def content_address_transformer(self, bom):
+    def content_address_transform(self, bom):
         if bom['transformer_uri'] is not None:
             self.transformer_uri = bom['transformer_uri']
             partial_bom: dict = self.spark.sparkContext \
@@ -75,14 +79,6 @@ class Spark(SparkConfig):
             raise Exception('transformer_uri is None')
         return bom
 
-    def cid_input_invoice(self, cai_invoice_uri):
-        invoice_cid, ip4_tcp_addresses = self.sc \
-            .parallelize([cai_invoice_uri]) \
-            .repartition(1) \
-            .map(save_invoice) \
-            .collect()[0]
-        return invoice_cid, ip4_tcp_addresses
-
     def generate_input_invoice(self, s3_input_keys, cai_invoice_uri):
         partition_count = len(s3_input_keys)
         input_cad_invoice: RDD = self.sc \
@@ -92,6 +88,19 @@ class Spark(SparkConfig):
         input_cad_invoice_df: DataFrame = input_cad_invoice.toDF()
         input_cad_invoice_df.write.json(cai_invoice_uri, mode='overwrite')
         return input_cad_invoice
+
+    def cid_input_invoice(self, cai_invoice_uri):
+        invoice_cid, ip4_tcp_addresses = self.sc \
+            .parallelize([cai_invoice_uri]) \
+            .repartition(1) \
+            .map(save_invoice) \
+            .collect()[0]
+        return invoice_cid, ip4_tcp_addresses
+
+    def create_invoice(self, s3_keys, invoice_writepath_uri):
+        input_cad_invoice = self.generate_input_invoice(s3_keys, invoice_writepath_uri)
+        invoice_cid, ip4_tcp_addresses = self.cid_input_invoice(invoice_writepath_uri)
+        return input_cad_invoice, str(invoice_cid), ip4_tcp_addresses
 
     def save_bom(self, bom: dict, bom_type: str):
         return self.sc \
@@ -129,8 +138,9 @@ class Spark(SparkConfig):
 
 class Plant(Spark):
     def __init__(self,
-        plantSession: SparkSession = None
+        plantSession: SparkSession,
+        DRIVER_IPFS_DIR='/home/jjodesty/Projects/Research/cats/cadStore'
     ):
-        Spark.__init__(self, plantSession)
+        Spark.__init__(self, plantSession, DRIVER_IPFS_DIR)
         self.plantSession = plantSession
         pass
