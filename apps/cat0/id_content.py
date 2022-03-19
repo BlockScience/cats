@@ -1,4 +1,4 @@
-import os, time, boto3, subprocess
+import time
 from pprint import pprint
 
 from pycats.function.process.cat import Processor

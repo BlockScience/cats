@@ -1,0 +1,5 @@
+#!/bin/bash
+
+AWS_ACCESS_KEY_ID_KV="AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+AWS_SECRET_ACCESS_KEY_KV="AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+kubectl create secret generic aws-access --from-literal="$AWS_ACCESS_KEY_ID_KV" --from-literal="$AWS_SECRET_ACCESS_KEY_KV"

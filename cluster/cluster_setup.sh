@@ -8,7 +8,7 @@ minikube start --driver=docker --cpus=6 --memory='8g'
 kubectl create serviceaccount spark
 kubectl create clusterrolebinding spark-role --clusterrole=edit  --serviceaccount=default:spark --namespace=default
 kubectl create secret generic aws-access --from-literal="$AWS_ACCESS_KEY_ID_KV" --from-literal="$AWS_SECRET_ACCESS_KEY_KV"
-#kubectl cluster-info
+# kubectl cluster-info
 kubectl create secret docker-registry regcred \
   --docker-server=814933063422.dkr.ecr.us-east-2.amazonaws.com \
   --docker-username=AWS \

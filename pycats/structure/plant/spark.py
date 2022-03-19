@@ -1,19 +1,17 @@
 import os
-
-
 from pyspark import RDD
 from pyspark.sql import SparkSession, DataFrame
 from pycats.function.process.cad import Spark as sparkCAD
-from pycats.function.process.ipfs import Proc as IPFSproc
-from pycats.function.process.utils import ipfs_caching, save_bom, save_invoice, get_bom, transfer_invoice, \
-    content_address_transformer
+from pycats.function.process.ipfs import ProcessClient
+from pycats.function.process.utils import ipfs_caching, save_bom, save_invoice, transfer_invoice
+from pycats.function.process.utils import get_bom, content_address_transformer
 
 # InfraStructure
 catSparkSession: SparkSession = SparkSession \
     .builder \
     .master("k8s://https://192.168.49.2:8443") \
     .appName("sparkCAT") \
-    .config("spark.executor.instances","2") \
+    .config("spark.executor.instances", "2") \
     .config("spark.executor.memory", "2g") \
     .config("spark.kubernetes.container.image", "pyspark/spark-py:latest") \
     .config("spark.kubernetes.container.image.pullPolicy", "Never") \
@@ -44,13 +42,13 @@ class SparkConfig(object):
         self.sc = self.spark.sparkContext
 
 
-class Spark(SparkConfig, IPFSproc):
+class Spark(SparkConfig, ProcessClient):
     def __init__(self,
         sparkSession: SparkSession,
         DRIVER_IPFS_DIR = '/home/jjodesty/Projects/Research/cats/cadStore'
     ):
         SparkConfig.__init__(self, sparkSession)
-        IPFSproc.__init__(self, DRIVER_IPFS_DIR)
+        ProcessClient.__init__(self, DRIVER_IPFS_DIR)
         self.sc._jsc. \
             hadoopConfiguration().set("mapreduce.input.fileinputformat.input.dir.recursive", "true")
         self.cad: CAD = CAD(spark=self.spark)
@@ -124,7 +122,8 @@ class Spark(SparkConfig, IPFSproc):
                 ]
             ]) \
             .repartition(1) \
-            .map(get_bom).map(transfer_invoice)
+            .map(get_bom) \
+            .map(transfer_invoice)
 
         bom = bom_rdd.collect()[0]
         return bom

@@ -1,22 +1,15 @@
+import json
 import numpy as np
-import os, subprocess, json
 from multimethod import isa, overload
-from importlib.machinery import SourceFileLoader
-
-from pycats.function import TRANSFORM_DIR, IPFS_DIR
 from pycats.structure.plant.spark import Plant
-from pycats.function.infrafunction.client.s3 import Client as S3client
-from pycats.function.infrafunction.client.ipfs import IPFS as IPFSclient
 
 
-class Processor(Plant, IPFSclient, S3client):
+class Processor(Plant):
     def __init__(self,
         plantSession,
         DRIVER_IPFS_DIR='/home/jjodesty/Projects/Research/cats/cadStore'
     ):
-        Plant.__init__(self, plantSession)
-        IPFSclient.__init__(self, DRIVER_IPFS_DIR)
-        S3client.__init__(self)
+        Plant.__init__(self, plantSession, DRIVER_IPFS_DIR)
 
         self.cai_invoice_cid = None
         self.cao_invoice_cid: str = None
@@ -61,9 +54,6 @@ class Processor(Plant, IPFSclient, S3client):
         self.cai_bom['input_bom_cid'] = ''
         self.cai_bom = self.content_address_transform(self.cai_bom) # ToDo: make generic for plant
 
-        # bucket = input_data_uri.split('s3://')[1].split('/')[0]
-        # input_path = input_data_uri.split('s3://')[1].split(bucket)[1][1:]+'/'
-        # input_data_s3_bucket, input_data_s3_prefix = self.get_s3_bucket_prefix_pair(input_data_uri)
         (
             input_cad_invoice,
             self.cai_bom['invoice_cid'],
@@ -84,8 +74,6 @@ class Processor(Plant, IPFSclient, S3client):
         if 's3a://' in bom_write_path_uri:
             bom_write_path_uri = bom_write_path_uri.replace('s3a://', 's3://')
 
-        # aws_cp = f'aws s3 cp {local_bom_write_path} {bom_write_path_uri}'
-        # subprocess.check_call(aws_cp.split(' '))
         # self.boto3_cp(local_bom_write_path, bom_write_path_uri)
         self.aws_cli_cp(local_bom_write_path, bom_write_path_uri)
         return cai_bom_dict, input_cad_invoice
@@ -167,9 +155,7 @@ class Processor(Plant, IPFSclient, S3client):
 
         self.transform_func = self.get_transform_func(self.cai_bom)
 
-        self.cao_bom = self.set_cao_bom(
-            self.ip4_tcp_addresses, self.cai_bom, output_bom_path
-        )
+        self.cao_bom = self.set_cao_bom(self.ip4_tcp_addresses, self.cai_bom, output_bom_path)
         if output_bom_update is not None:
             self.cao_bom.update(output_bom_update)
             self.catContext, self.cai_bom, self.cao_bom = self.transform(self.cai_bom, self.cao_bom)

@@ -242,28 +242,35 @@ def upload_files(path, bucket_name):
                 bucket.put_object(Key=full_path[len(path) + 1:], Body=data)
 
 
+def _connect(addresses):
+    for address in addresses:
+        output = subprocess.check_output(f"ipfs swarm connect {address}", shell=True) \
+            .decode('ascii').replace('\n', '').split(' ')
+        if output[2] == 'success':
+            return address
+        else:
+            return None
 
+def get_bom(x):
+    bom_cid, addresses = x[0], x[1]
+    subprocess.check_call(f"mkdir -p {INPUT_DIR}".split(' '))
+    os.chdir(INPUT_DIR)
 
-# def get_bom(x):
-#     bom_cid, addresses = x[0], x[1]
-#     subprocess.check_call(f"mkdir -p {INPUT_DIR}".split(' '))
-#     os.chdir(INPUT_DIR)
-#
-#     ipfs_swarm_connect(addresses)
-#     output = subprocess.check_output(f"ipfs get {bom_cid}".split(' ')).decode('ascii').replace('\n', '')
-#     subprocess.check_call(f"mv {bom_cid} bom.json".split(' '))
-#     bom_file = open(f'{INPUT_DIR}/bom.json')
-#     bom = json.load(bom_file) #["addresses"]
-#     return bom
-#     # for filename in os.listdir(INVOICE_DIR):
-#     #     try:
-#     #         file = open(filename, "rb")
-#     #         s3_client.upload_fileobj(file, Bucket=bucket, Key=prefix)
-#     #         file.close()
-#     #         return uri
-#     #     except Exception as e:
-#     #         file.close()
-#     #         return uri
+    _connect(addresses)
+    output = subprocess.check_output(f"ipfs get {bom_cid}".split(' ')).decode('ascii').replace('\n', '')
+    subprocess.check_call(f"mv {bom_cid} bom.json".split(' '))
+    bom_file = open(f'{INPUT_DIR}/bom.json')
+    bom = json.load(bom_file) #["addresses"]
+    return bom
+    # for filename in os.listdir(INVOICE_DIR):
+    #     try:
+    #         file = open(filename, "rb")
+    #         s3_client.upload_fileobj(file, Bucket=bucket, Key=prefix)
+    #         file.close()
+    #         return uri
+    #     except Exception as e:
+    #         file.close()
+    #         return uri
 
 
 def transfer_invoice(bom):
