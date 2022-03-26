@@ -144,7 +144,6 @@ def s3_ingest(cad_part_invoice):
             return cad_part_invoice
 
 
-
 def ipfs_caching(file_path_key):
     return cad_part_invoice(link_ipfs_id(file_path_key))
 

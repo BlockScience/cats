@@ -12,7 +12,6 @@ if __name__ == "__main__":
         plantSession=spark,
         DRIVER_IPFS_DIR='/home/jjodesty/Projects/Research/cats/cadStore'
         # ToDO: add local transformer path as configuration
-        # ToDO: rename sparkSession to plantSession
         # ToDO: move & rename input_bom_path to bom_uri
     ).get_driver_ipfs_id()
 

@@ -6,6 +6,7 @@ from pycats.function.process.ipfs import ProcessClient
 from pycats.function.process.utils import ipfs_caching, save_bom, save_invoice, transfer_invoice
 from pycats.function.process.utils import get_bom, content_address_transformer
 
+CATS_HOME = os.getenv('CATS_HOME')
 # InfraStructure
 catSparkSession: SparkSession = SparkSession \
     .builder \
@@ -26,7 +27,7 @@ catSparkSession: SparkSession = SparkSession \
     .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
     .config("spark.hadoop.fs.s3a.fast.upload", "true") \
     .config("spark.driver.extraJavaOptions", "'-Divy.cache.dir=/tmp -Divy.home=/tmp'") \
-    .config("spark.pyspark.driver.python", "/home/jjodesty/Projects/Research/cats/venv/bin/python") \
+    .config("spark.pyspark.driver.python", f"{CATS_HOME}/venv/bin/python") \
     .getOrCreate()
 
 
@@ -45,7 +46,7 @@ class SparkConfig(object):
 class Spark(SparkConfig, ProcessClient):
     def __init__(self,
         sparkSession: SparkSession,
-        DRIVER_IPFS_DIR = '/home/jjodesty/Projects/Research/cats/cadStore'
+        DRIVER_IPFS_DIR = f'{CATS_HOME}/cadStore'
     ):
         SparkConfig.__init__(self, sparkSession)
         ProcessClient.__init__(self, DRIVER_IPFS_DIR)
@@ -138,7 +139,7 @@ class Spark(SparkConfig, ProcessClient):
 class Plant(Spark):
     def __init__(self,
         plantSession: SparkSession,
-        DRIVER_IPFS_DIR='/home/jjodesty/Projects/Research/cats/cadStore'
+        DRIVER_IPFS_DIR=f'{CATS_HOME}/cadStore'
     ):
         Spark.__init__(self, plantSession, DRIVER_IPFS_DIR)
         self.plantSession = plantSession

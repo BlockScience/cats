@@ -1,13 +1,13 @@
-import json
+import json, os
 import numpy as np
 from multimethod import isa, overload
 from pycats.structure.plant.spark import Plant
 
-
+CATS_HOME = os.getenv('CATS_HOME')
 class Processor(Plant):
     def __init__(self,
         plantSession,
-        DRIVER_IPFS_DIR='/home/jjodesty/Projects/Research/cats/cadStore'
+        DRIVER_IPFS_DIR=f'{CATS_HOME}/cadStore'
     ):
         Plant.__init__(self, plantSession, DRIVER_IPFS_DIR)
 
@@ -52,7 +52,7 @@ class Processor(Plant):
         self.cai_bom['bom_uri'] = bom_write_path_uri
         self.cai_bom['action'] = ''
         self.cai_bom['input_bom_cid'] = ''
-        self.cai_bom = self.content_address_transform(self.cai_bom) # ToDo: make generic for plant
+        self.cai_bom = self.content_address_transform(self.cai_bom) #ToDo: make generic for plant
 
         (
             input_cad_invoice,
