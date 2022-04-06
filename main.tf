@@ -161,7 +161,7 @@ resource "shell_script" "make_spark_distribution" {
           cd $HOME/Projects/Research
           git clone git@github.com:BlockScience/spark.git
           cd spark
-          git checkout ipfs_node
+          git checkout ipfs_node_main
           touch $CATS_HOME/make_spark_dist_info.txt
           dev/make-distribution.sh -Pkubernetes 2>&1 | tee $CATS_HOME/make_spark_dist_info.txt
       fi

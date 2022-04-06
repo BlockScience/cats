@@ -1,6 +1,6 @@
 #!/bin/bash
 
-minikube start --driver=docker --cpus=6 --memory='8g'
+minikube start --driver=docker --cpus=10 --memory='10g'
 terraform init -upgrade \
   -var AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   -var AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
