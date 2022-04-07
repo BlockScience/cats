@@ -151,10 +151,13 @@ class Processor(Plant):
         if input_bom_update is not None:
             self.cai_bom.update(input_bom_update)
 
-        self.ipfs_swarm_connect(self.cai_bom['addresses'])
+        try:
+            self.ipfs_swarm_connect(self.cai_bom['addresses'])
+            self.transform_func = self.get_transform_func(self.cai_bom)
+        except:
+            self.transform_func = self.get_transform_func_s3(self.cai_bom)
 
-        self.transform_func = self.get_transform_func(self.cai_bom)
-
+        # self.ip4_tcp_addresses not assigned
         self.cao_bom = self.set_cao_bom(self.ip4_tcp_addresses, self.cai_bom, output_bom_path)
         if output_bom_update is not None:
             self.cao_bom.update(output_bom_update)

@@ -1,8 +1,10 @@
 import os, subprocess, json
+from copy import deepcopy
 from importlib.machinery import SourceFileLoader
 from pycats.function import TRANSFORM_DIR, IPFS_DIR, INPUT_DIR
 from pycats.function.infrafunction.client.s3 import Client as S3client
 from pycats.function.infrafunction.client.ipfs import IPFS as IPFSclient
+from multimethod import overload
 
 
 class ProcessClient(S3client, IPFSclient):
@@ -28,6 +30,20 @@ class ProcessClient(S3client, IPFSclient):
         subprocess.check_call(f"ipfs get {bom['transform_cid']}", shell=True)
         subprocess.check_call(f"mv {bom['transform_cid']} {transform_filename}", shell=True)
         tmp_transform_sourcefile = f"/tmp/{transform_filename}"
+        transform = SourceFileLoader(
+            "transform",
+            tmp_transform_sourcefile
+        ).load_module()
+        return transform.transform
+
+    def get_transform_func_s3(self, bom):
+        transform_uri = deepcopy(bom['transform_uri'])
+        if 's3a://' in transform_uri:
+            transform_uri = transform_uri.replace('s3a://', 's3://')
+
+        os.chdir('/tmp/')
+        self.aws_cli_cp(transform_uri, f"./{bom['transform_filename']}")
+        tmp_transform_sourcefile = f"/tmp/{bom['transform_filename']}"
         transform = SourceFileLoader(
             "transform",
             tmp_transform_sourcefile
