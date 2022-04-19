@@ -111,6 +111,12 @@ class Spark(SparkConfig, ProcessClient):
         return input_cad_invoice, str(invoice_cid), ip4_tcp_addresses
 
     def save_bom(self, bom: dict, bom_type: str):
+        def replace_s3_uri_scheme(elem):
+            if type(elem) is str and 's3a://' in elem:
+                return elem.replace('s3a://', 's3://')
+            else:
+                return elem
+        bom = {k: replace_s3_uri_scheme(v) for k, v in bom.items()}
         return self.sc \
             .parallelize([bom]) \
             .repartition(1) \

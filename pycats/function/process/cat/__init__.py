@@ -112,10 +112,14 @@ class Processor(Plant):
             local_bom_write_path='/tmp/bom.json',
             transformer_uri=None
     ):
-        self.catContext['cai_invoice_uri'] = invoice_uri
+        input_data_uri = input_data_uri.replace('s3://', 's3a://')
+        invoice_uri = invoice_uri.replace('s3://', 's3a://')
+        output_data_uri = output_data_uri.replace('s3://', 's3a://')
+        bom_write_path_uri = bom_write_path_uri.replace('s3a://', 's3://')
+        transformer_uri = transformer_uri.replace('s3://', 's3a://')
 
         self.cai_bom['transformer_uri'] = transformer_uri
-        self.cai_bom['cai_invoice_uri'] = invoice_uri
+        self.cai_bom['cai_invoice_uri'] = self.catContext['cai_invoice_uri'] = invoice_uri
         self.cai_bom['cai_data_uri'] = output_data_uri
         self.cai_bom['bom_uri'] = bom_write_path_uri
         self.cai_bom['action'] = ''
@@ -126,8 +130,8 @@ class Processor(Plant):
         input_data_dir = input_data_uri_split[0] + '/'
         input_data_df_name = input_data_uri_split[1].split('.')[0]
         input_data_json_df_name = input_data_df_name + '_json'
-        input_data_json_df_uri = f'{input_data_dir}{input_data_json_df_name}'.replace('s3://', 's3a://')
-        input_data_df = self.spark.read.parquet(input_data_uri.replace('s3://', 's3a://'))
+        input_data_json_df_uri = f'{input_data_dir}{input_data_json_df_name}'
+        input_data_df = self.spark.read.parquet(input_data_uri)
         # .drop(col("cat_idx")) \
         input_data_df \
             .withColumn("cat_idx", monotonically_increasing_id()) \
@@ -138,7 +142,8 @@ class Processor(Plant):
         # copy_input_data_json_df = input_data_json_df
         input_data_s3_bucket, input_data_s3_prefix = self.get_s3_bucket_prefix_pair(input_data_uri)
         s3_input_keys = self.get_s3_keys(input_data_s3_bucket, input_data_s3_prefix)
-        n_input_splits = len(s3_input_keys)
+        # n_input_splits = len(s3_input_keys)
+        n_input_splits = 1
         # each_len = input_data_df.count() // n_input_splits
 
 
@@ -219,9 +224,6 @@ class Processor(Plant):
             cai_bom_dict = self.bom_df_to_dict(cai_bom_df)
             json.dump(cai_bom_dict, fp)
 
-        if 's3a://' in bom_write_path_uri:
-            bom_write_path_uri = bom_write_path_uri.replace('s3a://', 's3://')
-
         # self.boto3_cp(local_bom_write_path, bom_write_path_uri)
         self.aws_cli_cp(local_bom_write_path, bom_write_path_uri)
 
@@ -280,7 +282,8 @@ class Processor(Plant):
 
         cai_data_s3_bucket, cai_data_s3_prefix = self.get_s3_bucket_prefix_pair(cai_data_uri)
         s3_input_keys = self.get_s3_keys(cai_data_s3_bucket, cai_data_s3_prefix)
-        n_input_splits = len(s3_input_keys)
+        # n_input_splits = len(s3_input_keys)
+        n_input_splits = 1
 
         content_addressed_parts = [
             content_address_partition(
@@ -328,7 +331,7 @@ class Processor(Plant):
         self.aws_cli_cp(local_log_write_path, log_write_path_uri)
 
         # self.write_rdd_as_parquet(output_cad_invoices_df, self.cao_bom['cai_invoice_uri'])
-        output_cad_invoices_df.write.parquet(self.cao_bom['cai_invoice_uri'], mode='overwrite')
+        output_cad_invoices_df.write.parquet(self.cao_bom['cai_invoice_uri'].replace('s3://', 's3a://'), mode='overwrite')
         return cao_bom_dict, output_cad_invoices_df
 
     def set_cao_bom(self, ip4_tcp_addresses, cai_bom, output_bom_path):
@@ -351,6 +354,10 @@ class Processor(Plant):
             cai_bom: isa(dict),
             cao_bom: isa(dict)
     ):
+        cai_bom['cai_data_uri'] = cai_bom['cai_data_uri'].replace('s3://', 's3a://')
+        cai_bom['cao_data_uri'] = cai_bom['cao_data_uri'].replace('s3://', 's3a://')
+        cai_bom['cai_invoice_uri'] = cai_bom['cai_invoice_uri'].replace('s3://', 's3a://')
+        cai_bom['transformer_uri'] = cai_bom['transformer_uri'].replace('s3://', 's3a://')
         self.cai_invoice_uri = cai_bom['cai_invoice_uri']
         self.cao_data_uri = cai_bom['cao_data_uri']
         catContext = self.cad.execute(

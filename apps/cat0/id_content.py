@@ -14,10 +14,10 @@ if __name__ == "__main__":
     # local_bom_write_path = '/home/jjodesty/Projects/Research/cats/cadStore/bom.json',
     cai_bom, input_cad_invoice = cat.content_address_input(
         input_data_uri='s3://cats-public/input/df', # I
-        invoice_uri='s3a://cats-public/cad-store/cad/cai/invoices', # O
+        invoice_uri='s3://cats-public/cad-store/cad/cai/invoices', # O
         bom_write_path_uri='s3://cats-public/cad-store/cad/cai/bom/bom.json', # O
-        output_data_uri='s3a://cats-public/cad-store/cad/cao/data', # I/O
-        transformer_uri='s3a://cats-public/cad-store/cad/transformation/transform.py' # I/O
+        output_data_uri='s3://cats-public/cad-store/cad/cao/data', # I/O
+        transformer_uri='s3://cats-public/cad-store/cad/transformation/transform.py' # I/O
     )
 
     # pprint(input_cad_invoice.collect())
