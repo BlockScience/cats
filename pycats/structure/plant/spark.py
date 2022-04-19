@@ -1,4 +1,7 @@
 import os
+import time
+from pprint import pprint
+
 from pyspark import RDD
 from pyspark.sql import SparkSession, DataFrame
 from pycats.function.process.cad import Spark as sparkCAD
@@ -12,8 +15,8 @@ catSparkSession: SparkSession = SparkSession \
     .builder \
     .master("k8s://https://192.168.49.2:8443") \
     .appName("sparkCAT") \
-    .config("spark.executor.instances", "2") \
-    .config("spark.executor.memory", "2g") \
+    .config("spark.executor.instances", "4") \
+    .config("spark.executor.memory", "5g") \
     .config("spark.kubernetes.container.image", "pyspark/spark-py:latest") \
     .config("spark.kubernetes.container.image.pullPolicy", "Never") \
     .config("spark.kubernetes.authenticate.driver.serviceAccountName", "spark") \
@@ -63,7 +66,7 @@ class Spark(SparkConfig, ProcessClient):
     def content_address_transform(self, bom):
         if bom['transformer_uri'] is not None:
             self.transformer_uri = bom['transformer_uri']
-            partial_bom: dict = self.spark.sparkContext \
+            partial_bom, transformer_addresses = self.spark.sparkContext \
                 .parallelize([self.transformer_uri]) \
                 .repartition(1) \
                 .map(content_address_transformer) \
@@ -72,18 +75,24 @@ class Spark(SparkConfig, ProcessClient):
         else:
             bom['transform_cid'] = ''
             bom['transform_uri'] = ''
-            bom['transformer_addresses'] = ''
+            # bom['transformer_addresses'] = ''
             bom['transform_filename'] = ''
             bom['transform_node_path'] = ''
             raise Exception('transformer_uri is None')
-        return bom
+        return bom, transformer_addresses
 
-    def generate_input_invoice(self, s3_input_keys, cai_invoice_uri):
+    def generate_input_invoice(self, s3_input_keys, cai_invoice_uri, part):
+        # print(s3_input_keys)
+        # print(cai_invoice_uri)
+        # print(part)
+        # while True:
+        #     time.sleep(1)
         partition_count = len(s3_input_keys)
+        s3_input_keys = [x for x in s3_input_keys if '_SUCCESS' not in x]
         input_cad_invoice: RDD = self.sc \
             .parallelize(s3_input_keys) \
             .repartition(partition_count) \
-            .map(ipfs_caching)  # .map(lambda x: link_ipfs_id(x))
+            .map(ipfs_caching(part))  # .map(lambda x: link_ipfs_id(x))
         input_cad_invoice_df: DataFrame = input_cad_invoice.toDF()
         input_cad_invoice_df.write.json(cai_invoice_uri, mode='overwrite')
         return input_cad_invoice
@@ -96,8 +105,8 @@ class Spark(SparkConfig, ProcessClient):
             .collect()[0]
         return invoice_cid, ip4_tcp_addresses
 
-    def create_invoice(self, s3_keys, invoice_writepath_uri):
-        input_cad_invoice = self.generate_input_invoice(s3_keys, invoice_writepath_uri)
+    def create_invoice(self, s3_keys, invoice_writepath_uri, part=None):
+        input_cad_invoice = self.generate_input_invoice(s3_keys, invoice_writepath_uri, part)
         invoice_cid, ip4_tcp_addresses = self.cid_input_invoice(invoice_writepath_uri)
         return input_cad_invoice, str(invoice_cid), ip4_tcp_addresses
 

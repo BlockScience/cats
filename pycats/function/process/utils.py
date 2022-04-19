@@ -1,6 +1,9 @@
 import os, subprocess, boto3, json, time
 # ToDo: Move worker dirs to top level as (can be used as ENV VARS)
 # from pprint import pprint
+from operator import itemgetter
+from pprint import pprint
+
 from pycats.function import WORK_DIR, INPUT, IPFS_DIR, OUTPUT, INVOICE_DIR, INPUT_DIR, TRANSFORM_DIR
 
 s3_client = boto3.client(
@@ -55,16 +58,17 @@ def content_address_transformer(transform_uri):
     ipfs_id = open(f'{IPFS_DIR}/ipfs_id.json')
     ipfs_addresses = json.load(ipfs_id)["Addresses"]
     ip4_tcp_addresses = [x for x in ipfs_addresses if ('tcp' in x) and ('ip4' in x) and ('127.0.0.1' not in x)]
+    transformer_addresses = ip4_tcp_addresses
 
     partial_bom = {
         'action': ipfs_action,
         'transform_cid': cid,
         'transform_uri': transform_uri,
-        'transformer_addresses': ip4_tcp_addresses,
+        # 'transformer_addresses': ip4_tcp_addresses,
         'transform_filename': transform_filename,
         'transform_node_path': NODE_FILE_PATH
     }
-    return partial_bom
+    return partial_bom, transformer_addresses
 
 
 def save_bom(bom_type: str = 'cao'):
@@ -80,26 +84,85 @@ def save_bom(bom_type: str = 'cao'):
         return partial_bom
     return f
 
+def ensure_similarity(PARTPATH: str):
+    if '.json' in PARTPATH:
+        old_part_file = open(PARTPATH, "r+")
+        os.remove(PARTPATH)
+        part_json_lines = old_part_file.readlines()
+        old_part_file.close()
+        part_json_list = [json.loads(l[:len(l) - 1]) for l in part_json_lines]
+        part_json_sorted_list = sorted(part_json_list, key=itemgetter('cat_idx'), reverse=False)
+
+        def json_2_str(j):
+            del j['cat_idx']
+            return json.dumps(j)
+
+        part_json_sorted_list = [json_2_str(j) for j in part_json_sorted_list]
+
+        new_part_file = open(PARTPATH, "w")
+        for j in part_json_sorted_list:
+            new_part_file.write(f"{j}\n")
+        new_part_file.close()
+        return part_json_sorted_list
+
 # Ingest
-def cad_part_invoice(cad_part_id_dict):
+def cad_part_invoice(cad_part_id_dict, part=None):
     bucket = 'cats-public'
     file_path_key = cad_part_id_dict["FilePathKey"]
     file_name = file_path_key.split('/')[-1]
+
     NODE_FILE_PATH = f"{WORK_DIR}/job/{file_path_key}"
     ipfs_addresses = cad_part_id_dict["Addresses"]
     ip4_tcp_addresses = [x for x in ipfs_addresses if ('tcp' in x) and ('ip4' in x) and ('127.0.0.1' not in x)]
 
-    INPUT = f"{WORK_DIR}/job/input/df"
-    OUTPUT = f"{WORK_DIR}/job/output/df"
+    # INPUT = f"{WORK_DIR}/job/input/df"
+    # OUTPUT = f"{WORK_DIR}/job/output/df"
+    if part is not None:
+        INPUT = f"{WORK_DIR}/job/input/df_json_{part}"
+        OUTPUT = f"{WORK_DIR}/job/output/df_json_{part}"
+    else:
+        INPUT = f"{WORK_DIR}/job/input/df_json"
+        OUTPUT = f"{WORK_DIR}/job/output/df_json"
     subprocess.check_call(f"mkdir -p {INPUT}".split(' '))
     subprocess.check_call(f"mkdir -p {OUTPUT}".split(' '))
     if '/job/input/df' in NODE_FILE_PATH:
         s3_client.download_file(Bucket=bucket, Key=file_path_key, Filename=NODE_FILE_PATH)  # delete after transfer
-        ipfs_add = f'ipfs add {INPUT}/{file_name}'.split(' ')
+        part_json_sorted_list = ensure_similarity(NODE_FILE_PATH)
+        if part is not None:
+            # if '.json' in file_name:
+            part_id = "-".join(file_name.split("-")[:2])
+            cat_part_id = str(part).zfill(len(part_id.split('-')[1])) # part padding
+            new_file_name = "part-" + cat_part_id + ".json"
+            rename = f'mv {INPUT}/{file_name} {INPUT}/{new_file_name}'.split(' ')
+            subprocess.check_output(rename)
+            ipfs_add = f'ipfs add {INPUT}/{new_file_name}'.split(' ')
+            file_name = new_file_name
+        else:
+            part_id = "-".join(file_name.split("-")[:2])
+            new_file_name = part_id + ".json"
+            rename = f'mv {INPUT}/{file_name} {INPUT}/{new_file_name}'.split(' ')
+            subprocess.check_output(rename)
+            ipfs_add = f'ipfs add {INPUT}/{file_name}'.split(' ')
     else:
         NODE_FILE_PATH = f"{OUTPUT}/{file_name}"
         s3_client.download_file(Bucket=bucket, Key=file_path_key, Filename=NODE_FILE_PATH)
-        ipfs_add = f'ipfs add {OUTPUT}/{file_name}'.split(' ')
+        part_json_sorted_list = ensure_similarity(NODE_FILE_PATH)
+        if part is not None:
+            # if '.json' in file_name:
+            part_id = "-".join(file_name.split("-")[:2])
+            cat_part_id = str(part).zfill(len(part_id.split('-')[1])) # part padding
+            new_file_name = "part-" + cat_part_id + ".json"
+            rename = f'mv {OUTPUT}/{file_name} {OUTPUT}/{new_file_name}'.split(' ')
+            subprocess.check_output(rename)
+            ipfs_add = f'ipfs add {OUTPUT}/{new_file_name}'.split(' ')
+            file_name = new_file_name
+        else:
+            part_id = "-".join(file_name.split("-")[:2])
+            cat_part_id = str(part).zfill(len(part_id.split('-')[1]))  # part padding
+            new_file_name = "part-" + cat_part_id + ".json"
+            rename = f'mv {OUTPUT}/{file_name} {OUTPUT}/{new_file_name}'.split(' ')
+            subprocess.check_output(rename)
+            ipfs_add = f'ipfs add {OUTPUT}/{new_file_name}'.split(' ')
     [ipfs_action, cid, _file_name] = subprocess.check_output(ipfs_add).decode('ascii').replace('\n', '').split(' ')
 
     return {
@@ -107,7 +170,8 @@ def cad_part_invoice(cad_part_id_dict):
         'addresses': ip4_tcp_addresses,
         'filename': file_name,
         'action': ipfs_action,
-        'file_key': file_path_key
+        'file_key': file_path_key,
+        # 'records': part_json_sorted_list
     }
 
 def ipfs_connect(cad_part_invoice):
@@ -135,8 +199,16 @@ def s3_ingest(cad_part_invoice):
     if output == f'Saving file(s) to {cid}':
         subprocess.check_call(f"mv {cid} {filename}".split(' '))
         try:
-            file = open(filename, "rb")
-            s3_client.upload_fileobj(file, Bucket=bucket, Key=key)
+            in_file = INPUT + f"/{filename}"
+            s3_client.upload_file(in_file, Bucket=bucket, Key=key+f'/{filename}')
+            # file = open(in_file, "rb")
+            # # file = open(filename, "rb")
+            # s3_client.upload_fileobj(file, Bucket=bucket, Key=key)
+            # file.close()
+            # in_file = INPUT+f"/{filename}"
+            # out_file = uri.replace('s3a://', 's3://')+f'/{filename}'
+            # aws_cp = f"aws s3 cp {in_file} {out_file}"
+            # subprocess.check_output(aws_cp, shell=True)
             cad_part_invoice['upload_path'] = uri
             return cad_part_invoice
         except Exception as e:
@@ -144,8 +216,8 @@ def s3_ingest(cad_part_invoice):
             return cad_part_invoice
 
 
-def ipfs_caching(file_path_key):
-    return cad_part_invoice(link_ipfs_id(file_path_key))
+def ipfs_caching(part=None):
+    return lambda file_path_key: cad_part_invoice(link_ipfs_id(file_path_key), part)
 
 def cluster_fs_ingest(cad_part_invoice):
     return s3_ingest(ipfs_connect(cad_part_invoice))

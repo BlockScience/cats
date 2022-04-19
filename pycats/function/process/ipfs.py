@@ -53,6 +53,9 @@ class ProcessClient(S3client, IPFSclient):
     def get_input_bom_from_s3(self, input_bom_path, tmp_bom_filepath='/tmp/input_bom.json'):
         return self.download_dict_file(input_bom_path, tmp_bom_filepath)
 
+    def get_input_log_from_s3(self, input_bom_path, tmp_bom_filepath='/tmp/input_bom.json'):
+        return self.download_dict_file(input_bom_path, tmp_bom_filepath)
+
     def content_address_transformer(self, transform_uri):
         # 's3a://cats-public/cad-store/cad/transformation/transform.py'
         transform_bucket = transform_uri.split('s3a://')[-1].split('/')[0]

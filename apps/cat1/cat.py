@@ -15,11 +15,14 @@ if __name__ == "__main__":
         # ToDO: move & rename input_bom_path to bom_uri
     ).get_driver_ipfs_id()
 
+    transformer_addresses = ['/ip4/172.17.0.4/tcp/4001/p2p/12D3KooWHZHMM8Po75tGLtzrrJwdq7r7ddcwxbAZvcDgAqtyRFwo',
+                             '/ip4/71.247.209.35/tcp/17030/p2p/12D3KooWHZHMM8Po75tGLtzrrJwdq7r7ddcwxbAZvcDgAqtyRFwo']
 
     # ToDO: rename output_bom_path to output_bom_uri
     cat.transform(
         input_bom_path='s3://cats-public/cad-store/cad/cai/bom/bom.json',
         output_bom_path='s3://cats-public/cad-store/cad/cao/bom/output_bom.json',
+        cat_log_path='/tmp/bom_cat_log.json',
         input_bom_update={
             'cao_data_uri': 's3a://cats-public/cad-store/cad/cao/data'
         },
@@ -37,6 +40,8 @@ if __name__ == "__main__":
     pprint(cat.cao_bom)
     print()
     pprint(cat.catContext)
+    print()
+    pprint(cat.cat_log)
     # print()
     # cao = cat.catContext['cao']
     # pprint(cao.show())

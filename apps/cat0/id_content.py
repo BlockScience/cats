@@ -22,8 +22,11 @@ if __name__ == "__main__":
 
     # pprint(input_cad_invoice.collect())
     print()
+    print(input_cad_invoice.show(truncate=False))
+    print()
     pprint(cai_bom)
     print()
+    # print(cat.cat_log)
     # pprint(cat.catContext.cai.show())
     # pprint(cat.catContext.cao.show())
 

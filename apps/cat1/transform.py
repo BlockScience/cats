@@ -6,7 +6,7 @@ def transform(cad):
             BOOLEAN(INT(({add_row_vals}) % 2)) AS row_sum_odd_ind,
             ({add_row_vals}) AS row_sum,
             *
-        FROM parquet.`{cad.catContext['cai_data_uri']}`
+        FROM json.`{cad.catContext['cai_data_uri']}`
         WHERE _c0 != 'A'
     """
     trans_1 = cad.spark.sql(sql_a)

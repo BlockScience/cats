@@ -1,4 +1,7 @@
 import json
+import time
+from pprint import pprint
+
 from multimethod import isa, overload
 from pyspark import RDD
 from pyspark.sql import SparkSession, DataFrame
@@ -27,7 +30,12 @@ class Spark(object): # CAD invoice of partition transactions
     def read(self, invoice: isa(RDD)):
         data_uri = invoice.map(get_upload_path).distinct().collect()[0]
         # get cai_invoice_uri
-        df: DataFrame = self.spark.read.parquet(data_uri)
+        # pprint(invoice.collect())
+        # pprint(invoice.collect())
+        # while True:
+        #     time.sleep(1)
+        # df: DataFrame = self.spark.read.parquet(data_uri)
+        df: DataFrame = self.spark.read.json(data_uri)
         self.catContext = {
             'cai': df,
             'cai_invoice': invoice,
@@ -38,6 +46,8 @@ class Spark(object): # CAD invoice of partition transactions
     @overload
     def read(self, invoice_uri: isa(str)):
         invoice_rdd = self.sc.textFile(invoice_uri).map(self.cai_ingest_func)
+        # pprint(invoice_rdd.collect())
+        # exit()
         # self.catContext['cai_invoice_uri'] = invoice_uri
         return self.read(invoice_rdd)
 
@@ -45,6 +55,9 @@ class Spark(object): # CAD invoice of partition transactions
     def transform(self, transform_func, invoice_uri: isa(str) = None):
         self.transform_func = transform_func
         if self.catContext['cai'] is not None or invoice_uri is None:
+            # jdf = self.spark.read.json(self.catContext['cai_data_uri'])
+            # jdf.show()
+            # exit()
             self.df = self.transform_func(self)
             self.catContext['cao'] = self.df
             return self.catContext
