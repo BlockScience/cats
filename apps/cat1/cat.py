@@ -23,6 +23,7 @@ if __name__ == "__main__":
         input_bom_path='s3://cats-public/cad-store/cad/cai/bom/bom.json',
         output_bom_path='s3://cats-public/cad-store/cad/cao/bom/output_bom.json',
         cat_log_path='/tmp/bom_cat_log.json',
+        cao_partitions=1,
         input_bom_update={
             'cao_data_uri': 's3a://cats-public/cad-store/cad/cao/data'
         },

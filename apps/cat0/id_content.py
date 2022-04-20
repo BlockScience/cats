@@ -17,7 +17,8 @@ if __name__ == "__main__":
         invoice_uri='s3://cats-public/cad-store/cad/cai/invoices', # O
         bom_write_path_uri='s3://cats-public/cad-store/cad/cai/bom/bom.json', # O
         output_data_uri='s3://cats-public/cad-store/cad/cao/data', # I/O
-        transformer_uri='s3://cats-public/cad-store/cad/transformation/transform.py' # I/O
+        transformer_uri='s3://cats-public/cad-store/cad/transformation/transform.py', # I/O
+        cai_partitions=1
     )
 
     # pprint(input_cad_invoice.collect())

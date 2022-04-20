@@ -10,3 +10,11 @@ venv.tar.gz
 cadStore
 __pycache__
 */__pycache__
+.terraform.lock.hcl
+.terraform/
+kubectl_cluster_info.txt
+make_spark_dist_info.txt
+project/
+terraform.tfstate
+terraform.tfstate.backup
+cluster/test.sh
