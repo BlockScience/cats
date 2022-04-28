@@ -1,5 +1,38 @@
 import os
 from pycats.utils import execute
+from pycats.structure.plant.spark import CATS_HOME
+from pyspark.sql import SparkSession
+
+
+SparkSessionDict = {
+    'spark.master': 'k8s://https://192.168.49.2:8443',
+    'spark.app.name': 'sparkCAT',
+    'spark.executor.instances': '4',
+    'spark.executor.memory': '5g',
+    'spark.kubernetes.container.image': 'pyspark/spark-py:latest',
+    'spark.kubernetes.container.image.pullPolicy': 'Never',
+    'spark.kubernetes.authenticate.driver.serviceAccountName': 'spark',
+    'spark.kubernetes.executor.deleteOnTermination': 'true',
+    'spark.kubernetes.executor.secrets.aws-access': '/etc/secrets',
+    'spark.kubernetes.executor.secretKeyRef.AWS_ACCESS_KEY_ID': 'aws-access:AWS_ACCESS_KEY_ID',
+    'spark.kubernetes.executor.secretKeyRef.AWS_SECRET_ACCESS_KEY': 'aws-access:AWS_SECRET_ACCESS_KEY',
+    'spark.hadoop.fs.s3a.access.key': os.getenv('AWS_ACCESS_KEY_ID'),
+    'spark.hadoop.fs.s3a.secret.key': os.getenv('AWS_SECRET_ACCESS_KEY'),
+    'spark.kubernetes.file.upload.path': 's3a://cats-storage/input/',
+    'spark.hadoop.fs.s3a.impl': 'org.apache.hadoop.fs.s3a.S3AFileSystem',
+    'spark.hadoop.fs.s3a.fast.upload': 'true',
+    'spark.driver.extraJavaOptions': "'-Divy.cache.dir=/tmp -Divy.home=/tmp'",
+    'spark.pyspark.driver.python': f'{CATS_HOME}/venv/bin/python'
+}
+
+
+def lazy_SparkSession(config_dict: dict = SparkSessionDict):
+    SparkSessionBuilder: SparkSession = SparkSession \
+        .builder
+    for k, v in config_dict.items():
+        catSparkSession = SparkSessionBuilder.config(k, v)
+    return catSparkSession.getOrCreate()
+
 
 # factory method
 def spark_submit(

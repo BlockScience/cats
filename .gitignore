@@ -17,4 +17,6 @@ make_spark_dist_info.txt
 project/
 terraform.tfstate
 terraform.tfstate.backup
+tf.log
 cluster/test.sh
+apps/cat0/test.py

@@ -1,8 +1,4 @@
-import json
-import subprocess
-import time
-from pprint import pprint
-
+import json, subprocess
 from pycats.function.process.utils import s3_client, s3_resource, s3Utils
 
 
