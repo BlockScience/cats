@@ -1,15 +1,16 @@
 import os, subprocess, json
 from copy import deepcopy
 from importlib.machinery import SourceFileLoader
+
+from pycats import CATS_HOME
 from pycats.function import TRANSFORM_DIR, IPFS_DIR, INPUT_DIR
 from pycats.function.infrafunction.client.s3 import Client as S3client
 from pycats.function.infrafunction.client.ipfs import IPFS as IPFSclient
-from multimethod import overload
 
 
 class ProcessClient(S3client, IPFSclient):
     def __init__(self,
-        DRIVER_IPFS_DIR='/home/jjodesty/Projects/Research/cats/cadStore'
+        DRIVER_IPFS_DIR=f'{CATS_HOME}/cadStore'
     ):
         self.DRIVER_IPFS_DIR = DRIVER_IPFS_DIR
         S3client.__init__(self)

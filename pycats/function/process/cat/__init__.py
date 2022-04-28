@@ -1,17 +1,13 @@
-import functools
-import json, os
-import operator
-import time
+import functools, json, operator
 from itertools import product
-from multiprocessing import Pool
-from pprint import pprint
-
-import numpy as np
 from multimethod import isa, overload
-from pyspark.sql import DataFrame, Window
-from pyspark.sql.functions import monotonically_increasing_id, asc, col, ntile
 
+from pycats import CATS_HOME
 from pycats.structure.plant.spark import Plant
+
+from pyspark.sql import DataFrame, Window
+from pyspark.sql.functions import monotonically_increasing_id, asc, ntile
+
 
 def flattenDict(l):
     def tupalize(k, vs):
@@ -33,77 +29,13 @@ def flatten(l):
     elif isinstance(l, dict):
         return flattenDict(l)
 
-def split_by_row_index(df, num_partitions):
-    # Let's assume you don't have a row_id column that has the row order
-    t = df.withColumn('_row_id', monotonically_increasing_id())
-    # Using ntile() because monotonically_increasing_id is discontinuous across partitions
-    t = t.withColumn('_partition', ntile(num_partitions).over(Window.orderBy(t._row_id)))
-    return [t.filter(t._partition == i + 1).drop('_row_id', '_partition') for i in range(num_partitions)]
 
-# bipartite partitioner
-def content_address_partition(
-        proc,
-        input_data_json_df_uri: str,
-        invoice_uri: str,
-        part: int,
-        part_df: DataFrame
-):
-    df_dir = input_data_json_df_uri.split('/')[-1]
-    input_data_part_json_uri = input_data_json_df_uri.replace(df_dir, f'{df_dir}_{part}')
-    part_df.repartition(1).write.json(input_data_part_json_uri, mode='overwrite')
-    cai_invoice_part_uri = invoice_uri.replace('/invoices/', f'/invoice_{part}/')
-
-    (
-        input_cad_invoice,
-        invoice_cid,
-        ip4_tcp_addresses
-    ) = proc.content_address_dataset(input_data_part_json_uri, cai_invoice_part_uri, part)
-    return {
-        'input_data_part_json_uri': input_data_part_json_uri,
-        'input_cad_invoice': input_cad_invoice,
-        'invoice_cid': invoice_cid,
-        'ip4_tcp_addresses': ip4_tcp_addresses
-    }
-
-
-def partitioner(proc, input_data_uri, partitions=None):
-    if partitions is None:
-        input_data_s3_bucket, input_data_s3_prefix = proc.get_s3_bucket_prefix_pair(input_data_uri)
-        s3_input_keys = proc.get_s3_keys(input_data_s3_bucket, input_data_s3_prefix)
-        partitions = len(s3_input_keys)
-    else:
-        partitions = 1
-    return partitions
-
-# : Processor
-# bipartite partitioner
-def resave_df_to_json(proc, input_data_uri):
-    input_data_uri_split = input_data_uri.rsplit('/', 1)
-    input_data_dir = input_data_uri_split[0] + '/'
-    input_data_df_name = input_data_uri_split[1].split('.')[0]
-    input_data_json_df_name = input_data_df_name + '_json'
-    input_data_json_df_uri = f'{input_data_dir}{input_data_json_df_name}'
-    input_data_df = proc.spark.read.parquet(input_data_uri)
-    input_data_df \
-        .withColumn("cat_idx", monotonically_increasing_id()) \
-        .sort(asc("cat_idx")) \
-        .repartition(1).write.json(input_data_json_df_uri, mode='overwrite')
-    input_data_json_df = proc.spark.read.json(input_data_json_df_uri)
-    return input_data_json_df_uri, input_data_json_df
-
-# : Processor
-# bipartite partitioner
-def prep_partitioner(proc, input_data_uri, partitions=None):
-    input_data_json_df_uri, input_data_json_df = resave_df_to_json(proc, input_data_uri)
-    partitions = partitioner(proc, input_data_uri, partitions)
-    return partitions, input_data_json_df_uri, input_data_json_df
-
-
-CATS_HOME = os.getenv('CATS_HOME')
 class Processor(Plant):
     def __init__(self,
         plantSession,
-        DRIVER_IPFS_DIR=f'{CATS_HOME}/cadStore'
+        DRIVER_IPFS_DIR=f'{CATS_HOME}/cadStore',
+        partial_bom={},
+        partial_log={}
     ):
         Plant.__init__(self, plantSession, DRIVER_IPFS_DIR)
 
@@ -111,7 +43,8 @@ class Processor(Plant):
         self.cao_invoice_cid: str = None
         self.transform_func = None
         self.cai_partitions = None
-        # self.transform_cid = None
+        self.partial_bom = partial_bom
+        self.partial_log = partial_log
 
         self.cai_bom_cid = None
         self.cai_bom = {}
@@ -123,6 +56,45 @@ class Processor(Plant):
         self.daemon_proc = None
         self.ip4_tcp_addresses = None
 
+    # : Processor
+    # bipartite partitioner
+    def resave_df_to_json(self, input_data_uri):
+        input_data_uri_split = input_data_uri.rsplit('/', 1)
+        input_data_dir = input_data_uri_split[0] + '/'
+        input_data_df_name = input_data_uri_split[1].split('.')[0]
+        input_data_json_df_name = input_data_df_name + '_json'
+        input_data_json_df_uri = f'{input_data_dir}{input_data_json_df_name}'
+        input_data_df = self.spark.read.parquet(input_data_uri)
+        input_data_df \
+            .withColumn("cat_idx", monotonically_increasing_id()) \
+            .sort(asc("cat_idx")) \
+            .repartition(1).write.json(input_data_json_df_uri, mode='overwrite')
+        input_data_json_df = self.spark.read.json(input_data_json_df_uri)
+        return input_data_json_df_uri, input_data_json_df
+
+    def split_by_row_index(self, df, num_partitions):
+        # Let's assume you don't have a row_id column that has the row order
+        t = df.withColumn('_row_id', monotonically_increasing_id())
+        # Using ntile() because monotonically_increasing_id is discontinuous across partitions
+        t = t.withColumn('_partition', ntile(num_partitions).over(Window.orderBy(t._row_id)))
+        return [t.filter(t._partition == i + 1).drop('_row_id', '_partition') for i in range(num_partitions)]
+
+    def partitioner(self, input_data_uri, partitions=None):
+        if partitions is None:
+            input_data_s3_bucket, input_data_s3_prefix = self.get_s3_bucket_prefix_pair(input_data_uri)
+            s3_input_keys = self.get_s3_keys(input_data_s3_bucket, input_data_s3_prefix)
+            partitions = len(s3_input_keys)
+        else:
+            partitions = 1
+        return partitions
+
+    # : Processor
+    # bipartite partitioner
+    def prep_partitioner(self, input_data_uri, partitions=None):
+        input_data_json_df_uri, input_data_json_df = self.resave_df_to_json(input_data_uri)
+        partitions = self.partitioner(input_data_uri, partitions)
+        return partitions, input_data_json_df_uri, input_data_json_df
+
     @overload
     def content_address_dataset(self, s3_bucket, s3_prefix, cai_invoice_uri, part=None):
         s3_input_keys = self.get_s3_keys(s3_bucket, s3_prefix)
@@ -132,6 +104,31 @@ class Processor(Plant):
     def content_address_dataset(self, s3_dataset_uri, cai_invoice_uri, part=None):
         dataset_s3_bucket, dataset_s3_prefix = self.get_s3_bucket_prefix_pair(s3_dataset_uri)
         return self.content_address_dataset(dataset_s3_bucket, dataset_s3_prefix, cai_invoice_uri, part)
+
+    # bipartite partitioner
+    def content_address_partition(
+            self,
+            input_data_json_df_uri: str,
+            invoice_uri: str,
+            part: int,
+            part_df: DataFrame
+    ):
+        df_dir = input_data_json_df_uri.split('/')[-1]
+        input_data_part_json_uri = input_data_json_df_uri.replace(df_dir, f'{df_dir}_{part}')
+        part_df.repartition(1).write.json(input_data_part_json_uri, mode='overwrite')
+        cai_invoice_part_uri = invoice_uri.replace('/invoices/', f'/invoice_{part}/')
+
+        (
+            input_cad_invoice,
+            invoice_cid,
+            ip4_tcp_addresses
+        ) = self.content_address_dataset(input_data_part_json_uri, cai_invoice_part_uri, part)
+        return {
+            'input_data_part_json_uri': input_data_part_json_uri,
+            'input_cad_invoice': input_cad_invoice,
+            'invoice_cid': invoice_cid,
+            'ip4_tcp_addresses': ip4_tcp_addresses
+        }
 
     def content_address_input(
             self,
@@ -149,6 +146,8 @@ class Processor(Plant):
         bom_write_path_uri = bom_write_path_uri.replace('s3a://', 's3://')
         transformer_uri = transformer_uri.replace('s3://', 's3a://')
 
+        self.cai_bom = self.partial_bom
+        self.cat_log = self.partial_log
         self.cai_bom['transformer_uri'] = transformer_uri
         self.cai_bom['cai_invoice_uri'] = self.catContext['cai_invoice_uri'] = invoice_uri
         self.cai_bom['cai_data_uri'] = output_data_uri
@@ -158,10 +157,9 @@ class Processor(Plant):
         self.cai_bom, self.cat_log['transformer_addresses'] = self.content_address_transform(self.cai_bom) #ToDo: make generic for plant
         self.cai_partitions = cai_partitions
         self.input_data_uri = input_data_uri
-        self.partitions, input_data_json_df_uri, input_data_json_df = prep_partitioner(
-            self, self.input_data_uri, self.cai_partitions
+        self.partitions, input_data_json_df_uri, input_data_json_df = self.prep_partitioner(
+            self.input_data_uri, self.cai_partitions
         )
-
 
         # p = Pool(self.cai_partitions)
         # content_addressed_parts = p.map(
@@ -170,14 +168,13 @@ class Processor(Plant):
         # )
 
         content_addressed_parts = [
-            content_address_partition(
-                self,
+            self.content_address_partition(
                 input_data_json_df_uri,
                 self.catContext['cai_invoice_uri'],
                 part,
                 part_df
             )
-            for part, part_df in enumerate(split_by_row_index(input_data_json_df, self.partitions))
+            for part, part_df in enumerate(self.split_by_row_index(input_data_json_df, self.partitions))
         ]
         input_cad_invoice_dfs = [self.spark.read.json(part['input_cad_invoice']) for part in content_addressed_parts]
         input_cad_invoices_df = functools.reduce(DataFrame.unionAll, input_cad_invoice_dfs)
@@ -190,14 +187,9 @@ class Processor(Plant):
         self.cat_log['addresses'] = list(set(flatten(ip4_tcp_addresses_list)))
         self.cai_bom['cai_part_cids'] = input_cad_invoices_df \
             .select('cid').sort('cid').distinct().rdd.map(lambda r: r[0]).collect()
-        self.cai_bom = self.save_bom(self.cai_bom, 'cai')
+        # self.cai_bom = self.save_bom(self.cai_bom, 'cai')
         self.cai_part_cids = input_cad_invoices_df.select('cid').sort('cid').distinct().rdd.map(lambda r: r[0]).collect()
         self.cai_bom['cai_part_cids'] = self.cai_part_cids
-
-        with open(local_bom_write_path, 'w') as fp:
-            cai_bom_df = self.create_bom_df(self.cai_bom)
-            cai_bom_dict = self.bom_df_to_dict(cai_bom_df)
-            json.dump(cai_bom_dict, fp)
 
         # self.boto3_cp(local_bom_write_path, bom_write_path_uri)
         self.aws_cli_cp(local_bom_write_path, bom_write_path_uri)
@@ -215,6 +207,16 @@ class Processor(Plant):
 
         log_write_path_uri = bom_dir + log_name
         self.aws_cli_cp(local_log_write_path, log_write_path_uri)
+        self.cai_bom['log_write_path_uri'] = log_write_path_uri
+        for k, v in self.cai_bom.items():
+            if 's3a://' in v:
+                self.cai_bom[k] = self.cai_bom[k].replace('s3a://', 's3://')
+        self.cai_bom = self.save_bom(self.cai_bom, 'cai')
+
+        with open(local_bom_write_path, 'w') as fp:
+            cai_bom_df = self.create_bom_df(self.cai_bom)
+            cai_bom_dict = self.bom_df_to_dict(cai_bom_df)
+            json.dump(cai_bom_dict, fp)
 
         # return cai_bom_dict, input_cad_invoice
         return cai_bom_dict, input_cad_invoices_df
@@ -227,19 +229,18 @@ class Processor(Plant):
         cao_bom['action'] = ''
         self.cao_partitions = cao_partitions
         self.cao_bom, self.cat_log['transformer_addresses'] = self.content_address_transform(cao_bom) # ToDo: make generic for plant
-        self.partitions, cai_data_json_df_uri, cai_data_json_df = prep_partitioner(
-            self, self.cai_data_uri, self.cao_partitions
+        self.partitions, cai_data_json_df_uri, cai_data_json_df = self.prep_partitioner(
+            self.cai_data_uri, self.cao_partitions
         )
 
         content_addressed_parts = [
-            content_address_partition(
-                self,
+            self.content_address_partition(
                 cai_data_json_df_uri,
                 self.catContext['cao_invoice_uri'],
                 part,
                 part_df
             )
-            for part, part_df in enumerate(split_by_row_index(cai_data_json_df, self.partitions))
+            for part, part_df in enumerate(self.split_by_row_index(cai_data_json_df, self.partitions))
         ]
         output_cad_invoice_dfs = [self.spark.read.json(part['input_cad_invoice']) for part in content_addressed_parts]
         output_cad_invoices_df = functools.reduce(DataFrame.unionAll, output_cad_invoice_dfs)
@@ -250,11 +251,7 @@ class Processor(Plant):
             .select('cid').sort('cid').distinct().rdd.map(lambda r: r[0]).collect()
 
         # self.cat_log['addresses'] = np.unique(np.array(ip4_tcp_addresses)).tolist()
-        self.cao_bom = self.save_bom(self.cao_bom, 'cao')
-        cao_bom_df = self.create_bom_df(self.cao_bom)
-        with open(local_bom_write_path, 'w') as fp:
-            cao_bom_dict = self.bom_df_to_dict(cao_bom_df)
-            json.dump(cao_bom_dict, fp)
+        # self.cao_bom = self.save_bom(self.cao_bom, 'cao')
 
         if 's3a://' in s3_bom_write_path:
             s3_bom_write_path = s3_bom_write_path.replace('s3a://', 's3://')
@@ -275,9 +272,22 @@ class Processor(Plant):
         remote_bom_dir = s3_bom_write_path.rsplit('/', 1)[0] + '/'
         log_write_path_uri = remote_bom_dir + log_name
         self.aws_cli_cp(local_log_write_path, log_write_path_uri)
+        self.cao_bom['log_write_path_uri'] = log_write_path_uri
+        for k, v in self.cao_bom.items():
+            if 's3a://' in v:
+                self.cao_bom[k] = self.cao_bom[k].replace('s3a://', 's3://')
+        self.cao_bom = self.save_bom(self.cao_bom, 'cao')
 
         # self.write_rdd_as_parquet(output_cad_invoices_df, self.cao_bom['cai_invoice_uri'])
-        output_cad_invoices_df.write.parquet(self.cao_bom['cai_invoice_uri'].replace('s3://', 's3a://'), mode='overwrite')
+        output_cad_invoices_df.write.parquet(
+            self.cao_bom['cai_invoice_uri'].replace('s3://', 's3a://'), mode='overwrite'
+        )
+
+        with open(local_bom_write_path, 'w') as fp:
+            cao_bom_df = self.create_bom_df(self.cao_bom)
+            cao_bom_dict = self.bom_df_to_dict(cao_bom_df)
+            json.dump(cao_bom_dict, fp)
+
         return cao_bom_dict, output_cad_invoices_df
 
     def set_cao_bom(self, ip4_tcp_addresses, cai_bom, output_bom_path):
@@ -314,6 +324,7 @@ class Processor(Plant):
         self.write_df_as_parquet(catContext['cai'], cao_bom['cai_data_uri'])
         return catContext, cai_bom, cao_bom
 
+    # ToDO: rename output_bom_path to output_bom_uri
     @overload
     def transform(
             self,
@@ -324,6 +335,15 @@ class Processor(Plant):
             input_bom_update: isa(dict) = None,
             output_bom_update: isa(dict) = None
     ):
+        input_bom_path = input_bom_path.replace('s3a://', 's3://')
+        output_bom_path = output_bom_path.replace('s3a://', 's3://')
+        for k, v in input_bom_update.items():
+            if 's3://' in v:
+                input_bom_update[k] = input_bom_update[k].replace('s3://', 's3a://')
+        for k, v in output_bom_update.items():
+            if 's3://' in v:
+                output_bom_update[k] = output_bom_update[k].replace('s3://', 's3a://')
+
         self.cai_bom = self.get_input_bom_from_s3(input_bom_path)
         with open(cat_log_path) as cat_log_file:
             self.cat_log = json.load(cat_log_file)
@@ -366,5 +386,4 @@ class Processor(Plant):
             output_bom_bucket, output_bom_key = self.get_s3_bucket_key_pair(self.cao_bom['cad_bom_uri'])
             self.s3_client.upload_fileobj(f, Bucket=output_bom_bucket, Key=output_bom_key)
         f.close()
-
         return self

@@ -1,3 +1,5 @@
+### Install IPFS
+
 
 ### Installation:
 * https://towardsdatascience.com/how-to-build-spark-from-source-and-deploy-it-to-a-kubernetes-cluster-in-60-minutes-225829b744f9
@@ -64,5 +66,5 @@ sudo echo 'export CATS_HOME=/home/jjodesty/Projects/Research/cats' >> ~/.profile
 source ~/.profile
 ```
 
-Execute CATs:
+Install Terraform
 

@@ -1,4 +1,13 @@
-import subprocess
+import sys, subprocess
+
+
+def subproc_stout(cmd):
+    with open(f'/tmp/cat.log', 'wb') as f:
+        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        for line in iter(process.stdout.readline, b''):
+            sys.stdout.write(line.decode('utf-8'))
+            f.write(line)
+    f.close()
 
 
 def execute(cmd, env_vars=None):

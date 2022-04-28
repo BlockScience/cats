@@ -1,9 +1,5 @@
 import os, subprocess, boto3, json, time
-# ToDo: Move worker dirs to top level as (can be used as ENV VARS)
-# from pprint import pprint
 from operator import itemgetter
-from pprint import pprint
-
 from pycats.function import WORK_DIR, INPUT, IPFS_DIR, OUTPUT, INVOICE_DIR, INPUT_DIR, TRANSFORM_DIR
 
 s3_client = boto3.client(

@@ -1,16 +1,10 @@
 import time
 from pprint import pprint
-
+from apps.cat0 import catFactory
 from pycats.function.process.cat import Processor
-from pycats.structure.plant.spark import catSparkSession
 
-spark = catSparkSession
-sc = spark.sparkContext
 if __name__ == "__main__":
-    # ToDo: bom creation and mutation occur on driver
-    cat = Processor(
-        plantSession=spark
-    ).start_daemon()
+    cat: Processor = catFactory.init_processor().start_daemon()
     # local_bom_write_path = '/home/jjodesty/Projects/Research/cats/cadStore/bom.json',
     cai_bom, input_cad_invoice = cat.content_address_input(
         input_data_uri='s3://cats-public/input/df', # I
