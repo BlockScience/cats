@@ -68,3 +68,5 @@ source ~/.profile
 
 Install Terraform
 
+Execute CATs
+
