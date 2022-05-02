@@ -21,12 +21,12 @@ RUN /bin/bash -c 'source ~/.profile'
 
 RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
 RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
-RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian buster contrib" | tee /etc/apt/sources.list.d/virtualbox.list
+RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib" | tee /etc/apt/sources.list.d/virtualbox.list
 
-RUN cat /etc/os-release
-# RUN apt-get install -y linux-headers-generic dkms
-# RUN apt-get update
-# RUN apt-get install virtualbox-6.1
+# RUN cat /etc/os-release
+RUN apt-get install -y linux-headers-generic dkms
+RUN apt-get update
+RUN apt-get install virtualbox-6.1
 # # RUN apt search  linux-headers
 # RUN apt update
 # # RUN apt install linux-headers-$(uname -r) dkms
