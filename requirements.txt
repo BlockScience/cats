@@ -7,3 +7,5 @@ venv-pack==0.2.0
 multimethod==1.6
 pyspark==3.1.2
 boto3==1.18.59
+setuptools==57.4.0
+tabulate==0.8.9
