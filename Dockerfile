@@ -17,7 +17,8 @@ RUN /bin/bash -c 'source ~/.profile'
 # # RUN javac -version
 # # RUN java -version
 
-RUN apt install virtualbox virtualbox-ext-pack
+RUN dpkg -i virtualbox-6.1_6.1.16-140961~Ubuntu~eoan_amd64.deb
+# RUN apt install virtualbox virtualbox-ext-pack
 
 # RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
 # RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
