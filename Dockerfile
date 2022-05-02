@@ -41,6 +41,7 @@ RUN echo \
 RUN apt-get update
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 RUN apt-cache madison docker-ce
+RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.10.14~3-0~debian-bullseye containerd.io docker-compose-plugin
 
 # # Install Minikube:
 # RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
