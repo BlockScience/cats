@@ -1,3 +1,6 @@
+import sys
+
+sys.path.append("../..")
 from apps.cat0 import catFactory
 
 # catFactory.build_cats()

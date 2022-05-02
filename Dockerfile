@@ -74,4 +74,4 @@ RUN pip install -r requirements.txt
 RUN python setup.py sdist bdist_wheel
 RUN pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
 RUN venv-pack -p ./venv -o venv.tar.gz --force
-CMD ["../venv/bin/python", "./apps/cat0/execute.py"]
+CMD ["./venv/bin/python", "apps/cat0/execute.py"]
