@@ -22,7 +22,7 @@ RUN /bin/bash -c 'source ~/.profile'
 RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
 RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
 RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian buster contrib" | tee /etc/apt/sources.list.d/virtualbox.list
-RUN apt-get install linux-headers-generic
+RUN apt-get install -y linux-headers-generic
 RUN apt-get update
 RUN apt-get install virtualbox-6.1
 # # RUN apt search  linux-headers
