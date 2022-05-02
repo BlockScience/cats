@@ -28,7 +28,7 @@ RUN apt-get install -y scala
 RUN wget https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz && \
     tar -xvf spark-3.1.2-bin-hadoop3.2.tgz && \
     mv spark-3.1.2-bin-hadoop3.2 /usr/local/spark
-# ENV SPARK_HOME ~/Apps/spark
+ENV SPARK_HOME /usr/local/spark
 RUN echo 'export SPARK_HOME=/usr/local/spark' >> ~/.profile
 RUN echo 'export PATH=$SPARK_HOME/bin:$PATH' >> ~/.profile
 
