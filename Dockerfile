@@ -65,7 +65,7 @@ RUN git config --global url."https://${env_GIT_PAS}@github.com".insteadOf "ssh:/
 RUN /bin/bash -c "git clone https://${env_GIT_PAS}:x-oauth-basic@github.com/BlockScience/cats.git"
 # RUN /bin/bash -c "git clone https://${env_GIT_USR}:${env_GIT_PSWD}@github.com/BlockScience/username/cats.git"
 WORKDIR cats
-ENV CATS_HOME ./
+ENV CATS_HOME .
 # RUN echo 'export CATS_HOME=$(pwd)' >> ~/.profile
 RUN git pull origin deps
 RUN git checkout origin/deps
