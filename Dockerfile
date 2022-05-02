@@ -54,16 +54,21 @@ WORKDIR /
 # ARG GIT_PSWD
 # ENV env_GIT_USR=$GIT_USR
 # ENV env_GIT_PSWD=$GIT_PSWD
+RUN pip install --upgrade pip
 ARG GIT_PAS
 ENV env_GIT_PAS=$GIT_PAS
 RUN git config --global url."https://${env_GIT_PAS}@github.com".insteadOf "ssh://git@github.com"
 RUN /bin/bash -c "git clone https://${env_GIT_PAS}:x-oauth-basic@github.com/BlockScience/cats.git"
 # RUN /bin/bash -c "git clone https://${env_GIT_USR}:${env_GIT_PSWD}@github.com/BlockScience/username/cats.git"
 WORKDIR cats
-COPY deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
-COPY deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
 RUN echo 'export CATS_HOME=$(pwd)' >> ~/.profile
-RUN pip3 install -r requirements.txt
-RUN python3 setup.py sdist bdist_wheel
-RUN pip3 install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
-RUN venv-pack -o venv.tar.gz --force
+RUN git pull origin deps
+RUN git checkout origin/deps
+RUN mv deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
+RUN mv deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
+RUN python3 -m venv ./venv
+RUN . ./venv/bin/activate
+RUN ./venv/bin/pip3 install -r requirements.txt
+RUN ./venv/bin/python3 setup.py sdist bdist_wheel
+RUN ./venv/bin/pip3 install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
+RUN /bin/bash -c "venv-pack -o venv.tar.gz --force"
