@@ -27,7 +27,7 @@ RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bull
 RUN apt-get install -y linux-headers-generic dkms
 RUN apt-get update
 RUN apt-get install -y virtualbox
-RUN virtualbox --version
+RUN vboxmanage --version
 # # RUN apt search  linux-headers
 # RUN apt update
 # # RUN apt install linux-headers-$(uname -r) dkms
