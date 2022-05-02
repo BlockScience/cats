@@ -49,13 +49,15 @@ WORKDIR go-ipfs
 RUN bash install.sh
 RUN ipfs --version
 
+RUN . ~/.profile
+
 # Install CATS:
 WORKDIR /
 # ARG GIT_USR
 # ARG GIT_PSWD
 # ENV env_GIT_USR=$GIT_USR
 # ENV env_GIT_PSWD=$GIT_PSWD
-# RUN pip install --upgrade pip
+RUN pip install --upgrade pip
 ARG GIT_PAS
 ENV env_GIT_PAS=$GIT_PAS
 RUN git config --global url."https://${env_GIT_PAS}@github.com".insteadOf "ssh://git@github.com"
