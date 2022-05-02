@@ -66,9 +66,12 @@ RUN git pull origin deps
 RUN git checkout origin/deps
 RUN mv deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
 RUN mv deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
+# RUN pip3 install setuptools wheel virtualenv venv-pack
 RUN python3 -m venv ./venv
+# RUN virtualenv venv
 RUN . ./venv/bin/activate
-RUN ./venv/bin/pip3 install -r requirements.txt
-RUN ./venv/bin/python3 setup.py sdist bdist_wheel
-RUN ./venv/bin/pip3 install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
-RUN /bin/bash -c "venv-pack -o venv.tar.gz --force"
+RUN pip install -r requirements.txt
+RUN python setup.py sdist bdist_wheel
+RUN pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
+RUN venv-pack -p ./venv -o venv.tar.gz --force
+CMD ["../venv/bin/python", "./apps/cat0/execute.py"]
