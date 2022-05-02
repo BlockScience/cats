@@ -55,7 +55,7 @@ WORKDIR /
 # ARG GIT_PSWD
 # ENV env_GIT_USR=$GIT_USR
 # ENV env_GIT_PSWD=$GIT_PSWD
-RUN pip install --upgrade pip
+# RUN pip install --upgrade pip
 ARG GIT_PAS
 ENV env_GIT_PAS=$GIT_PAS
 RUN git config --global url."https://${env_GIT_PAS}@github.com".insteadOf "ssh://git@github.com"
@@ -72,6 +72,7 @@ RUN python3 -m venv ./venv
 # RUN virtualenv venv
 RUN pip install venv-pack
 RUN . ./venv/bin/activate
+RUN ./venv/bin/pip install --upgrade pip
 RUN ./venv/bin/pip install -r requirements.txt
 RUN ./venv/bin/pip install boto3
 RUN ./venv/bin/python setup.py sdist bdist_wheel
