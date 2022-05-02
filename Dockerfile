@@ -27,9 +27,10 @@ RUN apt-get install -y scala
 # Install Spark 3.1.2:
 RUN wget https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz && \
     tar -xvf spark-3.1.2-bin-hadoop3.2.tgz && \
-    mv spark-3.1.2-bin-hadoop3.2 /usr/local/spark && \
-    echo 'export SPARK_HOME=$HOME/Apps/spark' >> ~/.profile && \
-    echo 'export PATH=$SPARK_HOME/bin:$PATH' >> ~/.profile
+    mv spark-3.1.2-bin-hadoop3.2 /usr/local/spark
+# ENV SPARK_HOME ~/Apps/spark
+RUN echo 'export SPARK_HOME=/usr/local/spark' >> ~/.profile
+RUN echo 'export PATH=$SPARK_HOME/bin:$PATH' >> ~/.profile
 
 # Install Go 1.13.6:
 RUN wget https://dl.google.com/go/go1.13.6.linux-amd64.tar.gz
