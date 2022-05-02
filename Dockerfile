@@ -35,6 +35,11 @@ RUN cp minikube-linux-amd64 /usr/local/bin/minikube
 RUN chmod 755 /usr/local/bin/minikube
 RUN minikube version
 
+# Install Kubectl:
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+RUN chmod +x ./kubectl
+RUN mv ./kubectl /usr/local/bin/kubectl
+RUN kubectl version -o json
 
 # RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
 # RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
