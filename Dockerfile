@@ -19,9 +19,9 @@ RUN /bin/bash -c 'source ~/.profile'
 
 #Just Download a debian file:
 
-RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian buster contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
+RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian buster contrib" | tee /etc/apt/sources.list.d/virtualbox.list
 RUN apt update
 RUN apt install linux-headers-$(uname -r) dkms
 RUN apt install virtualbox-6.1
