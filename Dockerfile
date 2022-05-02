@@ -6,7 +6,7 @@ WORKDIR /
 
 RUN apt update
 RUN apt -y upgrade
-RUN apt install -y wget build-essential curl apt-transport-https
+RUN apt install -y wget build-essential curl apt-transport-https gnupg2
 
 
 RUN apt -y install openjdk-11-jre
@@ -19,8 +19,13 @@ RUN /bin/bash -c 'source ~/.profile'
 
 #Just Download a debian file:
 
-RUN wget https://download.virtualbox.org/virtualbox/6.1.16/virtualbox-6.1_6.1.16-140961~Ubuntu~eoan_amd64.deb
-RUN dpkg -i virtualbox-6.1_6.1.16-140961~Ubuntu~eoan_amd64.deb
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian buster contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+RUN apt update
+RUN apt install linux-headers-$(uname -r) dkms
+RUN apt install virtualbox-6.1
+# RUN dpkg -i virtualbox-6.1_6.1.16-140961~Ubuntu~eoan_amd64.deb
 # RUN apt install virtualbox virtualbox-ext-pack
 
 # RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
