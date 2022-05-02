@@ -69,11 +69,12 @@ RUN mv deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/en
 # RUN pip3 install setuptools wheel virtualenv venv-pack
 RUN python3 -m venv ./venv
 # RUN virtualenv venv
+RUN pip install venv-pack
 RUN . ./venv/bin/activate
-RUN pip install -r requirements.txt
-RUN pip install multimethod
-RUN python setup.py sdist bdist_wheel
-RUN pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
+RUN ./venv/bin/pip install -r requirements.txt
+# RUN ./venv/bin/pip install multimethod
+RUN ./venv/bin/python setup.py sdist bdist_wheel
+RUN ./venv/bin/pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
 RUN venv-pack -p ./venv -o venv.tar.gz --force
 
 ENV PYTHONPATH /cats
