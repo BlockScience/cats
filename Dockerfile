@@ -114,5 +114,7 @@ RUN ./venv/bin/python setup.py sdist bdist_wheel
 RUN ./venv/bin/pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
 RUN venv-pack -p ./venv -o venv.tar.gz --force
 
+RUN terraform -help
+
 ENV PYTHONPATH /cats
 CMD ["./venv/bin/python", "apps/cat0/execute.py"]
