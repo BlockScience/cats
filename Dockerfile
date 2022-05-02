@@ -73,6 +73,13 @@ RUN echo 'export GOPATH=$HOME/go' >> ~/.profile
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
 RUN unzip awscliv2.zip
 RUN ./aws/install
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ENV env_AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+ENV env_AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+RUN aws configure set aws_access_key_id env_AWS_ACCESS_KEY_ID
+RUN aws configure set aws_secret_access_key env_AWS_SECRET_ACCESS_KEY
+RUN aws configure set default.region us-east-2
 
 # Install IPFS:
 RUN wget https://dist.ipfs.io/go-ipfs/v0.12.2/go-ipfs_v0.12.2_linux-amd64.tar.gz
@@ -114,7 +121,7 @@ RUN ./venv/bin/python setup.py sdist bdist_wheel
 RUN ./venv/bin/pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
 RUN venv-pack -p ./venv -o venv.tar.gz --force
 
-RUN terraform -help
+
 
 ENV PYTHONPATH /cats
 CMD ["./venv/bin/python", "apps/cat0/execute.py"]
