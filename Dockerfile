@@ -24,7 +24,7 @@ RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key ad
 RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian buster contrib" | tee /etc/apt/sources.list.d/virtualbox.list
 # RUN apt search  linux-headers
 # RUN apt install linux-headers-$(uname -r) dkms
-RUN apt install linux-headers-5.10.0-13-amd64 dkms
+RUN apt install -y linux-headers-5.10.0-13-amd64 dkms
 # RUN apt install virtualbox-6.1
 # RUN dpkg -i virtualbox-6.1_6.1.16-140961~Ubuntu~eoan_amd64.deb
 # RUN apt install virtualbox virtualbox-ext-pack
