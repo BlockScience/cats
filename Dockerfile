@@ -27,7 +27,9 @@ RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bull
 RUN apt-get install -y linux-headers-generic dkms
 RUN apt-get update
 RUN apt-get install -y virtualbox
-RUN vboxmanage --version
+RUN wget https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+RUN vboxmanage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+# RUN vboxmanage --version 6.1.34
 # # RUN apt search  linux-headers
 # RUN apt update
 # # RUN apt install linux-headers-$(uname -r) dkms
