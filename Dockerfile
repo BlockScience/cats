@@ -35,6 +35,7 @@ RUN wget https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tg
 RUN wget https://dl.google.com/go/go1.13.6.linux-amd64.tar.gz
 RUN tar -zxvf go1.13.6.linux-amd64.tar.gz -C /usr/local
 RUN echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
+RUN echo 'export GOPATH=$HOME/go' >> ~/.profile
 
 # Install AWS CLI version 2:
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"

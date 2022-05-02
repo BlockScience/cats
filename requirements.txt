@@ -6,3 +6,4 @@ wheel==0.36.2
 venv-pack==0.2.0
 multimethod==1.6
 pyspark==3.1.2
+boto3==1.18.59
