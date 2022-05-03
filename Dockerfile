@@ -42,8 +42,7 @@ RUN apt-get update
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 RUN apt-cache madison docker-ce
 RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.10.14~3-0~debian-bullseye containerd.io docker-compose-plugin
-RUN docker run -v /var/run/docker.sock:/var/run/docker.sock \
-           -ti docker
+RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
 RUN docker run hello-world
 
 # # Install Minikube:
