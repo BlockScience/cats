@@ -1,7 +1,7 @@
 # FROM openjdk:11
 # FROM ubuntu:20.04
-# FROM python:3.9.7
-FROM whindes:alpine-minikube
+FROM python:3.9.7
+# FROM whindes:alpine-minikube
 # FROM docker:latest
 WORKDIR /
 
@@ -19,48 +19,50 @@ RUN /bin/bash -c 'source ~/.profile'
 # # RUN javac -version
 # # RUN java -version
 
-# # Install VirtualBox Hypervisor:
-# RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
-# RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
-# RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib" | tee /etc/apt/sources.list.d/virtualbox.list
-# # RUN cat /etc/os-release
-# RUN apt-get install -y linux-headers-generic dkms
-# RUN apt-get update
-# RUN apt-get install -y virtualbox
-# RUN wget https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
-# RUN yes | vboxmanage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
-# # RUN vboxmanage --version 6.1.34
+# Install VirtualBox Hypervisor:
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
+RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib" | tee /etc/apt/sources.list.d/virtualbox.list
+# RUN cat /etc/os-release
+RUN apt-get install -y linux-headers-generic dkms
+RUN apt-get update
+RUN apt-get install -y virtualbox
+RUN wget https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+RUN yes | vboxmanage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+# RUN vboxmanage --version 6.1.34
 
-# # Install Docker:
-# RUN apt-get update
-# RUN apt-get install \
-#     ca-certificates \
-#     lsb-release
-# RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-# RUN echo \
-#   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-#   $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-# RUN apt-get update
-# RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-# RUN apt-cache madison docker-ce
-# RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.10.14~3-0~debian-bullseye containerd.io docker-compose-plugin
-# # RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
-# # RUN apt install docker.io -y
-# # RUN groupadd docker
-# # RUN usermod -aG docker $USER
-# RUN service docker start
-# # RUN systemctl status docker
-# # RUN docker --version
-# # RUN service docker status
-# # RUN docker run hello-world
-# # RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti hello-world
-# # RUN docker run --privileged  -it -p 8000:8000  -v /var/run/docker.sock:/var/run/docker.sock hello-world
-#
-# # Install Minikube:
-# RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-# RUN cp minikube-linux-amd64 /usr/local/bin/minikube
-# RUN chmod 755 /usr/local/bin/minikube
-# # RUN minikube version
+# Install Docker:
+RUN apt-get update
+RUN apt-get install \
+    ca-certificates \
+    lsb-release
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN apt-get update
+RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+RUN apt-cache madison docker-ce
+RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.10.14~3-0~debian-bullseye containerd.io docker-compose-plugin
+# RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
+# RUN apt install docker.io -y
+# RUN groupadd docker
+RUN useradd -u 8877 cat
+USER cat
+# RUN usermod -aG docker cat
+RUN service docker start
+# RUN systemctl status docker
+# RUN docker --version
+# RUN service docker status
+# RUN docker run hello-world
+# RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti hello-world
+# RUN docker run --privileged  -it -p 8000:8000  -v /var/run/docker.sock:/var/run/docker.sock hello-world
+
+# Install Minikube:
+RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+RUN cp minikube-linux-amd64 /usr/local/bin/minikube
+RUN chmod 755 /usr/local/bin/minikube
+# RUN minikube version
 
 # Install Terraform:
 RUN apt-get update && apt-get install -y software-properties-common
