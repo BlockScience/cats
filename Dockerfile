@@ -34,7 +34,7 @@ RUN cp minikube-linux-amd64 /usr/local/bin/minikube
 RUN chmod 755 /usr/local/bin/minikube
 # RUN minikube version
 # RUN service docker start
-RUN minikube start
+# RUN minikube start
 
 # RUN apt -y install openjdk-11-jre
 # RUN apt -y install openjdk-11-jdk
