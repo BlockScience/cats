@@ -9,7 +9,7 @@ WORKDIR /
 RUN cat /etc/os-release
 
 RUN apk update
-RUN apk -y upgrade
+# RUN apk -y upgrade
 RUN apk install -y wget build-essential curl apt-transport-https gnupg2
 
 RUN apk -y install openjdk-11-jre
