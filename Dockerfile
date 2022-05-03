@@ -69,6 +69,11 @@ RUN ipfs --version
 
 RUN . ~/.profile
 
+RUN apt update
+RUN apt install -y wget build-essential curl apt-transport-https gnupg2 unzip software-properties-common
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt install -y python3.9 python3-pip python3.9-venv
+
 # Install CATS:
 WORKDIR /
 # ARG GIT_USR
