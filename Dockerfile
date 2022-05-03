@@ -48,7 +48,7 @@ RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-
 RUN cp minikube-linux-amd64 /usr/local/bin/minikube
 RUN chmod 755 /usr/local/bin/minikube
 # RUN minikube version
-RUN minikube start
+# RUN minikube start
 
 
 # RUN apt -y install openjdk-11-jre
