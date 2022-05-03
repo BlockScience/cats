@@ -6,6 +6,8 @@ FROM docker:latest
 # RUN adduser --system --group --no-create-home cat
 WORKDIR /
 
+RUN cat /etc/os-release
+
 RUN apt update
 RUN apt -y upgrade
 RUN apt install -y wget build-essential curl apt-transport-https gnupg2
