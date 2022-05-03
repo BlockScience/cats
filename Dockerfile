@@ -89,9 +89,9 @@ RUN git checkout origin/deps
 RUN mv deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
 RUN mv deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
 # RUN pip3 install setuptools wheel virtualenv venv-pack
-RUN python -m venv ./venv
+RUN python3 -m venv ./venv
 # RUN virtualenv venv
-RUN pip install venv-pack
+RUN pip3 install venv-pack
 RUN . ./venv/bin/activate
 RUN ./venv/bin/pip install --upgrade pip
 RUN ./venv/bin/pip install -r requirements.txt
