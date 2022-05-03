@@ -1,5 +1,7 @@
 import functools, json, operator
 from itertools import product
+from pathlib import Path
+
 from multimethod import isa, overload
 
 from pycats import CATS_HOME
@@ -160,6 +162,8 @@ class Processor(Plant):
         self.partitions, input_data_json_df_uri, input_data_json_df = self.prep_partitioner(
             self.input_data_uri, self.cai_partitions
         )
+        self.local_bom_write_path = local_bom_write_path
+        Path(self.local_bom_write_path).touch()
 
         # p = Pool(self.cai_partitions)
         # content_addressed_parts = p.map(

@@ -98,11 +98,16 @@ class Factory(Executor, S3client):
         self.TRANSFORM_SOURCE = TRANSFORM_SOURCE
         self.TRANSFORM_DEST = TRANSFORM_DEST
 
-    def init_processor(self):
-        self.partial_bom, self.partial_log = self.content_address_terraform()
+    def init_processor(self, ipfs_daemon: bool = False):
+
         self.processor = Processor(
-            self.plantSession(), self.DRIVER_IPFS_DIR, self.partial_bom, self.partial_log
+            self.plantSession(), self.DRIVER_IPFS_DIR
         )
+        if ipfs_daemon is True:
+            self.processor.start_daemon()
+        self.partial_bom, self.partial_log = self.content_address_terraform()
+        self.processor.partial_bom, self.processor.partial_bom = self.partial_bom, self.partial_log
+
         return self.processor
 
     def content_address_terraform(self):
