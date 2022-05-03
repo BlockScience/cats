@@ -61,10 +61,10 @@ RUN chmod 755 /usr/local/bin/minikube
 # RUN minikube version
 
 # Install Terraform:
-RUN apt-get update && sudo apt-get install -y software-properties-common
+RUN apt-get update && apt-get install -y software-properties-common
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
 RUN apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-RUN apt-get update && sudo apt-get install terraform
+RUN apt-get update && apt-get install terraform
 
 # Install Kubectl:
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
