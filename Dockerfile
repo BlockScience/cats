@@ -12,16 +12,7 @@ RUN apt update
 RUN apt -y upgrade
 RUN apt install -y wget build-essential curl apt-transport-https gnupg2
 
-RUN apt-get update -qq && apt-get install -qqy \
-    ca-certificates \
-    lxc \
-    iptables
-
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
-
-RUN apt-get update
-RUN apt-get -y install docker-ce
+RUN curl -fsSL https://get.docker.com | sh
 
 # RUN apt -y install openjdk-11-jre
 # RUN apt -y install openjdk-11-jdk
