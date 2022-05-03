@@ -15,6 +15,25 @@ RUN apt install -y wget build-essential curl apt-transport-https gnupg2
 RUN apt install docker.io -y
 RUN docker --version
 
+# Install VirtualBox Hypervisor:
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
+RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib" | tee /etc/apt/sources.list.d/virtualbox.list
+# RUN cat /etc/os-release
+RUN apt-get install -y linux-headers-generic dkms
+RUN apt-get update
+RUN apt-get install -y virtualbox
+RUN wget https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+RUN yes | vboxmanage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+# RUN vboxmanage --version 6.1.34
+
+# Install Minikube:
+RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+RUN cp minikube-linux-amd64 /usr/local/bin/minikube
+RUN chmod 755 /usr/local/bin/minikube
+# RUN minikube version
+RUN minikube start
+
 # RUN apt -y install openjdk-11-jre
 # RUN apt -y install openjdk-11-jdk
 # RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.profile
