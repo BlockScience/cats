@@ -44,7 +44,7 @@ RUN apt-cache madison docker-ce
 RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.10.14~3-0~debian-bullseye containerd.io docker-compose-plugin
 # RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
 # RUN apt install docker.io -y
-RUN groupadd docker
+# RUN groupadd docker
 RUN usermod -aG docker $USER
 RUN service docker start
 # RUN docker --version
