@@ -3,6 +3,7 @@
 FROM python:3.9.7
 # FROM whindes:alpine-minikube
 # FROM docker:latest
+RUN adduser --system --group --no-create-home cat
 WORKDIR /
 
 
@@ -49,8 +50,8 @@ RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.
 # RUN groupadd docker
 # RUN usermod -aG docker cat
 RUN service docker start
-RUN useradd -u 8877 cat
-USER cat
+# RUN useradd -u 8877 cat
+# USER cat
 # RUN systemctl status docker
 # RUN docker --version
 # RUN service docker status
