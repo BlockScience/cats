@@ -14,6 +14,13 @@ RUN apt install -y wget build-essential curl apt-transport-https gnupg2
 
 RUN curl -fsSL https://get.docker.com | sh
 
+# Install Minikube:
+RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+RUN cp minikube-linux-amd64 /usr/local/bin/minikube
+RUN chmod 755 /usr/local/bin/minikube
+# RUN minikube version
+RUN minikube start
+
 # RUN apt -y install openjdk-11-jre
 # RUN apt -y install openjdk-11-jdk
 # RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.profile
