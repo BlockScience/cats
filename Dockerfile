@@ -152,4 +152,5 @@ RUN ./venv/bin/pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
 RUN venv-pack -p ./venv -o venv.tar.gz --force
 
 ENV PYTHONPATH /cats
+USER cat
 CMD ["./venv/bin/python", "apps/cat0/execute.py"]
