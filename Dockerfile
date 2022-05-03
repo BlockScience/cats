@@ -1,5 +1,7 @@
 # FROM openjdk:11
 FROM ubuntu:20.04
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # FROM python:3.9.7
 # FROM whindes:alpine-minikube
 # FROM docker:latest
@@ -12,8 +14,7 @@ WORKDIR /
 RUN apt update
 RUN apt -y upgrade
 RUN apt install -y wget build-essential curl apt-transport-https gnupg2
-ENV TZ=America/New_York
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 
 RUN apt install docker.io -y
 RUN docker --version
@@ -37,7 +38,7 @@ RUN cp minikube-linux-amd64 /usr/local/bin/minikube
 RUN chmod 755 /usr/local/bin/minikube
 # RUN minikube version
 # RUN service docker start
-RUN minikube start
+RUN minikube start driver=docker
 
 # RUN apt -y install openjdk-11-jre
 # RUN apt -y install openjdk-11-jdk
