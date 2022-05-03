@@ -13,6 +13,7 @@ RUN apt -y upgrade
 RUN apt install -y wget build-essential curl apt-transport-https gnupg2
 
 RUN curl -fsSL https://get.docker.com | sh
+RUN chmod 777 /var/run/docker.sock
 
 # Install Minikube:
 RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
