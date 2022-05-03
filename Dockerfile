@@ -1,8 +1,8 @@
 # FROM openjdk:11
 # FROM ubuntu:20.04
-# FROM python:3.9.7
+FROM python:3.9.7
 # FROM whindes:alpine-minikube
-FROM docker:latest
+# FROM docker:latest
 # RUN adduser --system --group --no-create-home cat
 WORKDIR /
 
