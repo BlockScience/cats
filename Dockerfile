@@ -14,6 +14,7 @@ RUN apt install -y wget build-essential curl apt-transport-https gnupg2
 
 RUN apt install docker.io -y
 RUN docker --version
+RUN nohup dockerd >/dev/null 2>&1 & sleep 10
 
 # Install VirtualBox Hypervisor:
 RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
@@ -32,7 +33,7 @@ RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-
 RUN cp minikube-linux-amd64 /usr/local/bin/minikube
 RUN chmod 755 /usr/local/bin/minikube
 # RUN minikube version
-RUN service docker start
+# RUN service docker start
 RUN minikube start
 
 # RUN apt -y install openjdk-11-jre
