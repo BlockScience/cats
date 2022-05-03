@@ -45,8 +45,9 @@ RUN apt-get update
 # RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
 RUN apt install docker.io -y
 # RUN docker --version
+RUN docker run hello-world
 # RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti hello-world
-RUN docker run --privileged  -it -p 8000:8000  -v /var/run/docker.sock:/var/run/docker.sock hello-world
+# RUN docker run --privileged  -it -p 8000:8000  -v /var/run/docker.sock:/var/run/docker.sock hello-world
 
 # Install Minikube:
 RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
