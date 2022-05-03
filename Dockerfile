@@ -17,17 +17,17 @@ RUN /bin/bash -c 'source ~/.profile'
 # # RUN javac -version
 # # RUN java -version
 
-# Install VirtualBox Hypervisor:
-RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
-RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
-RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib" | tee /etc/apt/sources.list.d/virtualbox.list
-# RUN cat /etc/os-release
-RUN apt-get install -y linux-headers-generic dkms
-RUN apt-get update
-RUN apt-get install -y virtualbox
-RUN wget https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
-RUN yes | vboxmanage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
-# RUN vboxmanage --version 6.1.34
+# # Install VirtualBox Hypervisor:
+# RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+# RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
+# RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib" | tee /etc/apt/sources.list.d/virtualbox.list
+# # RUN cat /etc/os-release
+# RUN apt-get install -y linux-headers-generic dkms
+# RUN apt-get update
+# RUN apt-get install -y virtualbox
+# RUN wget https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+# RUN yes | vboxmanage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+# # RUN vboxmanage --version 6.1.34
 
 # Install Docker:
 RUN apt-get update
@@ -46,8 +46,8 @@ RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.
 # RUN apt install docker.io -y
 # RUN groupadd docker
 # RUN usermod -aG docker $USER
-# RUN service docker start
-RUn systemctl status docker
+RUN service docker start
+# RUN systemctl status docker
 # RUN docker --version
 # RUN service docker status
 # RUN docker run hello-world
