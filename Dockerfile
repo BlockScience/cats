@@ -7,12 +7,13 @@ FROM ubuntu:20.04
 WORKDIR /
 
 # RUN cat /etc/os-release
-ENV TZ=America/New_York
-RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
+
 
 RUN apt update
 RUN apt -y upgrade
-RUN apt install -y wget build-essential curl apt-transport-https gnupg2
+RUN apt install -y wget build-essential curl apt-transport-https gnupg2 tzdata
+ENV TZ=America/New_York
+RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
 RUN apt install docker.io -y
 RUN docker --version
