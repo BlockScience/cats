@@ -1,25 +1,28 @@
 # FROM openjdk:11
 # FROM ubuntu:20.04
-# FROM python:3.9.7
+FROM python:3.9.7
 # FROM whindes:alpine-minikube
-FROM docker:latest
+# FROM docker:latest
 # RUN adduser --system --group --no-create-home cat
 WORKDIR /
 
 RUN cat /etc/os-release
 
-RUN apk update
-# RUN apk -y upgrade
-RUN apk install -y wget build-essential curl apt-transport-https gnupg2
+RUN apt update
+RUN apt -y upgrade
+RUN apt install -y wget build-essential curl apt-transport-https gnupg2
 
-RUN apk -y install openjdk-11-jre
-RUN apk -y install openjdk-11-jdk
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.profile
-RUN /bin/bash -c 'source ~/.profile'
-# # RUN echo $JAVA_HOME
-# # RUN javac -version
-# # RUN java -version
+RUN apt install docker.io -y
+RUN docker --version
 
+# RUN apt -y install openjdk-11-jre
+# RUN apt -y install openjdk-11-jdk
+# RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.profile
+# RUN /bin/bash -c 'source ~/.profile'
+# # # RUN echo $JAVA_HOME
+# # # RUN javac -version
+# # # RUN java -version
+#
 # RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
 # RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
 # RUN curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
