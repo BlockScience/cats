@@ -26,8 +26,8 @@ RUN echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 RUN apt-get update
-RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-RUN apt-cache madison docker-ce
+# RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+# RUN apt-cache madison docker-ce
 # RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.10.14~3-0~debian-bullseye containerd.io docker-compose-plugin
 # RUN service docker start
 
