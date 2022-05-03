@@ -16,7 +16,7 @@ RUN apt update
 RUN apt -y upgrade
 RUN apt install -y wget build-essential curl apt-transport-https gnupg2 unzip software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
-RUN apt install -y python3.9 python3-pip
+RUN apt install -y python3.9 python3-pip python3.9-venv
 
 RUN apt -y install openjdk-11-jre
 RUN apt -y install openjdk-11-jdk
