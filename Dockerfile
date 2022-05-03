@@ -6,7 +6,9 @@ FROM ubuntu:20.04
 # RUN adduser --system --group --no-create-home cat
 WORKDIR /
 
-RUN cat /etc/os-release
+# RUN cat /etc/os-release
+ENV TZ=America/New_York
+RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
 RUN apt update
 RUN apt -y upgrade
