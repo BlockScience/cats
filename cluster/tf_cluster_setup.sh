@@ -15,7 +15,7 @@
 
 #minikube delete
 #minikube start --driver=docker --cpus=10 --memory='20g'
-minikube start --driver=docker --cpus=5 --memory='10g'
+minikube start --driver=docker --cpus=1 --memory='1g' --driver=none
 
 terraform init -upgrade \
   -var AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
