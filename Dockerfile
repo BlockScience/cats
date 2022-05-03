@@ -14,7 +14,7 @@ WORKDIR /
 
 RUN apt update
 RUN apt -y upgrade
-RUN apt install -y wget build-essential curl apt-transport-https gnupg2
+RUN apt install -y wget build-essential curl apt-transport-https gnupg2 unzip
 
 RUN apt -y install openjdk-11-jre
 RUN apt -y install openjdk-11-jdk
