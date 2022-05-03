@@ -47,10 +47,10 @@ RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.
 # RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
 # RUN apt install docker.io -y
 # RUN groupadd docker
-RUN useradd -u 8877 cat
-USER cat
 # RUN usermod -aG docker cat
 RUN service docker start
+RUN useradd -u 8877 cat
+USER cat
 # RUN systemctl status docker
 # RUN docker --version
 # RUN service docker status
