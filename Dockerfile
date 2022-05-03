@@ -39,11 +39,11 @@ RUN echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 RUN apt-get update
-# RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-# RUN apt-cache madison docker-ce
-# RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.10.14~3-0~debian-bullseye containerd.io docker-compose-plugin
+RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+RUN apt-cache madison docker-ce
+RUN apt-get install docker-ce=5:20.10.14~3-0~debian-bullseye docker-ce-cli=5:20.10.14~3-0~debian-bullseye containerd.io docker-compose-plugin
 # RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
-RUN apt install docker.io -y
+# RUN apt install docker.io -y
 # RUN docker --version
 RUN service docker status
 # RUN docker run hello-world
