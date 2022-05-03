@@ -1,48 +1,25 @@
 # FROM openjdk:11
 # FROM ubuntu:20.04
-FROM python:3.9.7
+# FROM python:3.9.7
 # FROM whindes:alpine-minikube
-# FROM docker:latest
+FROM docker:latest
 # RUN adduser --system --group --no-create-home cat
 WORKDIR /
 
 RUN cat /etc/os-release
 
-RUN apt update
-RUN apt -y upgrade
-RUN apt install -y wget build-essential curl apt-transport-https gnupg2
+RUN apk update
+RUN apk -y upgrade
+RUN apk install -y wget build-essential curl apt-transport-https gnupg2
 
-RUN curl -fsSL https://get.docker.com | sh
-# RUN chmod 777 /var/run/docker.sock
+RUN apk -y install openjdk-11-jre
+RUN apk -y install openjdk-11-jdk
+RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.profile
+RUN /bin/bash -c 'source ~/.profile'
+# # RUN echo $JAVA_HOME
+# # RUN javac -version
+# # RUN java -version
 
-# Install VirtualBox Hypervisor:
-RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
-RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
-RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib" | tee /etc/apt/sources.list.d/virtualbox.list
-# RUN cat /etc/os-release
-RUN apt-get install -y linux-headers-generic dkms
-RUN apt-get update
-RUN apt-get install -y virtualbox
-RUN wget https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
-RUN yes | vboxmanage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
-# RUN vboxmanage --version 6.1.34
-
-# Install Minikube:
-RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-RUN cp minikube-linux-amd64 /usr/local/bin/minikube
-RUN chmod 755 /usr/local/bin/minikube
-# RUN minikube version
-RUN service docker start
-RUN minikube start
-
-# RUN apt -y install openjdk-11-jre
-# RUN apt -y install openjdk-11-jdk
-# RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.profile
-# RUN /bin/bash -c 'source ~/.profile'
-# # # RUN echo $JAVA_HOME
-# # # RUN javac -version
-# # # RUN java -version
-#
 # RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
 # RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
 # RUN curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
