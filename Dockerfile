@@ -73,7 +73,7 @@ RUN . ~/.profile
 RUN apt update
 RUN apt install -y software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
-RUN apt install -y python3.9 python3-pip python3.9-venv
+RUN apt install -y python3.9 python3-pip python3-venv
 
 # Install CATS:
 WORKDIR /
