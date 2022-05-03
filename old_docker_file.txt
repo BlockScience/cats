@@ -155,3 +155,4 @@ RUN minikube start
 # ENV PYTHONPATH /cats
 # # USER cat
 # CMD ["./venv/bin/python", "apps/cat0/execute.py"]
+# docker run -v /var/run/docker.sock:/var/run/docker.sock cats
