@@ -13,7 +13,19 @@ RUN apt -y upgrade
 RUN apt install -y wget build-essential curl apt-transport-https gnupg2
 
 RUN curl -fsSL https://get.docker.com | sh
-RUN chmod 777 /var/run/docker.sock
+# RUN chmod 777 /var/run/docker.sock
+
+# Install VirtualBox Hypervisor:
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
+RUN echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib" | tee /etc/apt/sources.list.d/virtualbox.list
+# RUN cat /etc/os-release
+RUN apt-get install -y linux-headers-generic dkms
+RUN apt-get update
+RUN apt-get install -y virtualbox
+RUN wget https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+RUN yes | vboxmanage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+# RUN vboxmanage --version 6.1.34
 
 # Install Minikube:
 RUN wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
