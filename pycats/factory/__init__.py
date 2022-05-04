@@ -1,22 +1,26 @@
 import json
 import os
 import subprocess
+from pprint import pprint
 
 from pycats import CATS_HOME
 from pycats.function.process.cat import Processor
 from pycats.utils import subproc_stout, build_software
 from pycats.function.infrafunction.plant.spark import spark_submit
 from pycats.function.infrafunction.client.s3 import Client as S3client
+from pycats.function.infrafunction.client.ipfs import IPFS as IPFSclient
 
 
-class Executor:
+class Executor(IPFSclient):
     def __init__(self,
         terraform_cmd: str = None,
         SPARK_HOME: str = None,
         CAT_APP_HOME: str = None,
         TRANSFORM_SOURCE: str = None,
-        TRANSFORM_DEST: str = None
+        TRANSFORM_DEST: str = None,
+        DRIVER_IPFS_DIR: str = f'{CATS_HOME}/cadStore'
     ):
+        IPFSclient.__init__(self, DRIVER_IPFS_DIR)
         self.terraform_cmd = terraform_cmd
         self.SPARK_HOME = SPARK_HOME
         self.CAT_APP_HOME = CAT_APP_HOME
@@ -99,14 +103,12 @@ class Factory(Executor, S3client):
         self.TRANSFORM_DEST = TRANSFORM_DEST
 
     def init_processor(self, ipfs_daemon: bool = False):
-
-        self.processor = Processor(
-            self.plantSession(), self.DRIVER_IPFS_DIR
-        )
         if ipfs_daemon is True:
-            self.processor.start_daemon()
+            self.start_daemon()
         self.partial_bom, self.partial_log = self.content_address_terraform()
-        self.processor.partial_bom, self.processor.partial_bom = self.partial_bom, self.partial_log
+        self.processor = Processor(
+            self.plantSession(), self.DRIVER_IPFS_DIR, self.partial_bom, self.partial_log
+        )
 
         return self.processor
 
