@@ -22,7 +22,8 @@ SparkSessionDict = {
     'spark.hadoop.fs.s3a.impl': 'org.apache.hadoop.fs.s3a.S3AFileSystem',
     'spark.hadoop.fs.s3a.fast.upload': 'true',
     'spark.driver.extraJavaOptions': "'-Divy.cache.dir=/tmp -Divy.home=/tmp'",
-    'spark.pyspark.driver.python': f'{CATS_HOME}/venv/bin/python'
+    'spark.pyspark.driver.python': f'{CATS_HOME}/venv/bin/python',
+    'log4j2.formatMsgNoLookups': 'true'
 }
 
 

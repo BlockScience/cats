@@ -45,9 +45,10 @@ class Spark(object): # CAD invoice of partition transactions
     @overload
     def read(self, invoice_uri: isa(str)):
         try:
-            invoice_rdd = self.sc.textFile(invoice_uri).map(self.cai_ingest_func)
-        except:
             invoice_rdd = self.spark.read.json(invoice_uri).rdd.map(lambda r: json.dumps(r.asDict())).map(self.cai_ingest_func)
+        except:
+            invoice_rdd = self.sc.textFile(invoice_uri).map(self.cai_ingest_func)
+
         # exit()
         # self.catContext['cai_invoice_uri'] = invoice_uri
         return self.read(invoice_rdd)
