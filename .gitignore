@@ -20,3 +20,4 @@ terraform.tfstate.backup
 tf.log
 cluster/test.sh
 apps/cat0/test.py
+notes.md
