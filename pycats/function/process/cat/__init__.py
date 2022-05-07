@@ -147,6 +147,16 @@ class Processor(Plant):
         output_data_uri = output_data_uri.replace('s3://', 's3a://')
         bom_write_path_uri = bom_write_path_uri.replace('s3a://', 's3://')
         transformer_uri = transformer_uri.replace('s3://', 's3a://')
+        # aws s3 sync s3://cats-public/input/df ./cats-public/input/df
+        # aws s3 sync s3://cats-public/cad-store/cad/cai/invoices ./cats-public/cad-store/cad/cai/invoices
+        # aws s3 sync s3://cats-public/cad-store/cad/cai/bom ./cats-public/cad-store/cad/cai/bom
+        # aws s3 sync s3://cats-public/cad-store/cad/cao/data ./cats-public/cad-store/cad/cao/data
+        # aws s3 sync s3://cats-public/cad-store/cad/transformation ./cats-public/cad-store/cad/transformation
+        # aws s3 sync s3://cats-public/cad-store/cad/cao/bom ./cats-public/cad-store/cad/cao/bom
+        # aws s3 sync s3://cats-public/cad-store/cad/cao/data ./cats-public/cad-store/cad/cao/data
+        # aws s3 sync s3://cats-public/cad-store/cad/cai2/data ./cats-public/cad-store/cad/cai2/data
+        # aws s3 sync s3://cats-public/cad-store/cad/cai2/invoices ./cats-public/cad-store/cad/cai2/invoices
+        # aws s3 sync s3://cats-public/cad-store/cad/transformation ./cats-public/cad-store/cad/transformation
 
         self.cai_bom = self.partial_bom
         self.cat_log = self.partial_log
