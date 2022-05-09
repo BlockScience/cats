@@ -4,7 +4,7 @@ from apps.cat0 import catFactory
 from pycats.function.process.cat import Processor
 
 if __name__ == "__main__":
-    cat: Processor = catFactory.init_processor(ipfs_daemon=True) #.start_daemon()
+    cat: Processor = catFactory.init_processor(ipfs_daemon=True)
     local_bom_write_path = '/home/jjodesty/Projects/Research/cats/cadStore/bom.json',
     cai_bom, input_cad_invoice = cat.content_address_input(
         input_data_uri='s3://cats-public/input/df', # I
@@ -15,15 +15,15 @@ if __name__ == "__main__":
         cai_partitions=1
     )
 
-    # pprint(input_cad_invoice.collect())
+    print('cai invoice')
+    df = cat.plantSession.read.json(cat.cai_bom['cai_invoice_uri'].replace('s3://', 's3a://'))
+    df.show()
+    pprint(cat.cai_bom)
     print()
-    print(input_cad_invoice.show(truncate=False))
+    print(cat.cat_log)
     print()
-    pprint(cai_bom)
-    print()
-    # print(cat.cat_log)
+    # print()
     # pprint(cat.catContext.cai.show())
-    # pprint(cat.catContext.cao.show())
 
     while True:
         time.sleep(1)

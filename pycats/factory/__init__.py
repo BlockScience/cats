@@ -6,7 +6,7 @@ from pprint import pprint
 from pycats import CATS_HOME
 from pycats.function.process.cat import Processor
 from pycats.utils import subproc_stout, build_software
-from pycats.function.infrafunction.plant.spark import spark_submit
+from pycats.function.infrafunction.plant.spark import spark_submit, CATSession
 from pycats.function.infrafunction.client.s3 import Client as S3client
 from pycats.function.infrafunction.client.ipfs import IPFS as IPFSclient
 
@@ -64,9 +64,9 @@ class Executor(IPFSclient):
 # ToDO: add local transformer path as configuration
 # ToDO: move & rename input_bom_path to bom_uri
 # ToDo: bom creation and mutation occur on driver
-class Factory(Executor, S3client):
+class Factory(Executor, S3client, CATSession):
     def __init__(self,
-        plantSession,
+        plantConfig,
         terraform_cmd: str,
         terraform_file: str,
         DRIVER_IPFS_DIR: str = f'{CATS_HOME}/cadStore',
@@ -94,7 +94,8 @@ class Factory(Executor, S3client):
         self.partial_bom = {}
         self.partial_bom['terraform_file'] = terraform_file
 
-        self.plantSession = plantSession
+        self.plantConfig = plantConfig
+        CATSession.__init__(self, self.plantConfig)
         self.DRIVER_IPFS_DIR = DRIVER_IPFS_DIR
         self.terraform_cmd = terraform_cmd
         self.SPARK_HOME = SPARK_HOME
@@ -107,9 +108,8 @@ class Factory(Executor, S3client):
             self.start_daemon()
         self.partial_bom, self.partial_log = self.content_address_terraform()
         self.processor = Processor(
-            self.plantSession(), self.DRIVER_IPFS_DIR, self.partial_bom, self.partial_log
+            self.lazy_SparkSession(), self.DRIVER_IPFS_DIR, self.partial_bom, self.partial_log
         )
-
         return self.processor
 
     def content_address_terraform(self):

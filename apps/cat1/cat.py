@@ -19,9 +19,11 @@ if __name__ == "__main__":
             'cai_invoice_uri': 's3://cats-public/cad-store/cad/cai2/invoices',
             'transform_sourcefile': '/home/jjodesty/Projects/Research/cats/apps/cat1/transform2b.py',
             'transformer_uri': 's3://cats-public/cad-store/cad/transformation/transform2b.py'
-            # 'transform_filename': 'transform2b.py'
         }
     )
+
+    df = cat.plantSession.read.parquet(cat.cai_bom['cao_data_uri'].replace('s3://', 's3a://'))
+    df.show()
     print()
     pprint(cat.cai_bom)
     print()
@@ -30,9 +32,6 @@ if __name__ == "__main__":
     pprint(cat.catContext)
     print()
     pprint(cat.cat_log)
-    # print()
-    # cao = cat.catContext['cao']
-    # pprint(cao.show())
 
     while True:
         time.sleep(1)

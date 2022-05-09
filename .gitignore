@@ -7,7 +7,6 @@ spark-warehouse
 df.csv
 venv
 venv.tar.gz
-cadStore
 __pycache__
 */__pycache__
 .terraform.lock.hcl
@@ -21,3 +20,4 @@ tf.log
 cluster/test.sh
 apps/cat0/test.py
 notes.md
+deps

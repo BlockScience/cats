@@ -1,10 +1,11 @@
 import os
+from pyspark.sql import SparkSession
+from pycats import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 from pycats.utils import execute
 from pycats.structure.plant.spark import CATS_HOME
-from pyspark.sql import SparkSession
 
 
-SparkSessionDict = {
+SparkSessionConfig = {
     'spark.master': 'k8s://https://192.168.49.2:8443',
     'spark.app.name': 'sparkCAT',
     'spark.executor.instances': '4',
@@ -16,8 +17,8 @@ SparkSessionDict = {
     'spark.kubernetes.executor.secrets.aws-access': '/etc/secrets',
     'spark.kubernetes.executor.secretKeyRef.AWS_ACCESS_KEY_ID': 'aws-access:AWS_ACCESS_KEY_ID',
     'spark.kubernetes.executor.secretKeyRef.AWS_SECRET_ACCESS_KEY': 'aws-access:AWS_SECRET_ACCESS_KEY',
-    'spark.hadoop.fs.s3a.access.key': os.getenv('AWS_ACCESS_KEY_ID'),
-    'spark.hadoop.fs.s3a.secret.key': os.getenv('AWS_SECRET_ACCESS_KEY'),
+    'spark.hadoop.fs.s3a.access.key': AWS_ACCESS_KEY_ID,
+    'spark.hadoop.fs.s3a.secret.key': AWS_SECRET_ACCESS_KEY,
     'spark.kubernetes.file.upload.path': 's3a://cats-storage/input/',
     'spark.hadoop.fs.s3a.impl': 'org.apache.hadoop.fs.s3a.S3AFileSystem',
     'spark.hadoop.fs.s3a.fast.upload': 'true',
@@ -26,13 +27,22 @@ SparkSessionDict = {
     'log4j2.formatMsgNoLookups': 'true'
 }
 
+class CATSession():
+    def __init__(self,
+        plant_session_config: dict = SparkSessionConfig,
+    ):
+        self.plant_session_config = plant_session_config
+        self.plantSession = None
 
-def lazy_SparkSession(config_dict: dict = SparkSessionDict):
-    SparkSessionBuilder: SparkSession = SparkSession \
-        .builder
-    for k, v in config_dict.items():
-        catSparkSession = SparkSessionBuilder.config(k, v)
-    return catSparkSession.getOrCreate()
+    def lazy_SparkSession(self, config_dict: dict = None):
+        if config_dict is None:
+            config_dict = self.plant_session_config
+        SparkSessionBuilder: SparkSession = SparkSession \
+            .builder
+        for k, v in config_dict.items():
+            catSparkSession = SparkSessionBuilder.config(k, v)
+        self.plantSession = catSparkSession.getOrCreate()
+        return self.plantSession
 
 
 # factory method

@@ -222,8 +222,8 @@ class Processor(Plant):
             cai_bom_dict = self.bom_df_to_dict(cai_bom_df)
             json.dump(cai_bom_dict, fp)
 
-        # return cai_bom_dict, input_cad_invoice
-        return cai_bom_dict, input_cad_invoices_df
+        self.cai_bom = cai_bom_dict
+        return self.cai_bom, input_cad_invoices_df
 
     def content_address_output(self, cao_bom: isa(dict), local_bom_write_path: isa(str), cao_partitions: isa(int)):
         self.cai_data_uri = cao_bom['cai_data_uri']  # I
@@ -292,7 +292,8 @@ class Processor(Plant):
             cao_bom_dict = self.bom_df_to_dict(cao_bom_df)
             json.dump(cao_bom_dict, fp)
 
-        return cao_bom_dict, output_cad_invoices_df
+        self.cao_bom = cao_bom_dict
+        return self.cao_bom, output_cad_invoices_df
 
     def set_cao_bom(self, ip4_tcp_addresses, cai_bom, output_bom_path):
         cao_bom = {}

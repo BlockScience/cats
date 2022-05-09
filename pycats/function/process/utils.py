@@ -1,22 +1,24 @@
 import os, subprocess, boto3, json, time
 from operator import itemgetter
+
+from pycats import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 from pycats.function import WORK_DIR, INPUT, IPFS_DIR, OUTPUT, INVOICE_DIR, INPUT_DIR, TRANSFORM_DIR
 
 s3_client = boto3.client(
     's3',
     region_name='us-east-2',
-    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
 )
 s3_resource = boto3.resource(
     's3',
-    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
 )
 session = boto3.Session(
     region_name='us-east-2',
-    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
 )
 
 

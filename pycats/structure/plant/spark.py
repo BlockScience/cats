@@ -1,12 +1,12 @@
 import os
 from pyspark import RDD
 from pyspark.sql import SparkSession, DataFrame
+
+from pycats import CATS_HOME
 from pycats.function.process.cad import Spark as sparkCAD
 from pycats.function.process.ipfs import ProcessClient
 from pycats.function.process.utils import ipfs_caching, save_bom, save_invoice, transfer_invoice, \
     get_bom, content_address_transformer
-
-CATS_HOME = os.getenv('CATS_HOME')
 
 
 class CAD(sparkCAD):
