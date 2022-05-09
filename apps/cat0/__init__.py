@@ -1,8 +1,6 @@
-import os
-from pycats import CATS_HOME, SPARK_HOME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 from pycats.factory import Factory
-# from pycats.function.infrafunction.plant.spark import lazy_SparkSession as lazy_CatSession
 from pycats.function.infrafunction.plant.spark import SparkSessionConfig
+from pycats import CATS_HOME, SPARK_HOME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 
 SparkSessionConfig['spark.app.name'] = 'CAD'
 SparkSessionConfig['spark.executor.instances'] = '4'

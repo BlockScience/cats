@@ -41,7 +41,7 @@ inputs, transformations, and outputs for verifying transformation accuracy given
    * **Components:**
        * **Structure:**
            * **Plant (Software as a Service \[SaaS\])** - User specified computational / data transformation framework / 
-           software (Spark / Dask / cadCAD)
+           software (Spark / Dask)
            * InfraStructure - CAT infrastructure as code (IaC)
        * **Function:**
            * **Process** - Data Transformation UI / Computational Process performed by Plant (SQL, DataFrame, …)
@@ -55,7 +55,7 @@ Decentralized Service Mesh network
        * \[Infra\]Structure as Code (IaC)
    * **CAT**
        * **CAT Factory** constructs Function and Structure
-       * Function runs on Structure to produce output data
+       * Function executes on Structure to produce output data
         
 
 ### CATs Concepts:
@@ -85,15 +85,18 @@ CATs (Data) Pipeline inputs (I/O Data & Transformations) produce a sequence of B
     * Can be used for data pipeline validation
 
 ### Next Steps:
-* Replace s3 with Filebase for Content-Addressable Storage in order to remove ipfs client from cluster
-* Implement CATnode:
-  * Options:
-    * CATsVM Disk Image
-    * CATsContainer (Alpine Linux)
-* CAT Factory to produce new plants such as Dask SaaS
+1. Replace s3 with Filebase for Content-Addressable Storage in order to remove ipfs client from cluster workers
+2. Implement CATnode:
+
+    A.Options:
+      * CATsVM Disk Image (Ubuntu)
+      * CATsContainer using docker:latest container (Alpine Linux)
+
+    B. Add dependencies to Terraform one CATnode exists
+4. Produce new SaaS Plants with CAT Factory
 
 ### Long-Term Vision:
   * CATs are intended to be executed on a peer-to-peer (p2p) mesh network client
-  * CATs is intended to enable the offering of Web2 cloud services as Web3 smart contracts by Content-Addressing 
-  the entire service
+  * CATs is intended to enable the offering of Web2 cloud services (SaaS, PaaS, IaaS) as Web3 peers / smart contracts 
+  by Content-Addressing the entire Cloud Service Model for such services
   

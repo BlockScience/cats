@@ -1,33 +1,33 @@
-# FROM openjdk:11
 FROM ubuntu:20.04
-# FROM python:3.9.7
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /
 
 RUN apt-get update
-RUN apt-get install -y wget software-properties-common curl
+RUN apt-get install -y curl wget dpkg apt-transport-https gnupg software-properties-common git build-essential
 
 
-RUN add-apt-repository ppa:deadsnakes/ppa
-RUN apt-get update
-RUN apt-get install -y python3.9
-RUN python3 --version
-
-RUN apt -y install openjdk-11-jre
-RUN apt -y install openjdk-11-jdk
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.profile
-RUN . ~/.profile
-RUN echo $JAVA_HOME
-RUN javac -version
-RUN java -version
-
-RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
-RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
-RUN curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
-RUN apt-get update
-RUN apt-get install -y sbt=1.5.5
-RUN wget https://downloads.lightbend.com/scala/2.11.12/scala-2.11.12.deb
-RUN dpkg -i scala-2.11.12.deb
-RUN apt-get update
+# RUN add-apt-repository ppa:deadsnakes/ppa
+# RUN apt-get update
+# RUN apt-get install -y python3.9
+# RUN python3 --version
+#
+# RUN apt -y install openjdk-11-jre
+# RUN apt -y install openjdk-11-jdk
+# RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.profile
+# RUN . ~/.profile
+# RUN echo $JAVA_HOME
+# RUN javac -version
+# RUN java -version
+#
+# RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
+# RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
+# RUN curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
+# RUN apt-get update
+# RUN apt-get install -y sbt=1.5.5
+# RUN wget https://downloads.lightbend.com/scala/2.11.12/scala-2.11.12.deb
+# RUN dpkg -i scala-2.11.12.deb
+# RUN apt-get update
 
 
 
