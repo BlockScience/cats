@@ -7,7 +7,6 @@ spark-warehouse
 df.csv
 venv
 venv.tar.gz
-cadStore
 __pycache__
 */__pycache__
 .terraform.lock.hcl
