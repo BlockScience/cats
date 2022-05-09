@@ -129,7 +129,7 @@ pip3 install venv-pack
 source ./venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
-pip install boto3==1.22.5
+pip install boto3==1.22.9
 python setup.py sdist bdist_wheel
 pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
 venv-pack -p ./venv -o venv.tar.gz --force
