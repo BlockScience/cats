@@ -8,6 +8,7 @@ setup(name="pycats",
       description="CATs",
       author='Joshua E. Jodesty',
       author_email='joshua@block.science',
+      license='LICENSE.txt',
       packages=find_packages(),
       install_requires=install_requires,
       python_requires='>=3.9.7'

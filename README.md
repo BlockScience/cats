@@ -99,4 +99,7 @@ CATs (Data) Pipeline inputs (I/O Data & Transformations) produce a sequence of B
   * CATs are intended to be executed on a peer-to-peer (p2p) mesh network client
   * CATs is intended to enable the offering of Web2 cloud services (SaaS, PaaS, IaaS) as Web3 peers / smart contracts 
   by Content-Addressing the entire Cloud Service Model for such services
-  
+
+### [Installation](Installation.md)
+
+### [Usage](USAGE.md)

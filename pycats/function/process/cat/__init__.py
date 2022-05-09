@@ -147,16 +147,6 @@ class Processor(Plant):
         output_data_uri = output_data_uri.replace('s3://', 's3a://')
         bom_write_path_uri = bom_write_path_uri.replace('s3a://', 's3://')
         transformer_uri = transformer_uri.replace('s3://', 's3a://')
-        # aws s3 sync s3://cats-public/input/df ./catStore/cats-public/input/df
-        # aws s3 sync s3://cats-public/cad-store/cad/cai/invoices ./catStore/cats-public/cad-store/cad/cai/invoices
-        # aws s3 sync s3://cats-public/cad-store/cad/cai/bom ./catStore/cats-public/cad-store/cad/cai/bom
-        # aws s3 sync s3://cats-public/cad-store/cad/cao/data ./catStore/cats-public/cad-store/cad/cao/data
-        # aws s3 sync s3://cats-public/cad-store/cad/transformation ./catStore/cats-public/cad-store/cad/transformation
-        # aws s3 sync s3://cats-public/cad-store/cad/cao/bom ./catStore/cats-public/cad-store/cad/cao/bom
-        # aws s3 sync s3://cats-public/cad-store/cad/cao/data ./catStore/cats-public/cad-store/cad/cao/data
-        # aws s3 sync s3://cats-public/cad-store/cad/cai2/data ./catStore/cats-public/cad-store/cad/cai2/data
-        # aws s3 sync s3://cats-public/cad-store/cad/cai2/invoices ./catStore/cats-public/cad-store/cad/cai2/invoices
-        # aws s3 sync s3://cats-public/cad-store/cad/transformation ./catStore/cats-public/cad-store/cad/transformation
 
         self.cai_bom = self.partial_bom
         self.cat_log = self.partial_log
@@ -232,8 +222,8 @@ class Processor(Plant):
             cai_bom_dict = self.bom_df_to_dict(cai_bom_df)
             json.dump(cai_bom_dict, fp)
 
-        # return cai_bom_dict, input_cad_invoice
-        return cai_bom_dict, input_cad_invoices_df
+        self.cai_bom = cai_bom_dict
+        return self.cai_bom, input_cad_invoices_df
 
     def content_address_output(self, cao_bom: isa(dict), local_bom_write_path: isa(str), cao_partitions: isa(int)):
         self.cai_data_uri = cao_bom['cai_data_uri']  # I
@@ -302,7 +292,8 @@ class Processor(Plant):
             cao_bom_dict = self.bom_df_to_dict(cao_bom_df)
             json.dump(cao_bom_dict, fp)
 
-        return cao_bom_dict, output_cad_invoices_df
+        self.cao_bom = cao_bom_dict
+        return self.cao_bom, output_cad_invoices_df
 
     def set_cao_bom(self, ip4_tcp_addresses, cai_bom, output_bom_path):
         cao_bom = {}
