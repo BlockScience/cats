@@ -1,0 +1,32 @@
+{
+	"ID": "12D3KooWMqjgHjaxpHqQUuBrzPJS7nM1QLQ2tTHZoLYEVVqEbdyD",
+	"PublicKey": "CAESILKmJQlxfKziFJf8NfaS7t7nPAJHaJV1m1lJtUFGwRrs",
+	"Addresses": [
+		"/ip4/127.0.0.1/tcp/4001/p2p/12D3KooWMqjgHjaxpHqQUuBrzPJS7nM1QLQ2tTHZoLYEVVqEbdyD",
+		"/ip4/127.0.0.1/udp/4001/quic/p2p/12D3KooWMqjgHjaxpHqQUuBrzPJS7nM1QLQ2tTHZoLYEVVqEbdyD",
+		"/ip4/192.168.1.27/tcp/4001/p2p/12D3KooWMqjgHjaxpHqQUuBrzPJS7nM1QLQ2tTHZoLYEVVqEbdyD",
+		"/ip4/192.168.1.27/udp/4001/quic/p2p/12D3KooWMqjgHjaxpHqQUuBrzPJS7nM1QLQ2tTHZoLYEVVqEbdyD",
+		"/ip4/70.107.79.74/tcp/42607/p2p/12D3KooWMqjgHjaxpHqQUuBrzPJS7nM1QLQ2tTHZoLYEVVqEbdyD",
+		"/ip4/70.107.79.74/udp/42607/quic/p2p/12D3KooWMqjgHjaxpHqQUuBrzPJS7nM1QLQ2tTHZoLYEVVqEbdyD",
+		"/ip6/::1/tcp/4001/p2p/12D3KooWMqjgHjaxpHqQUuBrzPJS7nM1QLQ2tTHZoLYEVVqEbdyD",
+		"/ip6/::1/udp/4001/quic/p2p/12D3KooWMqjgHjaxpHqQUuBrzPJS7nM1QLQ2tTHZoLYEVVqEbdyD"
+	],
+	"AgentVersion": "go-ipfs/0.10.0/",
+	"ProtocolVersion": "ipfs/0.1.0",
+	"Protocols": [
+		"/ipfs/bitswap",
+		"/ipfs/bitswap/1.0.0",
+		"/ipfs/bitswap/1.1.0",
+		"/ipfs/bitswap/1.2.0",
+		"/ipfs/id/1.0.0",
+		"/ipfs/id/push/1.0.0",
+		"/ipfs/kad/1.0.0",
+		"/ipfs/lan/kad/1.0.0",
+		"/ipfs/ping/1.0.0",
+		"/libp2p/autonat/1.0.0",
+		"/libp2p/circuit/relay/0.1.0",
+		"/p2p/id/delta/1.0.0",
+		"/x/"
+	]
+}
+
