@@ -22,7 +22,7 @@ if __name__ == "__main__":
     print()
     print(cat.cat_log)
     print()
-    print(vars(cat))
+    # print(vars(cat))
 
     while True:
         time.sleep(1)

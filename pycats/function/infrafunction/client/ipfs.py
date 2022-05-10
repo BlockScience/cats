@@ -24,8 +24,6 @@ class IPFS():
         time.sleep(15)
         ipfs_id_cmd = f'ipfs id > {self.DRIVER_IPFS_DIR}/ipfs_id.json'
         output = subprocess.check_output(ipfs_id_cmd, shell=True)
-        pprint(output)
-        exit()
         self.ipfs_id = open(f'{self.DRIVER_IPFS_DIR}/ipfs_id.json') # ToDO: change from file
         self.ipfs_addresses = json.load(self.ipfs_id)["Addresses"]
         self.ip4_tcp_addresses = [
