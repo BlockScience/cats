@@ -18,7 +18,7 @@ class Executor(IPFSclient):
         CAT_APP_HOME: str = None,
         TRANSFORM_SOURCE: str = None,
         TRANSFORM_DEST: str = None,
-        DRIVER_IPFS_DIR: str = f'{CATS_HOME}/cadStore'
+        DRIVER_IPFS_DIR: str = f'{CATS_HOME}/catStore'
     ):
         IPFSclient.__init__(self, DRIVER_IPFS_DIR)
         self.terraform_cmd = terraform_cmd
@@ -69,7 +69,7 @@ class Factory(Executor, S3client, CATSession):
         plantConfig,
         terraform_cmd: str,
         terraform_file: str,
-        DRIVER_IPFS_DIR: str = f'{CATS_HOME}/cadStore',
+        DRIVER_IPFS_DIR: str = f'{CATS_HOME}/catStore',
         SPARK_HOME: str = None,
         CAT_APP_HOME: str = None,
         TRANSFORM_SOURCE: str = None,

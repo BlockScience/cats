@@ -10,7 +10,7 @@ from pycats.function.infrafunction.client.ipfs import IPFS as IPFSclient
 
 class ProcessClient(S3client, IPFSclient):
     def __init__(self,
-        DRIVER_IPFS_DIR=f'{CATS_HOME}/cadStore'
+        DRIVER_IPFS_DIR=f'{CATS_HOME}/catStore'
     ):
         self.DRIVER_IPFS_DIR = DRIVER_IPFS_DIR
         S3client.__init__(self)

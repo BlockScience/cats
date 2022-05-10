@@ -24,7 +24,7 @@ class SparkConfig(object):
 class Spark(SparkConfig, ProcessClient):
     def __init__(self,
         sparkSession: SparkSession,
-        DRIVER_IPFS_DIR = f'{CATS_HOME}/cadStore'
+        DRIVER_IPFS_DIR = f'{CATS_HOME}/catStore'
     ):
         SparkConfig.__init__(self, sparkSession)
         ProcessClient.__init__(self, DRIVER_IPFS_DIR)
@@ -124,7 +124,7 @@ class Spark(SparkConfig, ProcessClient):
 class Plant(Spark):
     def __init__(self,
         plantSession: SparkSession,
-        DRIVER_IPFS_DIR=f'{CATS_HOME}/cadStore'
+        DRIVER_IPFS_DIR=f'{CATS_HOME}/catStore'
     ):
         Spark.__init__(self, plantSession, DRIVER_IPFS_DIR)
         self.plantSession = plantSession
