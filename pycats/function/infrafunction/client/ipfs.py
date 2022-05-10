@@ -1,12 +1,10 @@
 import subprocess, time, json
-from pprint import pprint
-
-from pycats import CATS_HOME
+from pycats import DRIVER_IPFS_DIR
 
 
 class IPFS():
     def __init__(self,
-        DRIVER_IPFS_DIR=f'{CATS_HOME}/cadStore'
+        DRIVER_IPFS_DIR=DRIVER_IPFS_DIR
     ):
         self.DRIVER_IPFS_DIR = DRIVER_IPFS_DIR
         self.ipfs_daemon_cmd = 'ipfs daemon'

@@ -86,14 +86,16 @@ CATs (Data) Pipeline inputs (I/O Data & Transformations) produce a sequence of B
 
 ### Next Steps:
 1. Replace s3 with Filebase for Content-Addressable Storage in order to remove ipfs client from cluster workers
-2. Implement CATnode:
+2. Integration Tests
+3. Implement CATnode:
 
     A.Options:
       * CATsVM Disk Image (Ubuntu)
       * CATsContainer using docker:latest container (Alpine Linux)
 
     B. Add dependencies to Terraform one CATnode exists
-4. Produce new SaaS Plants with CAT Factory
+4. Unit Tests
+5. Produce new SaaS Plants with CAT Factory
 
 ### Long-Term Vision:
   * CATs are intended to be executed on a peer-to-peer (p2p) mesh network client

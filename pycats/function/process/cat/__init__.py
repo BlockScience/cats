@@ -35,7 +35,7 @@ def flatten(l):
 class Processor(Plant):
     def __init__(self,
         plantSession,
-        DRIVER_IPFS_DIR=f'{CATS_HOME}/cadStore',
+        DRIVER_IPFS_DIR=f'{CATS_HOME}/catStore',
         partial_bom={},
         partial_log={}
     ):
