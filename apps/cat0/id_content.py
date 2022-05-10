@@ -22,8 +22,7 @@ if __name__ == "__main__":
     print()
     print(cat.cat_log)
     print()
-    # print()
-    # pprint(cat.catContext.cai.show())
+    print(vars(cat))
 
     while True:
         time.sleep(1)

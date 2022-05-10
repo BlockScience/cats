@@ -158,12 +158,6 @@ resource "shell_script" "make_spark_distribution" {
           touch $CATS_HOME/make_spark_dist_info.txt
       else
           echo "Spark does not exists."
-          cd $HOME/Projects/Research
-          git clone git@github.com:BlockScience/spark.git
-          cd spark
-          git checkout ipfs_node_main
-          touch $CATS_HOME/make_spark_dist_info.txt
-          dev/make-distribution.sh -Pkubernetes 2>&1 | tee $CATS_HOME/make_spark_dist_info.txt
       fi
     EOF
     delete = "rm $CATS_HOME/make_spark_dist_info.txt"
@@ -183,6 +177,14 @@ resource "shell_script" "make_spark_distribution" {
 #          touch $CATS_HOME/make_spark_dist_info.txt
 #      else
 #          echo "Spark does not exists."
+
+#          cd $HOME/Projects/Research
+#          git clone git@github.com:BlockScience/spark.git
+#          cd spark
+#          git checkout ipfs_node_main
+#          touch $CATS_HOME/make_spark_dist_info.txt
+#          dev/make-distribution.sh -Pkubernetes 2>&1 | tee $CATS_HOME/make_spark_dist_info.txt
+
 #          cd /usr/local/
 #          git clone git@github.com:BlockScience/spark.git
 #          cd spark
