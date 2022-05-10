@@ -1,11 +1,12 @@
 import time
 from pprint import pprint
+from pycats import CATS_HOME
 from apps.cat0 import catFactory
 from pycats.function.process.cat import Processor
 
 if __name__ == "__main__":
     cat: Processor = catFactory.init_processor(ipfs_daemon=True)
-    local_bom_write_path = '/home/jjodesty/Projects/Research/cats/catStore/bom.json',
+    local_bom_write_path = f'{CATS_HOME}/catStore/bom.json',
     cai_bom, input_cad_invoice = cat.content_address_input(
         input_data_uri='s3://cats-public/input/df', # I
         invoice_uri='s3://cats-public/cad-store/cad/cai/invoices', # O
