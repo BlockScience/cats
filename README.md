@@ -24,8 +24,11 @@ Content-Addresses as the means of dataset transport between processes.
 ### Content-Addressing Data Processing with [IPFS](https://ipfs.io/):
 * IPFS **[CIDs](https://docs.ipfs.io/concepts/content-addressing/)** (Content Identifiers) are used as content addresses 
 that provide the means of verifying data transformation accuracy.
-* IPFS [client](https://docs.ipfs.io/install/command-line/#official-distributions) is used to identify and retrieve 
+* IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
 inputs, transformations, and outputs for verifying transformation accuracy given CIDs
+
+### Illustrated CAT:
+![alt_text](https://github.com/BlockScience/cats/blob/local_fs/images/simple_cat_7.jpeg?raw=true)
 
 ### Design:
 **CATnode Architectural Quantum:** Domain Agnostic Data Product Collaboration
