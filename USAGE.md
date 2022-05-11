@@ -5,7 +5,6 @@
 This is an example of a CAT pipeline given that the data is not initially on the IPFS network. This pipeline involves 2 
 CAT processes on 2 separate Apache Spark clusters on the Data Plane of the same Kubernetes (K8s) cluster
 
-
 #### Steps:
 1. Open 2 terminal sessions
 2. **CAT0:** terminal session B - CAT0 Content-Addresses Dataset and constructs initial catBOM used by the CAT 1 as form
