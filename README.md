@@ -28,7 +28,7 @@ that provide the means of verifying data transformation accuracy.
 inputs, transformations, and outputs for verifying transformation accuracy given CIDs
 
 ### Illustrated CAT:
-![alt_text](https://github.com/BlockScience/cats/blob/local_fs/images/simple_cat_8.jpeg?raw=true)
+![alt_text](https://github.com/BlockScience/cats/blob/local_fs/images/simple_cat_9.jpeg?raw=true)
 
 ### Design:
 **CATnode Architectural Quantum:** Domain Agnostic Data Product Collaboration
