@@ -108,3 +108,13 @@ CATs (Data) Pipeline inputs (I/O Data & Transformations) produce a sequence of B
 ### [Installation](Installation.md)
 
 ### [Usage](USAGE.md)
+
+
+**Image Citations:**
+* "Illustrated CAT"
+  * [Python logo](https://tse4.mm.bing.net/th?id=OIP.ubux1yLT726_fVc3A7WSXgHaHa&pid=Api)
+  * [SQL logo](https://cdn3.iconfinder.com/data/icons/dompicon-glyph-file-format-2/256/file-sql-format-type-128.png)
+  * [Terraform logo](https://tse2.mm.bing.net/th?id=OIP.1gAEVon2RF5oko4iWCfftgHaHO&pid=Api)
+  * [IPFS logo](https://tse1.mm.bing.net/th?id=OIP.BRyW5Tdm5_6VQxCsGr_sQAHaHa&pid=Api)
+  * [cat image](https://tse1.mm.bing.net/th?id=OIP.xS_itpeyTImMcrcQ_YNsfQHaIu&pid=Api)
+  * [Apache Spark logo](https://tse1.mm.bing.net/th?id=OIP.3qXr4urfJiEWj_fcXhZs-AHaD2&pid=Api)
