@@ -18,8 +18,8 @@ Content-Addresses as the means of dataset transport between processes.
   * Content-Addresses can be used to verify data processing (input, transformation / process, output, infrastructure)
     * Enables data process re-execution via retrieval of said means using IPFS CIDs as Content-Addresses
 * **Data & Process Lineage & Provenance:**
-  * Certifies the accuracy of data processing on data products and pipelines by enabling maintenance & reporting of data & 
-  process lineage & provenance as chains of evidence
+  * Certifies the accuracy of data processing on data products and pipelines by enabling maintenance & reporting of data 
+  and process lineage & provenance as chains of evidence
 * **Collaboration:**
   * Cross-functional teams & organization for collaboration across domains on verifiable data processes via a UI that 
   accepts Data Provenance record entry as Input that is also CAT Output
