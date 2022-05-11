@@ -7,8 +7,7 @@ CAT processes on 2 separate Apache Spark clusters on the Data Plane of the same 
 
 <CAT I/O BOMchain & Surface Images>
 
-### Illustrated CAT:
-![alt_text](https://github.com/BlockScience/cats/blob/local_fs/images/BOMchain_io_surfaces.jpeg?raw=true)
+
 
 **Steps:**
 1. Open 2 terminal sessions
