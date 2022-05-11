@@ -6,7 +6,11 @@ This is an example of a CAT pipeline given that the data is not initially on the
 CAT processes on 2 separate Apache Spark clusters on the Data Plane of the same Kubernetes (K8s) cluster
 
 #### Steps:
-1. Open 2 terminal sessions
+1. Open 2 terminal sessions and activate pre-created virtual environments within them
+```bash
+cd <parrent directory>/cats
+source ./venv/bin/activate
+```
 2. **CAT0:** terminal session B - CAT0 Content-Addresses Dataset and constructs initial catBOM used by the CAT 1 as form
 of input
    * CAT0 generates a catBOM by Content Identifying (CIDing) an Invoice of Data Partition Transactions, a Data 
@@ -28,9 +32,9 @@ of input
                  1. Invoice / Content-Addressed Dataset (CAD)
                     * **invoice_uri** - URI of Invoice/CAD
                  2. CAT Bill Of Materials (BOM) 
-                   * **bom_write_path_uri** - URI of BOM
-                   * **output_data_uri** - URI of Output Data for subsequent CAT
-                   * **transformer_uri** - URI of transformation for subsequent CAT
+                    * **bom_write_path_uri** - URI of BOM
+                    * **output_data_uri** - URI of Output Data for subsequent CAT
+                    * **transformer_uri** - URI of transformation for subsequent CAT
            ```python
            from pycats import CATS_HOME
            from apps.cat0 import catFactory
@@ -83,7 +87,7 @@ of input
             'transformer_addresses': ['/ip4/172.17.0.4/tcp/4001/p2p/12D3KooWPuCynRm1Xm1tTxzcQatwHjajNteTPdcczU7h1EG2osyG',
                                       '/ip4/70.107.79.74/tcp/26037/p2p/12D3KooWPuCynRm1Xm1tTxzcQatwHjajNteTPdcczU7h1EG2osyG']} 
            ```
-4. **CAT1**: terminal session B - Content-Address Transform Dataset given CAT0 BOM
+5. **CAT1**: terminal session B - Content-Address Transform Dataset given CAT0 BOM
    * CAT1 **is the primary data transformation UI for a CAT** representing 0 to n CATs and illustrates a CATpipe
      * CATs uses the catBOM as input and output enabling users to reproduce I/O data using a Content Identified (CIDed) 
      Invoice containing Data Partition Transactions and a CIDed Data Transformation 
