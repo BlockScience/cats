@@ -5,7 +5,6 @@ from pycats.function.process.cat import Processor
 
 if __name__ == "__main__":
     cat: Processor = catFactory.init_processor().get_driver_ipfs_id()
-
     cat.transform(
         input_bom_path='s3://cats-public/cad-store/cad/cai/bom/bom.json',
         output_bom_path='s3://cats-public/cad-store/cad/cao/bom/output_bom.json',
