@@ -9,7 +9,7 @@ Implementation:
 Research & Design:
 - David Sisson from 2016 to present
 - Michael Zargham from 2016 to present
-- Joshua E. Jodesty from 2021 to present
+- Joshua E. Jodesty from 2020 to present
 
 Project Maintainers:
 - Joshua E. Jodesty <joshua@block.science>

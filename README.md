@@ -7,6 +7,9 @@ across domains between cross-functional teams and organizations on products by
 [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) the means of processing and using 
 Content-Addresses as the means of dataset transport between processes.
 
+### Illustrated CAT:
+![alt_text](https://github.com/BlockScience/cats/blob/local_fs/images/simple_cat_9.jpeg?raw=true)
+
 ### Why CATs are useful:
 * **Execution:**
   * CATs execute Distributed Processes which are distributed as tasks for Concurrent and/or Parallelized execution on Web2 
@@ -15,7 +18,7 @@ Content-Addresses as the means of dataset transport between processes.
   * Content-Addresses can be used to verify data processing (input, transformation / process, output, infrastructure)
     * Enables data process re-execution via retrieval of said means using IPFS CIDs as Content-Addresses
 * **Data & Process Lineage & Provenance:**
-  * Certifies the accuracy of data processing on data products & pipelines by enabling maintenance & reporting of data & 
+  * Certifies the accuracy of data processing on data products and pipelines by enabling maintenance & reporting of data & 
   process lineage & provenance as chains of evidence
 * **Collaboration:**
   * Cross-functional teams & organization for collaboration across domains on verifiable data processes via a UI that 
@@ -26,9 +29,6 @@ Content-Addresses as the means of dataset transport between processes.
 that provide the means of verifying data transformation accuracy.
 * IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
 inputs, transformations, and outputs for verifying transformation accuracy given CIDs
-
-### Illustrated CAT:
-![alt_text](https://github.com/BlockScience/cats/blob/local_fs/images/simple_cat_9.jpeg?raw=true)
 
 ### Design:
 **CATnode Architectural Quantum:** Domain Agnostic Data Product Collaboration
@@ -44,7 +44,7 @@ inputs, transformations, and outputs for verifying transformation accuracy given
    * **Components:**
        * **Structure:**
            * **Plant (Software as a Service \[SaaS\])** - User specified computational / data transformation framework / 
-           software (Spark / Dask)
+           software (Spark / Dask / etc.)
            * InfraStructure - CAT infrastructure as code (IaC)
        * **Function:**
            * **Process** - Data Transformation UI / Computational Process performed by Plant (SQL, DataFrame, …)
@@ -114,7 +114,7 @@ CATs (Data) Pipeline inputs (I/O Data & Transformations) produce a sequence of B
 
 
 **Image Citations:**
-* ["Illustrated CAT"](https://github.com/BlockScience/cats#illustrated-cat)
+* **["Illustrated CAT"](https://github.com/BlockScience/cats#illustrated-cat)**
   * [Python logo](https://tse4.mm.bing.net/th?id=OIP.ubux1yLT726_fVc3A7WSXgHaHa&pid=Api)
   * [SQL logo](https://cdn3.iconfinder.com/data/icons/dompicon-glyph-file-format-2/256/file-sql-format-type-128.png)
   * [Terraform logo](https://tse2.mm.bing.net/th?id=OIP.1gAEVon2RF5oko4iWCfftgHaHO&pid=Api)
