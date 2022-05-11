@@ -17,7 +17,7 @@ Content-Addresses as the means of dataset transport between processes.
 * **Data Verification:**
   * Content-Addresses can be used to verify data processing (input, transformation / process, output, infrastructure)
     * Enables data process re-execution via retrieval of said means using IPFS CIDs as Content-Addresses
-* **Data & Process Lineage & Provenance:**
+* **Data (& Process) Lineage & Provenance:**
   * Certifies the accuracy of data processing on data products and pipelines by enabling maintenance & reporting of data 
   and process lineage & provenance as chains of evidence
 * **Collaboration:**
@@ -35,18 +35,21 @@ CATs (Data) Pipeline inputs (I/O Data & Transformations) produce a sequence of B
 (catBOM) that enable Data Provenance and cross-organization participation on (big) data processing using Distributed 
 (Data) Processing frameworks
 * **Fundamental:**
-  * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification#:~:text=Data%20verification%20is%20a%20process,such%20as%20in%20clinical%20trials.)** -
-  a process for which data is checked for accuracy and inconsistencies before processed
-  * **[Data Lineage & Provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/)** 
-    * **Data Lineage** - a report of data lifecyle from source to destination as
+  * **[Content-Addressable Storage](https://en.wikipedia.org/wiki/Content-addressable_storage)** - a way to store 
+  information such that it can be retrieved based on its content rather than its location
+  * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification)** - a process for which data is checked for 
+  accuracy and inconsistencies before processed
+  * **[Data (& Process) Lineage & Provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/)** 
+    * **Data Lineage** - reporting of data lifecyle from source to destination
     * **Data Provenance** - a means of proving data lineage using historical records that provide the means of pipeline 
-    re-execution and **[data validation](https://en.wikipedia.org/wiki/Data_validation)**.
-  * **[Bill of Materials (BOM)](https://en.wikipedia.org/wiki/Bill_of_materials)** - an extensive list of raw materials,
-  components, and instructions required to construct, manufacture, or repair a product or service.
+    re-execution and **[data validation](https://en.wikipedia.org/wiki/Data_validation)**
   * **[Distributed Computing](https://en.wikipedia.org/wiki/Distributed_computing)** - typically the concurrent and/or 
   parallel execution of job tasks distributed to networked computers processing data
-  * 
-#### CATs Data Provenance as CAT I/O (a.k.a catBOM as Provenance Record):
+  * **[Bill of Materials (BOM)](https://en.wikipedia.org/wiki/Bill_of_materials)** - an extensive list of raw materials,
+  components, and instructions required to construct, manufacture, or repair a product or service
+  
+
+### CATs Data Provenance as CAT I/O (a.k.a catBOM as Provenance Record):
 * **catBOM** - a collection of CIDs & URIs metadata for establishing provenance that enable (re-)execution of CAT 
 processes
     * catBOM values are modifiable I/O for CATs
@@ -75,16 +78,16 @@ processes
 
 ### Next Steps:
 1. Replace s3 with Filebase for Content-Addressable Storage in order to remove ipfs client from cluster workers
-2. Integration Tests
-3. Implement CATnode:
+2. Implement CATnode MVP to remove the need for users to install dependencies:
 
     A.Options:
       * CATsVM Disk Image (Ubuntu)
       * CATsContainer using docker:latest container (Alpine Linux)
 
     B. Add dependencies to Terraform one CATnode exists
-4. Unit Tests
-5. Produce new SaaS Plants with CAT Factory
+3. Unit & Integration Tests
+4. Produce new SaaS Plants with CAT Factory
+5. Provenance catBOM
 
 ### Long-Term Vision:
   * CATs are intended to be executed on a peer-to-peer (p2p) mesh network client
@@ -96,7 +99,7 @@ processes
 ### [Usage](USAGE.md)
 
 
-**Image Citations:**
+### Image Citations:
 * **["Illustrated CAT"](https://github.com/BlockScience/cats#illustrated-cat)**
   * [Python logo](https://tse4.mm.bing.net/th?id=OIP.ubux1yLT726_fVc3A7WSXgHaHa&pid=Api)
   * [SQL logo](https://cdn3.iconfinder.com/data/icons/dompicon-glyph-file-format-2/256/file-sql-format-type-128.png)
