@@ -51,6 +51,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   ./configure --enable-optimizations
   sudo make install
   python3 --version
+  sudo apt install python3-pip
   ```
   * [**AWS Account (Instructions)**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
     * **CATs AWS Access Setup**
@@ -109,12 +110,12 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   * **Distributed Data Processing:**
       * **[Apache Spark](https://spark.apache.org/) 3.1.2:**
       ```bash
-      wget https://www.apache.org/dyn/closer.lua/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
+      wget wget https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
       tar -xvf spark-3.1.2-bin-hadoop3.2.tgz
       sudo mv spark-3.1.2-bin-hadoop3.2 /usr/local/spark
-      sudo echo 'export SPARK_HOME=$HOME/Apps/spark' >> ~/.profile
+      sudo echo 'export SPARK_HOME=/usr/local/spark' >> ~/.profile
       sudo echo 'export PATH=$SPARK_HOME/bin:$PATH' >> ~/.profile
-      sudo source ~/.profile
+      source ~/.profile
       spark-submit --version
       ```
 * **IfraStructure as Code (IaC):**
@@ -125,7 +126,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
   sudo apt-get update 
   sudo apt-get install terraform
-  terraform -help
+  terraform version
   ```
 * **Clients:**
   * [**Install AWS CLI version 2**](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-version.html)
@@ -133,6 +134,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
   unzip awscliv2.zip
   sudo ./aws/install
+  aws --version
   ```
   * [**Install IPFS 0.12.2**](https://docs.ipfs.io/install/command-line/)
   ```bash
