@@ -20,4 +20,6 @@ tf.log
 cluster/test.sh
 apps/cat0/test.py
 notes.md
-deps
+deps/*.sh
+deps/*.txt
+deps/ubuntu
