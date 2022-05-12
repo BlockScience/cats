@@ -78,6 +78,7 @@ processes
 
 ### Next Steps:
 1. Replace s3 with Filebase for Content-Addressable Storage in order to remove ipfs client from cluster workers
+   1. Alternative: for IPFS server bug - loop IPFS initialization until provided a public IP Address
 2. Implement CATnode MVP to remove the need for users to install dependencies:
 
     A.Options:

@@ -174,13 +174,17 @@ def cad_part_invoice(cad_part_id_dict, part=None):
 
 def ipfs_connect(cad_part_invoice):
     addresses = cad_part_invoice['addresses']
-    for address in addresses:
-        output = subprocess.check_output(f"ipfs swarm connect {address}".split(' ')) \
-            .decode('ascii').replace('\n', '').split(' ')
-        if output[2] == 'success':
-            cad_part_invoice['connection'] = address
-        else:
-            cad_part_invoice['connection'] = None
+    try:
+        for address in addresses:
+            output = subprocess.check_output(f"ipfs swarm connect {address}".split(' ')) \
+                .decode('ascii').replace('\n', '').split(' ')
+            if output[2] == 'success':
+                cad_part_invoice['connection'] = address
+            else:
+                cad_part_invoice['connection'] = None
+            return cad_part_invoice
+    except:
+        cad_part_invoice['connection'] = None
         return cad_part_invoice
 
 
