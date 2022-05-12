@@ -23,10 +23,12 @@ def execute(cmd, env_vars=None):
         yield stdout_line
     # popen.stdout.close()
     return_code = popen.wait()
+    stdout, stderr = popen.communicate()
     if return_code:
-        _, stderr = popen.communicate()
         print(stderr)
         raise subprocess.CalledProcessError(return_code, cmd)
+    else:
+        return stdout
 
 
 # For Project CI/CD

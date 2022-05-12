@@ -6,6 +6,7 @@ from multimethod import isa, overload
 
 from pycats import CATS_HOME
 from pycats.structure.plant.spark import Plant
+from pycats.utils import execute
 
 from pyspark.sql import DataFrame, Window
 from pyspark.sql.functions import monotonically_increasing_id, asc, ntile
@@ -142,11 +143,36 @@ class Processor(Plant):
             transformer_uri=None,
             cai_partitions=None
     ):
-        input_data_uri = input_data_uri.replace('s3://', 's3a://')
-        invoice_uri = invoice_uri.replace('s3://', 's3a://')
+        # input_data_uri = input_data_uri.replace('s3://', 's3a://')
+        # invoice_uri = invoice_uri.replace('s3://', 's3a://')
         output_data_uri = output_data_uri.replace('s3://', 's3a://')
         bom_write_path_uri = bom_write_path_uri.replace('s3a://', 's3://')
-        transformer_uri = transformer_uri.replace('s3://', 's3a://')
+        # transformer_uri = transformer_uri.replace('s3://', 's3a://')
+
+        def sync_local2s3(uri):
+            if ('s3://' not in uri) or ('s3a://' not in uri):
+                uri_s3_key = uri.split('cats-public/')[-1]
+                sync_cmd = f"aws s3 sync {uri} s3://cats-public/{uri_s3_key}"
+                execute(sync_cmd)
+                return uri_s3_key
+
+        if ('s3://' not in input_data_uri) or ('s3a://' not in input_data_uri):
+            input_data_uri_s3_key = sync_local2s3(input_data_uri)
+            input_data_uri = f"s3a://cats-public/{input_data_uri_s3_key}"
+        else:
+            input_data_uri = input_data_uri.replace('s3://', 's3a://')
+
+        if ('s3://' not in invoice_uri) or ('s3a://' not in invoice_uri):
+            invoice_uri_s3_key = sync_local2s3(invoice_uri)
+            invoice_uri = f"s3a://cats-public/{invoice_uri_s3_key}"
+        else:
+            invoice_uri = invoice_uri.replace('s3://', 's3a://')
+
+        if ('s3://' not in transformer_uri) or ('s3a://' not in transformer_uri):
+            transformer_s3_key = sync_local2s3(transformer_uri)
+            transformer_uri = f"s3a://cats-public/{transformer_s3_key}"
+        else:
+            transformer_uri = transformer_uri.replace('s3://', 's3a://')
 
         self.cai_bom = self.partial_bom
         self.cat_log = self.partial_log
