@@ -158,6 +158,6 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   pip install --upgrade pip
   pip install -r requirements.txt
   python setup.py sdist bdist_wheel
-  pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
+  pip install dist/pycats-0.0.0-py3-none-any.whl
   venv-pack -p ./venv -o venv.tar.gz --force
   ```
