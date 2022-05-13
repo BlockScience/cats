@@ -7,7 +7,8 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   ```bash
   sudo apt update
   sudo apt upgrade
-  sudo apt-get install curl wget dpkg apt-transport-https gnupg software-properties-common git build-essential
+  sudo apt install wget build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev
+  sudo apt-get install curl dpkg apt-transport-https gnupg software-properties-common git
   sudo apt-get update
   sudo apt-get upgrade
   ```
@@ -39,11 +40,8 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
 ### CATs Dependencies:
 
 * **Prerequisites:**
-  * [**Python >= 3.9.7**](https://www.python.org/downloads/release/python-397/)
-  * Install **Python >= 3.9.7**:
+  * Install **[Python >= 3.9.7](https://www.python.org/downloads/release/python-397/)**: Based on this [guide](https://phoenixnap.com/kb/how-to-install-python-3-ubuntu#ftoc-heading-6)
   ```bash
-  sudo apt update
-  sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget
   cd /tmp
   wget https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz
   tar -xf Python-3.9.7.tgz
@@ -52,6 +50,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   sudo make install
   python3 --version
   sudo apt install python3-pip
+  sudo apt update
   ```
   * [**AWS Account (Instructions)**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
     * **CATs AWS Access Setup**
@@ -149,17 +148,16 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   pip install --upgrade pip
   git clone https://github.com/BlockScience/cats.git
   cd cats
-  echo 'export CATS_HOME=$(pwd)' >> ~/.profile
+  echo 'export CATS_HOME='$PWD >> ~/.profile
   mv deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
   mv deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
   pip3 install setuptools wheel virtualenv venv-pack
-  python3 -m venv ./venv
+  python3 -m venv ./venv # create virtual environment
   pip3 install venv-pack
-  source ./venv/bin/activate
+  source ./venv/bin/activate # activate virtual environment
   pip install --upgrade pip
   pip install -r requirements.txt
-  pip install boto3==1.22.9
   python setup.py sdist bdist_wheel
-  pip install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
+  pip install dist/pycats-0.0.0-py3-none-any.whl
   venv-pack -p ./venv -o venv.tar.gz --force
   ```

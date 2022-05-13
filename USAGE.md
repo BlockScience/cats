@@ -78,6 +78,11 @@ of input
            source ./venv/bin/activate
            python apps/cat0/execute.py
            ```
+           2. Deactivate Virtual Environment (Optional): `deactivate`
+           ```bash
+           (venv) $ deactivate
+           $
+           ```
      2. **CAT0 Process Output**
         ```bash
         # Invoice / Content-Addressed Dataset (CAD) [Single Partition]
@@ -199,6 +204,11 @@ of input
            cd <parrent directory>/cats
            source ./venv/bin/activate
            python apps/cat1/execute.py
+           ```
+           2. Deactivate Virtual Environment (Optional): `deactivate`
+           ```bash
+           (venv) $ deactivate
+           $
            ```
      2. **CAT1 Process Output:**
         ```bash
