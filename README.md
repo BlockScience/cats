@@ -87,9 +87,12 @@ processes
       * CATsContainer using docker:latest container (Alpine Linux)
 
     B. Add dependencies to Terraform one CATnode exists
-3. Unit & Integration Tests
-4. Produce new SaaS Plants with CAT Factory
-5. Provenance catBOM
+3. Distributed debugger for Plant(s) \[SaaS(s)\]
+4. Unit & Integration Tests
+5. Produce new SaaS Plants with CAT Factory
+6. CI/CD
+7. Provenance catBOM
+8. Options to Content-Address Everything
 
 ### Long-Term Vision:
   * CATs are intended to be executed on a peer-to-peer (p2p) mesh network client
