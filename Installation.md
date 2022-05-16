@@ -103,7 +103,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
     sudo apt-get update
     sudo apt-get install sbt=1.5.5
     wget https://downloads.lightbend.com/scala/2.11.12/scala-2.11.12.deb
-    dpkg -i scala-2.11.12.deb
+    sudo dpkg -i scala-2.11.12.deb
     sudo apt-get update
     scala -version
     sbt sbtVersion
@@ -159,7 +159,8 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   echo 'export CATS_HOME='$PWD >> ~/.profile
   mv deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
   mv deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
-  pip3 install setuptools wheel virtualenv venv-pack
+  pip3 install --upgrade pip
+  pip3 install virtualenv venv-pack
   python3 -m venv ./venv # create virtual environment
   pip3 install venv-pack
   source ./venv/bin/activate # activate virtual environment

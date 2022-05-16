@@ -1,3 +1,4 @@
+setuptools==57.0.0
 wheel==0.37.1
 boto3==1.22.13
 fsspec==2021.10.0
