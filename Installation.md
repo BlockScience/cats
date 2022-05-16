@@ -41,6 +41,11 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
     sudo mv ./kubectl /usr/local/bin/kubectl
     kubectl version -o json
     ```
+  * **Set `KUBE_CONFIG_PATH`:**
+    ```bash
+    echo 'export KUBE_CONFIG_PATH=~/.kube/config' >> ~/.profile
+    source ~/.profile
+    ```
 
 ### CATs Dependencies:
 
@@ -149,6 +154,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   tar -xvzf go-ipfs_v0.12.2_linux-amd64.tar.gz
   cd go-ipfs
   sudo bash install.sh
+  ipfs init
   ipfs --version
   ```
   * [**Install CATs:**](https://github.com/BlockScience/cats)
@@ -157,6 +163,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   git clone https://github.com/BlockScience/cats.git
   cd cats
   echo 'export CATS_HOME='$PWD >> ~/.profile
+  source ~/.profile
   cp deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
   cp deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
   pip3 install --upgrade pip
