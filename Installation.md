@@ -14,6 +14,11 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   ```
 
 ## Environment:
+* Install Docker
+  * Notes
+    * Windows Subsystem for Linux
+      * [**Docker on Windows 10**](https://hinty.io/ivictbor/simple-way-to-docker-on-windows-10-home-with-wsl-2/)
+        * Make sure you enable "Enable WSL 2 integration" in respective section
 * [**Instructions:**](https://phoenixnap.com/kb/install-minikube-on-ubuntu)
   * **Install [VirtualBox](https://www.virtualbox.org/):**
     * Note: if presented with Oracle's EULA, press `TAB` to highlight ok and press enter, then `TAB` to yes
@@ -121,11 +126,14 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   * [**Install Terraform**](https://learn.hashicorp.com/tutorials/terraform/install-cli)
   ```bash
   sudo apt-get update
+  sudo apt-get install gnupg2
+  curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor > hashicorp.gpg
+  # sudo install -o root -g root -m 644 hashicorp.gpg /etc/apt/trusted.gpg.d/
   curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-  sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+  sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
   sudo apt-get update 
-  sudo apt-get install terraform
-  terraform version
+  sudo apt-get install terraform=1.1.9
+  terraform --version
   ```
 * **Clients:**
   * [**Install AWS CLI version 2**](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-version.html)

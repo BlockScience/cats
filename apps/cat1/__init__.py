@@ -1,6 +1,6 @@
 from pycats.factory import Factory
 from pycats.function.infrafunction.plant.spark import SparkSessionConfig
-from pycats import CATS_HOME, SPARK_HOME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+from pycats import CATS_HOME, SPARK_HOME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, CATSTORE
 
 # Configure Plant Session (Apache Spark Session)
 SparkSessionConfig['spark.app.name'] = 'CAT'
@@ -13,7 +13,7 @@ SparkSessionConfig['spark.kubernetes.file.upload.path'] = 's3a://cats-storage/in
 SparkSessionConfig['spark.pyspark.driver.python'] = f'{CATS_HOME}/venv/bin/python'
 
 CAT_APP_HOME = f"{CATS_HOME}/apps/cat1/cat.py"
-TRANSFORM_SOURCE = f"{CATS_HOME}/apps/cat1/transform.py"
+TRANSFORM_SOURCE = f'{CATSTORE}/cad/transformation/transform.py'
 TRANSFORM_DEST = 's3://cats-public/cad-store/cad/transformation/transform.py'
 tf_script = f'{CATS_HOME}/cluster/tf_cluster_setup.sh'
 tf_cmd = f"bash {tf_script}"

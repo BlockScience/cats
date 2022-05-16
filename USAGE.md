@@ -5,8 +5,6 @@
 This is an example of a CAT pipeline given that the data is not initially on the IPFS network. This pipeline involves 2 
 CAT processes on 2 separate Apache Spark clusters on the Data Plane of the same Kubernetes (K8s) cluster
 
-####
-
 #### Steps:
 0. **CAT0:** Content-Addresses Dataset and constructs initial catBOM used by the CAT 1 as form
 of input
@@ -52,8 +50,9 @@ of input
                       * **invoice_uri** - URI of Invoice/CAD
                    2. CAT Bill Of Materials (BOM) 
                       * **bom_write_path_uri** - URI of BOM
-                      * **output_data_uri** - URI of Output Data for subsequent CAT
-                      * **transformer_uri** - URI of transformation for subsequent CAT
+                      * **output_data_uri** - URI for subsequent CAT Output Data
+                      * **transformer_uri** - URI of subsequent CAT data transformation (Python / (Spark/ANSII) SQL)
+                      (**[Example](/home/jjodesty/Projects/Research/cats/catStore/cats-public/cad-store/cad/transformation/transform.py)**)
              2. Example:
              ```python
              from pycats import CATS_HOME
@@ -172,10 +171,11 @@ of input
                    * **cat_log_path** - contains IPFS client, IaC (terraform) address, and the transformation process address
                    * **output_bom_path** - URI of Output BOM
                    * **output_bom_update** - Updates the output BOM key-value pairs of current CAT
-                     * **cai_data_uri** - CAI data URI for subsequent CAT
-                     * **cai_invoice_uri** - Invoice/CAI URI for subsequent CAT
-                     * **transform_sourcefile** - Local / Node Invoice/CAI path for subsequent CAT
-                     * **transformer_uri** - Invoice/CAI URI for subsequent CAT
+                     * **cai_data_uri** - Subsequent CAT CAI data URI
+                     * **cai_invoice_uri** - Subsequent CAT Invoice/CAI URI
+                     * **transform_sourcefile** - Subsequent CAT Source URI of data transformation (Python / Spark SQL)  
+                     * **transformer_uri** - Cluster File System URI of subsequent CAT data transformation
+                     (**[Example](/home/jjodesty/Projects/Research/cats/catStore/cats-public/cad-store/cad/transformation/transform2b.py)**)
              2. Example:
              ```python
              from apps.cat1 import catFactory
