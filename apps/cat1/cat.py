@@ -1,6 +1,8 @@
 import time
 from pprint import pprint
 from apps.cat1 import catFactory
+
+from pycats import CATSTORE
 from pycats.function.process.cat import Processor
 
 if __name__ == "__main__":
@@ -16,7 +18,8 @@ if __name__ == "__main__":
         output_bom_update={
             'cai_data_uri': 's3://cats-public/cad-store/cad/cai2/data',
             'cai_invoice_uri': 's3://cats-public/cad-store/cad/cai2/invoices',
-            'transform_sourcefile': '/home/jjodesty/Projects/Research/cats/apps/cat1/transform2b.py',
+            # 'transform_sourcefile': '/home/jjodesty/Projects/Research/cats/apps/cat1/transform2b.py',
+            'transform_sourcefile': f'{CATSTORE}/cad/transformation/transform2b.py',
             'transformer_uri': 's3://cats-public/cad-store/cad/transformation/transform2b.py'
         }
     )

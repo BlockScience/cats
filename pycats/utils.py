@@ -32,11 +32,12 @@ def execute(cmd, env_vars=None):
 
 
 # For Project CI/CD
+# pip3 install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
 def build_software():
     build_block = f"""
     pip3 install -r requirements.txt
-    python3 setup.py sdist bdist_wheel
-    pip3 install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
+    python3 setup.py sdist bdist_wheelvenv-pack -o venv.tar.gz --force
+    pip3 install dist/pycats-0.0.0-py3-none-any.whl
     venv-pack -o venv.tar.gz --force
     """
     build_cmds = [i for i in build_block.split("\n") if i]
