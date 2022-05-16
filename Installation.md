@@ -160,8 +160,9 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   cp deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
   cp deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
   pip3 install --upgrade pip
-  pip3 install setuptools virtualenv venv-pack
+  pip3 install setuptools wheel virtualenv venv-pack
   python3 -m venv ./venv # create virtual environment
+  pip3 install venv-pack
   source ./venv/bin/activate # activate virtual environment
   pip install --upgrade pip
   pip install -r requirements.txt
