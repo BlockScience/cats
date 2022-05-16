@@ -30,7 +30,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   * **Install [Minikube](https://minikube.sigs.k8s.io/docs/): Local [Kubernetes](https://kubernetes.io/) Deployment**
     ```bash
     wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-    sudo cp minikube-linux-amd64 /usr/local/bin/minikube
+    sudo mv minikube-linux-amd64 /usr/local/bin/minikube
     sudo chmod 755 /usr/local/bin/minikube
     minikube version
     ```
@@ -157,12 +157,11 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   git clone https://github.com/BlockScience/cats.git
   cd cats
   echo 'export CATS_HOME='$PWD >> ~/.profile
-  mv deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
-  mv deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
+  cp deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
+  cp deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
   pip3 install --upgrade pip
   pip3 install virtualenv venv-pack
   python3 -m venv ./venv # create virtual environment
-  pip3 install venv-pack
   source ./venv/bin/activate # activate virtual environment
   pip install --upgrade pip
   pip install -r requirements.txt
