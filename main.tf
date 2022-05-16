@@ -6,21 +6,21 @@ variable "AWS_SECRET_ACCESS_KEY" {
     type = string
 }
 
-variable "registry_server" {
-    type = string
-}
-
-variable "registry_username" {
-    type = string
-}
-
-variable "registry_password" {
-    type = string
-}
-
-variable "registry_email" {
-    type = string
-}
+#variable "registry_server" {
+#    type = string
+#}
+#
+#variable "registry_username" {
+#    type = string
+#}
+#
+#variable "registry_password" {
+#    type = string
+#}
+#
+#variable "registry_email" {
+#    type = string
+#}
 
 variable "HOME" {
     type = string
@@ -127,26 +127,26 @@ resource "kubernetes_secret" "aws-access_secret" {
   }
 }
 
-resource "kubernetes_secret" "regcred_secret" {
-  metadata {
-    name = "regcred"
-  }
-
-  data = {
-    ".dockerconfigjson" = jsonencode({
-      auths = {
-         "${var.registry_server}" = {
-          auth = {
-            "username":"${var.registry_username}",
-            "password":"${var.registry_password}",
-            "email":"${var.registry_email}"
-          }
-        }
-      }
-    })
-  }
-  type = "kubernetes.io/dockerconfigjson"
-}
+#resource "kubernetes_secret" "regcred_secret" {
+#  metadata {
+#    name = "regcred"
+#  }
+#
+#  data = {
+#    ".dockerconfigjson" = jsonencode({
+#      auths = {
+#         "${var.registry_server}" = {
+#          auth = {
+#            "username":"${var.registry_username}",
+#            "password":"${var.registry_password}",
+#            "email":"${var.registry_email}"
+#          }
+#        }
+#      }
+#    })
+#  }
+#  type = "kubernetes.io/dockerconfigjson"
+#}
 
 #
 resource "shell_script" "make_spark_distribution" {
