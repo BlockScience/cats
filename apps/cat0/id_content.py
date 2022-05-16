@@ -1,6 +1,6 @@
 import time
 from pprint import pprint
-from pycats import CATS_HOME
+from pycats import CATS_HOME, CATSTORE
 from apps.cat0 import catFactory
 from pycats.function.process.cat import Processor
 
@@ -10,11 +10,11 @@ if __name__ == "__main__":
     cai_bom, input_cad_invoice = cat.content_address_input(
         input_data_uri=f'{CATS_HOME}/catStore/cats-public/input/df', # I
         # input_data_uri='s3://cats-public/input/df',  # I
-        invoice_uri=f'{CATS_HOME}/catStore/cats-public/cad-store/cad/cai/invoices', # O
+        invoice_uri=f'{CATSTORE}/cad/cai/invoices', # O
         # invoice_uri='s3://cats-public/cad-store/cad/cai/invoices',  # O
         bom_write_path_uri='s3://cats-public/cad-store/cad/cai/bom/bom.json', # O
         output_data_uri='s3://cats-public/cad-store/cad/cao/data', # I/O
-        transformer_uri=f'{CATS_HOME}/catStore/cats-public/cad-store/cad/transformation/transform.py', # I/O
+        transformer_uri=f'{CATSTORE}/cad/transformation/transform.py', # I/O
         # transformer_uri='s3://cats-public/cad-store/cad/transformation/transform.py', # I/O
         cai_partitions=1
     )
