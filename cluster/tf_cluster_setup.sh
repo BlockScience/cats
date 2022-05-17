@@ -13,7 +13,7 @@
 eval $(minikube docker-env)
 minikube start --driver=docker --cpus=4 --memory='10g'
 
-
+touch $CATS_HOME/make_spark_dist_info.txt #ToDo: needs to be removed
 terraform init -upgrade \
   -var AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   -var AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
