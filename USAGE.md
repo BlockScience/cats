@@ -52,7 +52,7 @@ of input
                       * **bom_write_path_uri** - URI of BOM
                       * **output_data_uri** - URI for subsequent CAT Output Data
                       * **transformer_uri** - URI of subsequent CAT data transformation (Python / (Spark/ANSII) SQL)
-                      (**[Example](/home/jjodesty/Projects/Research/cats/catStore/cats-public/cad-store/cad/transformation/transform.py)**)
+                      (**[Data Transformation Example](cats/catStore/cats-public/cad-store/cad/transformation/transform.py)**)
              2. Example:
              ```python
              from pycats import CATS_HOME
@@ -175,7 +175,7 @@ of input
                      * **cai_invoice_uri** - Subsequent CAT Invoice/CAI URI
                      * **transform_sourcefile** - Subsequent CAT Source URI of data transformation (Python / Spark SQL)  
                      * **transformer_uri** - Cluster File System URI of subsequent CAT data transformation
-                     (**[Example](/home/jjodesty/Projects/Research/cats/catStore/cats-public/cad-store/cad/transformation/transform2b.py)**)
+                     (**[Data Transformation Example](cats/catStore/cats-public/cad-store/cad/transformation/transform2b.py)**)
              2. Example:
              ```python
              from apps.cat1 import catFactory
