@@ -152,7 +152,7 @@ resource "kubernetes_secret" "aws-access_secret" {
 resource "shell_script" "make_spark_distribution" {
   lifecycle_commands {
     create = <<-EOF
-      if [ -d SPARK_HOME ]
+      if [ -d $SPARK_HOME ]
       then
           echo "Spark exists."
           touch $CATS_HOME/make_spark_dist_info.txt
