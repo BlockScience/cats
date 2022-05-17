@@ -10,7 +10,9 @@
 #  -var DOCKERFILE_LOCATION=kubernetes/dockerfiles/spark/bindings/python
 
 #minikube delete
+eval $(minikube docker-env)
 minikube start --driver=docker --cpus=4 --memory='10g'
+
 
 terraform init -upgrade \
   -var AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \

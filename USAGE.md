@@ -11,8 +11,20 @@ of input
    * CAT0 generates a catBOM by Content Identifying (CIDing) an Invoice of Data Partition Transactions, a Data 
        Transformation, and itself
    * CAT0 decentralizes data by CIDing with IPFS from a centralized source AWS s3
-   * **Development:**
-     1. Produce CAT `Processor` with `catFactory`:
+   * **Examples:**
+     1. **Execution:** Open terminal session, activate pre-created virtual environment, and execute CAT
+        1. Builds (Optional for development), Terraforms minikube K8s cluster & builds Spark Image, and executes a CAT
+        ```bash
+        cd <parrent directory>/cats
+        source ./venv/bin/activate
+        python apps/cat0/execute.py
+        ```
+        2. Deactivate Virtual Environment (Optional): `deactivate`
+        ```bash
+        (venv) $ deactivate
+        $
+        ```
+     2. **PyCAT Application Example:** Produce CAT `Processor` with `catFactory`:
         1. Create `apps/cat0/__init__.py` & instantiate `catFactory`: 
           ```python
           from pycats.factory import Factory
@@ -70,19 +82,8 @@ of input
                  cai_partitions=1
              )
              ```
-        4. Open terminal session, activate pre-created virtual environment, and execute CAT
-           1. Builds (Optional for development), Terraforms minikube K8s cluster & builds Spark Image, and executes a CAT
-           ```bash
-           cd <parrent directory>/cats
-           source ./venv/bin/activate
-           python apps/cat0/execute.py
-           ```
-           2. Deactivate Virtual Environment (Optional): `deactivate`
-           ```bash
-           (venv) $ deactivate
-           $
-           ```
-     2. **CAT0 Process Output**
+     
+     3. **CAT0 Process Output**
         ```bash
         # Invoice / Content-Addressed Dataset (CAD) [Single Partition]
         +------+--------------------+--------------------+--------------------+---------------+
