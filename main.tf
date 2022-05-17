@@ -207,6 +207,7 @@ resource "shell_script" "build_spark_dockerfile" {
     create = <<-EOF
       cd ~
       # cp $CATS_HOME/cluster/ipfs_init.sh $SPARK_HOME/$DOCKERFILE_LOCATION # for executor
+      eval $(minikube docker-env)
       $SPARK_HOME/bin/docker-image-tool.sh -r pyspark -t latest -p $SPARK_HOME/$DOCKERFILE_LOCATION/Dockerfile build
 
       touch $CATS_HOME/kubectl_cluster_info.txt
