@@ -26,7 +26,8 @@ CAT processes on 2 separate Apache Spark clusters on the Data Plane of the same 
 * **Updated Infrastructure:**
 ![alt_text](https://github.com/BlockScience/cats/blob/main/images/cat1_infrastructure_step.jpeg?raw=true)
 
-### Image Citations: catPipe Infrastructure
+### Image Citations: 
+* **["catPipe Infrastructure" Images](https://github.com/BlockScience/cats/blob/main/docs/Demo.md#catpipe-infrastructure)**
   * [Minikube logo](https://tse2.mm.bing.net/th?id=OIP.fMjeHmaGDI5UIzzvyDuUoQHaHL&pid=Api)
   * [Kubectl logo](https://tse3.mm.bing.net/th?id=OIP.vEBONA7sJh1FqEJKoR7gMwAAAA&pid=Api)
   * [Apache Spark logo](https://tse1.mm.bing.net/th?id=OIP.3qXr4urfJiEWj_fcXhZs-AHaD2&pid=Api)
