@@ -17,12 +17,12 @@ CAT processes on 2 separate Apache Spark clusters on the Data Plane of the same 
 ![alt_text](https://github.com/BlockScience/cats/blob/main/images/cat_demo_infrastructure.jpeg?raw=true)
 
 #### CAT0: Content-Addresses Dataset
-* **[CAT0 Demo Example](docs/CAT0-CAD.md)**
+* **[CAT0 Demo Example](CAT0-CAD.md)**
 * **Updated Infrastructure:**
 ![alt_text](https://github.com/BlockScience/cats/blob/main/images/cat0_infrastructure_step.jpeg?raw=true)
 
 #### CAT1 Updated Infrastructure: Content-Address Transform
-* **[CAT1 Demo Example](docs/CAT1-CAT.md)**
+* **[CAT1 Demo Example](CAT1-CAT.md)**
 * **Updated Infrastructure:**
 ![alt_text](https://github.com/BlockScience/cats/blob/main/images/cat1_infrastructure_step.jpeg?raw=true)
 

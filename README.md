@@ -77,6 +77,7 @@ processes
   ![alt_text](https://github.com/BlockScience/cats/blob/local_fs/images/BOMchain_only.jpeg?raw=true)
 
 ### Next Steps:
+### Next Steps:
 1. Replace s3 with Filebase for Content-Addressable Storage in order to remove ipfs client from cluster workers
    1. Alternative: for IPFS server bug (`ipfs init --profile server`) - loop IPFS initialization until provided a public 
    IP Address
@@ -90,9 +91,9 @@ processes
 3. Distributed debugger for Plant(s) \[SaaS(s)\]
 4. Unit & Integration Tests
 5. Produce new SaaS Plants with CAT Factory
-6. CI/CD
-7. Provenance catBOM
-8. Options to Content-Address Everything
+7. CI/CD
+8. Provenance catBOM
+9. Options to Content-Address Everything
 
 ### Long-Term Vision:
   * CATs software intended to enable the offering of Web2 cloud services (SaaS, PaaS, IaaS) configured with Web3 peers 

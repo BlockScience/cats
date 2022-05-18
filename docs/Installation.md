@@ -8,17 +8,28 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   sudo apt update
   sudo apt upgrade
   sudo apt install wget build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev
+  sudo apt install ca-certificates
   sudo apt-get update
   sudo apt-get upgrade
   sudo apt-get install curl dpkg apt-transport-https gnupg software-properties-common git zlib1g-dev
   ```
 
 ## Environment:
-* Install Docker
-  * Notes
-    * Windows Subsystem for Linux
-      * [**Docker on Windows 10**](https://hinty.io/ivictbor/simple-way-to-docker-on-windows-10-home-with-wsl-2/)
-        * Make sure you enable "Enable WSL 2 integration" in respective section
+* **[Install Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)**
+  * **Installation:**
+    ```bash
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    apt-cache policy docker-ce
+    sudo apt install docker-ce
+    ```
+  * **Executing the Docker Command Without Sudo:**
+    ```bash
+    sudo usermod -aG docker ${USER}
+    su - ${USER}
+    groups
+    sudo usermod -aG docker username
+    ```
 * [**Instructions:**](https://phoenixnap.com/kb/install-minikube-on-ubuntu)
   * **Install [VirtualBox](https://www.virtualbox.org/):**
     * Note: if presented with Oracle's EULA, press `TAB` to highlight ok and press enter, then `TAB` to yes
@@ -164,9 +175,6 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   cd cats
   echo 'export CATS_HOME='$PWD >> ~/.profile
   source ~/.profile
-  cp $CATS_HOME/deps/spark/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/Dockerfile
-  cp $CATS_HOME/deps/spark/python/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
-  cp $CATS_HOME/deps/spark/entrypoint.sh $SPARK_HOME/kubernetes/dockerfiles/spark/entrypoint.sh
   pip3 install --upgrade pip
   pip3 install setuptools==62.2.0 wheel==0.37.1 virtualenv==20.14.1 venv-pack==0.2.0
   python3 -m venv ./venv # create virtual environment
