@@ -15,7 +15,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   ```
 
 ## Environment:
-* **[Install Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)**
+* **[Install Docker:](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)**
   * **Installation:**
     ```bash
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
