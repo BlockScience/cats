@@ -84,7 +84,7 @@ processes
 
     A.Options:
       * CATsVM Disk Image (Ubuntu)
-      * CATsContainer using docker:latest container (Alpine Linux)
+      * CATsContainer
 
     B. Add dependencies to Terraform one CATnode exists
 3. Distributed debugger for Plant(s) \[SaaS(s)\]
@@ -95,13 +95,15 @@ processes
 8. Options to Content-Address Everything
 
 ### Long-Term Vision:
-  * CATs are intended to be executed on a peer-to-peer (p2p) mesh network client
-  * CATs is intended to enable the offering of Web2 cloud services (SaaS, PaaS, IaaS) as Web3 peers / smart contracts 
-  by Content-Addressing the entire Cloud Service Model for such services
+  * CATs software intended to enable the offering of Web2 cloud services (SaaS, PaaS, IaaS) configured with Web3 peers 
+  on a peer-to-peer (p2p) mesh network client that enable products implemented with the entire Cloud Service Model to be 
+  smart-contracts by Content-Addressing the entire service.
+  * **[IPFS Compute](https://pkg.go.dev/github.com/abhiyerra/ipfs-compute)** used to as a task server & executor using 
+    the IPFS Lite client on cluster nodes for distributed data processing with WebAssembly (WASM) modules on IPFS 
 
-### [Installation](Installation.md)
+### [Installation](docs/Installation.md)
 
-### [Usage](USAGE.md)
+### [Demo & Infrastructure](docs/Demo.md)
 
 
 ### Image Citations:

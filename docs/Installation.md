@@ -8,9 +8,9 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   sudo apt update
   sudo apt upgrade
   sudo apt install wget build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev
-  sudo apt-get install curl dpkg apt-transport-https gnupg software-properties-common git
   sudo apt-get update
   sudo apt-get upgrade
+  sudo apt-get install curl dpkg apt-transport-https gnupg software-properties-common git zlib1g-dev
   ```
 
 ## Environment:
@@ -30,7 +30,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   * **Install [Minikube](https://minikube.sigs.k8s.io/docs/): Local [Kubernetes](https://kubernetes.io/) Deployment**
     ```bash
     wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-    sudo cp minikube-linux-amd64 /usr/local/bin/minikube
+    sudo mv minikube-linux-amd64 /usr/local/bin/minikube
     sudo chmod 755 /usr/local/bin/minikube
     minikube version
     ```
@@ -41,6 +41,11 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
     sudo mv ./kubectl /usr/local/bin/kubectl
     kubectl version -o json
     ```
+  * **Set `KUBE_CONFIG_PATH`:**
+    ```bash
+    echo 'export KUBE_CONFIG_PATH=~/.kube/config' >> ~/.profile
+    source ~/.profile
+    ```
 
 ### CATs Dependencies:
 
@@ -50,7 +55,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   cd /tmp
   wget https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz
   tar -xf Python-3.9.7.tgz
-  cd python-3.9.7
+  cd Python-3.9.7
   ./configure --enable-optimizations
   sudo make install
   python3 --version
@@ -65,6 +70,13 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
       echo 'export AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>' >> ~/.profile
       echo 'export AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>' >> ~/.profile
       source ~/.profile
+      ```
+      * [**Install AWS CLI version 2**](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-version.html)
+      ```bash
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+      aws --version
       ```
       * Create AWS S3 Bucket (IMPORTANT: Public access is granted to buckets and objects through access control lists)
       ```bash
@@ -96,7 +108,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
     sudo apt-get update
     sudo apt-get install sbt=1.5.5
     wget https://downloads.lightbend.com/scala/2.11.12/scala-2.11.12.deb
-    dpkg -i scala-2.11.12.deb
+    sudo dpkg -i scala-2.11.12.deb
     sudo apt-get update
     scala -version
     sbt sbtVersion
@@ -136,19 +148,13 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   terraform --version
   ```
 * **Clients:**
-  * [**Install AWS CLI version 2**](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-version.html)
-  ```bash
-  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
-  unzip awscliv2.zip
-  sudo ./aws/install
-  aws --version
-  ```
   * [**Install IPFS 0.12.2**](https://docs.ipfs.io/install/command-line/)
   ```bash
   wget https://dist.ipfs.io/go-ipfs/v0.12.2/go-ipfs_v0.12.2_linux-amd64.tar.gz
   tar -xvzf go-ipfs_v0.12.2_linux-amd64.tar.gz
   cd go-ipfs
   sudo bash install.sh
+  ipfs init
   ipfs --version
   ```
   * [**Install CATs:**](https://github.com/BlockScience/cats)
@@ -157,13 +163,16 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   git clone https://github.com/BlockScience/cats.git
   cd cats
   echo 'export CATS_HOME='$PWD >> ~/.profile
-  mv deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
-  mv deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
-  pip3 install setuptools wheel virtualenv venv-pack
+  source ~/.profile
+  cp $CATS_HOME/deps/spark/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/Dockerfile
+  cp $CATS_HOME/deps/spark/python/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
+  cp $CATS_HOME/deps/spark/entrypoint.sh $SPARK_HOME/kubernetes/dockerfiles/spark/entrypoint.sh
+  pip3 install --upgrade pip
+  pip3 install setuptools==62.2.0 wheel==0.37.1 virtualenv==20.14.1 venv-pack==0.2.0
   python3 -m venv ./venv # create virtual environment
-  pip3 install venv-pack
   source ./venv/bin/activate # activate virtual environment
   pip install --upgrade pip
+  pip3 install setuptools==62.2.0
   pip install -r requirements.txt
   python setup.py sdist bdist_wheel
   pip install dist/pycats-0.0.0-py3-none-any.whl

@@ -152,7 +152,7 @@ resource "kubernetes_secret" "aws-access_secret" {
 resource "shell_script" "make_spark_distribution" {
   lifecycle_commands {
     create = <<-EOF
-      if [ -d $HOME/Projects/Research/spark ]
+      if [ -d $SPARK_HOME ]
       then
           echo "Spark exists."
           touch $CATS_HOME/make_spark_dist_info.txt
@@ -207,7 +207,8 @@ resource "shell_script" "build_spark_dockerfile" {
     create = <<-EOF
       cd ~
       # cp $CATS_HOME/cluster/ipfs_init.sh $SPARK_HOME/$DOCKERFILE_LOCATION # for executor
-      eval $(minikube docker-env)
+      # eval $(minikube docker-env)
+      eval $(minikube -p minikube docker-env)
       $SPARK_HOME/bin/docker-image-tool.sh -r pyspark -t latest -p $SPARK_HOME/$DOCKERFILE_LOCATION/Dockerfile build
 
       touch $CATS_HOME/kubectl_cluster_info.txt

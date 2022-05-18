@@ -4,8 +4,8 @@ from pycats import CATS_HOME, SPARK_HOME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_K
 
 # Configure Plant Session (Apache Spark Session)
 SparkSessionConfig['spark.app.name'] = 'CAT'
-SparkSessionConfig['spark.executor.instances'] = '4'
-SparkSessionConfig['spark.executor.memory'] = '5g'
+SparkSessionConfig['spark.executor.instances'] = '3'
+SparkSessionConfig['spark.executor.memory'] = '2g'
 SparkSessionConfig['spark.kubernetes.executor.deleteOnTermination'] = 'true'
 SparkSessionConfig['spark.hadoop.fs.s3a.access.key'] = AWS_ACCESS_KEY_ID
 SparkSessionConfig['spark.hadoop.fs.s3a.secret.key'] = AWS_SECRET_ACCESS_KEY
