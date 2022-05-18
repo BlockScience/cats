@@ -10,7 +10,7 @@ SparkSessionConfig['spark.kubernetes.executor.deleteOnTermination'] = 'true'
 SparkSessionConfig['spark.hadoop.fs.s3a.access.key'] = AWS_ACCESS_KEY_ID
 SparkSessionConfig['spark.hadoop.fs.s3a.secret.key'] = AWS_SECRET_ACCESS_KEY
 SparkSessionConfig['spark.kubernetes.file.upload.path'] = 's3a://cats-storage/input/'
-SparkSessionConfig['spark.pyspark.driver.python'] = f'{CATS_HOME}/venv/bin/py thon'
+SparkSessionConfig['spark.pyspark.driver.python'] = f'{CATS_HOME}/venv/bin/python'
 
 tf_script = f'{CATS_HOME}/cluster/tf_cluster_setup.sh'
 tf_cmd = f"bash {tf_script}"
