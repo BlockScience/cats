@@ -164,8 +164,9 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   cd cats
   echo 'export CATS_HOME='$PWD >> ~/.profile
   source ~/.profile
-  cp deps/spark/python/Dockerfile /usr/local/spark/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
-  cp deps/spark/entrypoint.sh /usr/local/spark/kubernetes/dockerfiles/spark/entrypoint.sh
+  cp $CATS_HOME/deps/spark/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/Dockerfile
+  cp $CATS_HOME/deps/spark/python/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
+  cp $CATS_HOME/deps/spark/entrypoint.sh $SPARK_HOME/kubernetes/dockerfiles/spark/entrypoint.sh
   pip3 install --upgrade pip
   pip3 install setuptools==62.2.0 wheel==0.37.1 virtualenv==20.14.1 venv-pack==0.2.0
   python3 -m venv ./venv # create virtual environment
