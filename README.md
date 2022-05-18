@@ -1,6 +1,6 @@
 # CATs: Content-Addressable Transformers
 
-### What CATs do:
+### Description:
 CATs is unified processing software framework and web application back-end that enables the creation of Web3 decentralized 
 data products with data process verification using Web2 centralized cloud services (SaaS, PaaS, IaaS), collaboration 
 across domains between cross-functional teams and organizations on products by 
