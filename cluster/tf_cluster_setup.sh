@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cp $CATS_HOME/deps/spark/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/Dockerfile
+cp $CATS_HOME/deps/spark/python/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
+cp $CATS_HOME/deps/spark/entrypoint.sh $SPARK_HOME/kubernetes/dockerfiles/spark/entrypoint.sh
+
 #terraform destroy -auto-approve \
 #  -var AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 #  -var AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
