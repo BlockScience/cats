@@ -49,7 +49,7 @@ CATs (Data) Pipeline inputs (I/O Data & Transformations) produce a sequence of B
   components, and instructions required to construct, manufacture, or repair a product or service
   
 
-### CATs Data Provenance as CAT I/O (a.k.a catBOM as Provenance Record):
+### CATs Data Provenance as CAT I/O: catBOM as Provenance Record
 * **catBOM** - a collection of CIDs & URIs metadata for establishing provenance that enable (re-)execution of CAT 
 processes
     * catBOM values are modifiable I/O for CATs
