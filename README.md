@@ -91,7 +91,6 @@ processes
 3. Distributed debugger for Plant(s) \[SaaS(s)\]
 4. Unit & Integration Tests
 5. Produce new SaaS Plants with CAT Factory
-6. UI Documentation
 7. CI/CD
 8. Provenance catBOM
 9. Options to Content-Address Everything
