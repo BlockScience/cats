@@ -103,7 +103,7 @@ processes
 
 ### [Installation](docs/Installation.md)
 
-### [Demo & Infrastructure](docs/Demo.md)
+### [Demo Example & Infrastructure](docs/Demo.md)
 
 
 ### Image Citations:
