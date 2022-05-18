@@ -114,6 +114,7 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
     curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
     sudo apt-get update
     sudo apt-get install sbt=1.5.5
+    sbt sbtVersion
     ```
   * **Scala 2.11.12**
     ```bash
@@ -121,7 +122,6 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
     sudo dpkg -i scala-2.11.12.deb
     sudo apt-get update
     scala -version
-    sbt sbtVersion
     ```
 * **[Go](https://go.dev/dl/) 1.13.6:**
     ```bash
