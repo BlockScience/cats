@@ -75,8 +75,7 @@ processes
     * Can be used for data pipeline verification
   * **Illustration of BOMchain as I/O surface of CATpipe**
   ![alt_text](https://github.com/BlockScience/cats/blob/local_fs/images/BOMchain_only.jpeg?raw=true)
-
-### Next Steps:
+  
 ### Next Steps:
 1. Replace s3 with Filebase for Content-Addressable Storage in order to remove ipfs client from cluster workers
    1. Alternative: for IPFS server bug (`ipfs init --profile server`) - loop IPFS initialization until provided a public 
