@@ -11,9 +11,11 @@
 
 #minikube delete
 #eval $(minikube docker-env)
-eval $(minikube -p minikube docker-env)
+#eval $(minikube -p minikube docker-env)
+eval $(minikube docker-env)
 minikube start --driver=docker --cpus=4 --memory='10g'
-eval $(minikube -p minikube docker-env)
+eval $(minikube docker-env)
+#eval $(minikube -p minikube docker-env)
 
 touch $CATS_HOME/make_spark_dist_info.txt #ToDo: needs to be removed
 terraform init -upgrade \
