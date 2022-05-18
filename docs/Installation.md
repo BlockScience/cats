@@ -1,36 +1,35 @@
 # Installation:
-This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 LTS. 
-I will provide links for variations of Ubuntu / Linux / other operating systems.
+This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 LTS.
 
 ### Prerequisites:
 * **Essentials:**
   ```bash
   sudo apt update
   sudo apt upgrade
-  sudo apt install wget build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev
-  sudo apt install ca-certificates
+  sudo apt install wget build-essential ca-certificates
+  sudo apt install libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev
   sudo apt-get update
   sudo apt-get upgrade
   sudo apt-get install curl dpkg apt-transport-https gnupg software-properties-common git zlib1g-dev
   ```
 
 ## Environment:
-* **[Install Docker:](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)**
+* **[Docker:](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)**
   * **Installation:**
     ```bash
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu focal stable"
     apt-cache policy docker-ce
     sudo apt install docker-ce
     ```
-  * **Executing the Docker Command Without Sudo:**
+  * **Executing the Docker Command Without Sudo:** Inspired by [this](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
     ```bash
     sudo usermod -aG docker ${USER}
     su - ${USER}
     groups
     sudo usermod -aG docker username
     ```
-* [**Instructions:**](https://phoenixnap.com/kb/install-minikube-on-ubuntu)
+* [**VirtualBox, Minikube, & Kubectl:**](https://phoenixnap.com/kb/install-minikube-on-ubuntu)
   * **Install [VirtualBox](https://www.virtualbox.org/):**
     * Note: if presented with Oracle's EULA, press `TAB` to highlight ok and press enter, then `TAB` to yes
     * Example:  
@@ -97,8 +96,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
       bash ./s3_utill_scripts/catStore_to_s3.sh
       ```
 
-* **Java 11:**
-  * [**Resource**](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-20-04)
+* **[Java 11](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-20-04):**
   ```bash
   sudo apt install openjdk-11-jre
   sudo apt install openjdk-11-jdk
@@ -109,20 +107,21 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
   java -version
   ```
 * **sbt & Scala:**
-  * [**Resource**](https://www.scala-sbt.org/download.html?_ga=2.195232236.1901884640.1633358692-54053138.1633358495)
-    * **sbt 1.5.5**
-    * **Scala 2.11.12**
+  * **[sbt 1.5.5](https://www.scala-sbt.org/download.html?_ga=2.195232236.1901884640.1633358692-54053138.1633358495)**
     ```bash
     echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list
     echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list
     curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
     sudo apt-get update
     sudo apt-get install sbt=1.5.5
+    sbt sbtVersion
+    ```
+  * **Scala 2.11.12**
+    ```bash
     wget https://downloads.lightbend.com/scala/2.11.12/scala-2.11.12.deb
     sudo dpkg -i scala-2.11.12.deb
     sudo apt-get update
     scala -version
-    sbt sbtVersion
     ```
 * **[Go](https://go.dev/dl/) 1.13.6:**
     ```bash
@@ -145,7 +144,7 @@ I will provide links for variations of Ubuntu / Linux / other operating systems.
       source ~/.profile
       spark-submit --version
       ```
-* **IfraStructure as Code (IaC):**
+* **Ifrastructure as Code (IaC):**
   * [**Install Terraform**](https://learn.hashicorp.com/tutorials/terraform/install-cli)
   ```bash
   sudo apt-get update
