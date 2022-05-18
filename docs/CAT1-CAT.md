@@ -1,6 +1,4 @@
-
-
-# CAT1:
+# CAT1: Content-Addresses Transform
 1. **CAT1:** Content-Address Transform Dataset given CAT0 BOM to produce new CAO & catBOM for subsequent CAT 
    * CAT1 is the primary data transformation UI for a CAT** representing 0 to n CATs and illustrates a CATpipe
      * CATs uses the catBOM as input and output enabling users to reproduce I/O data using a Content Identified (CIDed) 

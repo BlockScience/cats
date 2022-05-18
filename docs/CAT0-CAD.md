@@ -1,5 +1,3 @@
-
-
 # CAT0: Content-Addresses Dataset
 Content-Addresses Dataset as Content-Addressed Input (CAI) by generating initial catBOM used by the subsequent CAT in 
 catPipe (CAT1) as form of input:
