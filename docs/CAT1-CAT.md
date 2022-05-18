@@ -71,6 +71,7 @@
              2. **[Module Example:](cats/apps/cat1/cat.py)**
              ```python
              from apps.cat1 import catFactory
+             from pycats import CATSTORE
              from pycats.function.process.cat import Processor
 
              cat: Processor = catFactory.init_processor().get_driver_ipfs_id()
@@ -85,7 +86,7 @@
                  output_bom_update={
                      'cai_data_uri': 's3://cats-public/cad-store/cad/cai2/data',
                      'cai_invoice_uri': 's3://cats-public/cad-store/cad/cai2/invoices',
-                     'transform_sourcefile': '/home/jjodesty/Projects/Research/cats/apps/cat1/transform2b.py',
+                     'transform_sourcefile': f'{CATSTORE}/cad/transformation/transform2b.py',
                      'transformer_uri': 's3://cats-public/cad-store/cad/transformation/transform2b.py'
                  }
              )

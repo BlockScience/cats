@@ -26,8 +26,8 @@ catPipe (CAT1) as form of input:
 
        # Configure Plant Session (Apache Spark Session)
        SparkSessionConfig['spark.app.name'] = 'CAD'
-       SparkSessionConfig['spark.executor.instances'] = '4'
-       SparkSessionConfig['spark.executor.memory'] = '5g'
+       SparkSessionConfig['spark.executor.instances'] = '3'
+       SparkSessionConfig['spark.executor.memory'] = '1g'
        SparkSessionConfig['spark.kubernetes.executor.deleteOnTermination'] = 'true'
        SparkSessionConfig['spark.hadoop.fs.s3a.access.key'] = AWS_ACCESS_KEY_ID
        SparkSessionConfig['spark.hadoop.fs.s3a.secret.key'] = AWS_SECRET_ACCESS_KEY
@@ -59,18 +59,18 @@ catPipe (CAT1) as form of input:
                    (**[Data Transformation Example](cats/catStore/cats-public/cad-store/cad/transformation/transform.py)**)
           2. **[Module Example:](cats/apps/cat0/id_content.py)**
           ```python
-          from pycats import CATS_HOME
+          from pycats import CATS_HOME, CATSTORE
           from apps.cat0 import catFactory
           from pycats.function.process.cat import Processor
 
           cat: Processor = catFactory.init_processor(ipfs_daemon=True)
           local_bom_write_path = f'{CATS_HOME}/catStore/bom.json',
           cai_bom, input_cad_invoice = cat.content_address_input(
-              input_data_uri='s3://cats-public/input/df', # I
-              invoice_uri='s3://cats-public/cad-store/cad/cai/invoices', # O
+              input_data_uri=f'{CATS_HOME}/catStore/cats-public/input/df', # I
+              invoice_uri=f'{CATSTORE}/cad/cai/invoices', # O
               bom_write_path_uri='s3://cats-public/cad-store/cad/cai/bom/bom.json', # O
               output_data_uri='s3://cats-public/cad-store/cad/cao/data', # I/O
-              transformer_uri='s3://cats-public/cad-store/cad/transformation/transform.py', # I/O
+              transformer_uri=f'{CATSTORE}/cad/transformation/transform.py', # I/O
               cai_partitions=1
           )
           ```
