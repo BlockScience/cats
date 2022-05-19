@@ -12,8 +12,6 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   sudo apt-get upgrade
   sudo apt-get install curl dpkg apt-transport-https gnupg software-properties-common git zlib1g-dev
   ```
-
-## Environment:
 * **[Docker:](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)**
   * **Installation:**
     ```bash
@@ -51,11 +49,11 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
     sudo mv ./kubectl /usr/local/bin/kubectl
     kubectl version -o json
     ```
-  * **Set `KUBE_CONFIG_PATH`:**
-    ```bash
-    echo 'export KUBE_CONFIG_PATH=~/.kube/config' >> ~/.profile
-    source ~/.profile
-    ```
+    * **Set `KUBE_CONFIG_PATH`:**
+      ```bash
+      echo 'export KUBE_CONFIG_PATH=~/.kube/config' >> ~/.profile
+      source ~/.profile
+      ```
 
 ### CATs Dependencies:
 
