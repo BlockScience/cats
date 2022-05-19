@@ -182,6 +182,8 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   cp $CATS_HOME/deps/spark/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/Dockerfile
   cp $CATS_HOME/deps/spark/python/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
   cp $CATS_HOME/deps/spark/entrypoint.sh $SPARK_HOME/kubernetes/dockerfiles/spark/entrypoint.sh
+  sudo apt install python3-pip python3.9-venv
+  sudo apt update
   pip3 install --upgrade pip
   pip3 install setuptools==62.2.0 wheel==0.37.1 virtualenv==20.14.1 venv-pack==0.2.0
   python3 -m venv ./venv # create virtual environment

@@ -39,6 +39,8 @@ class CATSession():
             config_dict = self.plant_session_config
         os.environ['PYSPARK_DRIVER_PYTHON'] = "python"
         os.environ['PYSPARK_PYTHON'] = "./environment/bin/python"
+        config_dict['spark.pyspark.driver.python'] = "python"
+        config_dict['spark.pyspark.python'] = "./environment/bin/python"
         config_dict['spark.archives'] = "venv.tar.gz#environment"
         SparkSessionBuilder: SparkSession = SparkSession \
             .builder
@@ -55,9 +57,9 @@ def spark_submit(
         TRANSFORM_SOURCE=None,
         TRANSFORM_DESTINATION=None
 ):
-    # env_vars = os.environ.copy()
-    # env_vars['PYSPARK_DRIVER_PYTHON'] = 'python'
-    # env_vars['PYSPARK_PYTHON'] = './environment/bin/python'
+    env_vars = os.environ.copy()
+    env_vars['PYSPARK_DRIVER_PYTHON'] = 'python'
+    env_vars['PYSPARK_PYTHON'] = './environment/bin/python'
 
     # os.environ['PYSPARK_DRIVER_PYTHON'] = "python"
     # os.environ['PYSPARK_PYTHON'] = "./environment/bin/python"
@@ -73,8 +75,8 @@ def spark_submit(
         aws_cp = f'aws s3 cp {TRANSFORM_SOURCE} {TRANSFORM_DESTINATION}'
         spark_submit_cmds = [aws_cp] + spark_submit_cmds
     for cmd in spark_submit_cmds:
-        # for path in execute(cmd, env_vars):
-        for path in execute(cmd):
+        for path in execute(cmd, env_vars):
+        # for path in execute(cmd):
             print(path, end="")
     # pprint(spark_submit_cmds)
     return spark_submit_cmds
