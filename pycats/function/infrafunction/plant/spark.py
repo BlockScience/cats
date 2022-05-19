@@ -56,6 +56,8 @@ def spark_submit(
     env_vars['PYSPARK_DRIVER_PYTHON'] = 'python'
     env_vars['PYSPARK_PYTHON'] = './environment/bin/python'
     spark_submit_block = f"""
+    export PYSPARK_DRIVER_PYTHON=python # Do not set in cluster modes.
+    export PYSPARK_PYTHON=./environment/bin/python
     {SPARK_HOME}/bin/spark-submit \
     --packages com.amazonaws:aws-java-sdk:1.11.375 \
     --packages org.apache.hadoop:hadoop-aws:3.2.0 \
@@ -68,6 +70,7 @@ def spark_submit(
         spark_submit_cmds = [aws_cp] + spark_submit_cmds
     for cmd in spark_submit_cmds:
         for path in execute(cmd, env_vars):
+        # for path in execute(cmd):
             print(path, end="")
     # pprint(spark_submit_cmds)
     return spark_submit_cmds

@@ -4,6 +4,8 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
 ### Prerequisites:
 * **Essentials:**
   ```bash
+  mkdir ~/install
+  cd install
   sudo apt update
   sudo apt upgrade
   sudo apt install wget build-essential ca-certificates
@@ -19,20 +21,26 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
     sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu focal stable"
     apt-cache policy docker-ce
     sudo apt install docker-ce
+    docker --version
     ```
   * **Executing the Docker Command Without Sudo:** Inspired by [this](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
     ```bash
     sudo usermod -aG docker ${USER}
-    su - ${USER}
+    echo <password> | su - ${USER}
     groups
-    sudo usermod -aG docker username
+    sudo usermod -aG docker <username>
     ```
 * [**VirtualBox, Minikube, & Kubectl:**](https://phoenixnap.com/kb/install-minikube-on-ubuntu)
   * **Install [VirtualBox](https://www.virtualbox.org/):**
     * Note: if presented with Oracle's EULA, press `TAB` to highlight ok and press enter, then `TAB` to yes
     * Example:  
     ```bash
-    sudo apt install -y virtualbox virtualbox-ext-pack
+    sudo apt update
+    sudo apt install -y virtualbox virtualbox-ext-pack virtualbox-qt
+    ```
+    * **Optional** Example: for Ubuntu Virtual Machine
+    ```bash
+    sudo apt install -y virtualbox-qt
     ```
     
   * **Install [Minikube](https://minikube.sigs.k8s.io/docs/): Local [Kubernetes](https://kubernetes.io/) Deployment**
@@ -60,7 +68,6 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
 * **Prerequisites:**
   * Install **[Python >= 3.9.7](https://www.python.org/downloads/release/python-397/)**: Based on this [guide](https://phoenixnap.com/kb/how-to-install-python-3-ubuntu#ftoc-heading-6)
   ```bash
-  cd /tmp
   wget https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz
   tar -xf Python-3.9.7.tgz
   cd Python-3.9.7
@@ -69,6 +76,7 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   python3 --version
   sudo apt install python3-pip
   sudo apt update
+  cd ~/install
   ```
   * [**AWS Account (Instructions)**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
     * **CATs AWS Access Setup**
@@ -167,7 +175,6 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   ```
   * [**Install CATs:**](https://github.com/BlockScience/cats)
   ```bash
-  pip install --upgrade pip
   git clone https://github.com/BlockScience/cats.git
   cd cats
   echo 'export CATS_HOME='$PWD >> ~/.profile
@@ -179,10 +186,11 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   pip3 install setuptools==62.2.0 wheel==0.37.1 virtualenv==20.14.1 venv-pack==0.2.0
   python3 -m venv ./venv # create virtual environment
   source ./venv/bin/activate # activate virtual environment
-  pip install --upgrade pip
+  pip3 install --upgrade pip
   pip3 install setuptools==62.2.0
-  pip install -r requirements.txt
-  python setup.py sdist bdist_wheel
-  pip install dist/pycats-0.0.0-py3-none-any.whl
+  pip3 install -r requirements.txt
+  python3 setup.py sdist bdist_wheel
+  pip3 install dist/pycats-0.0.0-py3-none-any.whl
   venv-pack -p ./venv -o venv.tar.gz --force
+  cd ~/install
   ```
