@@ -52,12 +52,15 @@ def spark_submit(
         TRANSFORM_SOURCE=None,
         TRANSFORM_DESTINATION=None
 ):
-    env_vars = os.environ.copy()
-    env_vars['PYSPARK_DRIVER_PYTHON'] = 'python'
-    env_vars['PYSPARK_PYTHON'] = './environment/bin/python'
+    # env_vars = os.environ.copy()
+    # env_vars['PYSPARK_DRIVER_PYTHON'] = 'python'
+    # env_vars['PYSPARK_PYTHON'] = './environment/bin/python'
+
+    os.environ['PYSPARK_DRIVER_PYTHON'] = "python"
+    os.environ['PYSPARK_PYTHON'] = "./environment/bin/python"
     spark_submit_block = f"""
-    export PYSPARK_DRIVER_PYTHON=python # Do not set in cluster modes.
-    export PYSPARK_PYTHON=./environment/bin/python
+    # export PYSPARK_DRIVER_PYTHON=python
+    # export PYSPARK_PYTHON=./environment/bin/python
     {SPARK_HOME}/bin/spark-submit \
     --packages com.amazonaws:aws-java-sdk:1.11.375 \
     --packages org.apache.hadoop:hadoop-aws:3.2.0 \
@@ -69,8 +72,8 @@ def spark_submit(
         aws_cp = f'aws s3 cp {TRANSFORM_SOURCE} {TRANSFORM_DESTINATION}'
         spark_submit_cmds = [aws_cp] + spark_submit_cmds
     for cmd in spark_submit_cmds:
-        for path in execute(cmd, env_vars):
-        # for path in execute(cmd):
+        # for path in execute(cmd, env_vars):
+        for path in execute(cmd):
             print(path, end="")
     # pprint(spark_submit_cmds)
     return spark_submit_cmds
