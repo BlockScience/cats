@@ -37,6 +37,9 @@ class CATSession():
     def lazy_SparkSession(self, config_dict: dict = None):
         if config_dict is None:
             config_dict = self.plant_session_config
+        os.environ['PYSPARK_DRIVER_PYTHON'] = "python"
+        os.environ['PYSPARK_PYTHON'] = "./environment/bin/python"
+        config_dict['spark.archives'] = "venv.tar.gz#environment"
         SparkSessionBuilder: SparkSession = SparkSession \
             .builder
         for k, v in config_dict.items():
@@ -56,11 +59,9 @@ def spark_submit(
     # env_vars['PYSPARK_DRIVER_PYTHON'] = 'python'
     # env_vars['PYSPARK_PYTHON'] = './environment/bin/python'
 
-    os.environ['PYSPARK_DRIVER_PYTHON'] = "python"
-    os.environ['PYSPARK_PYTHON'] = "./environment/bin/python"
+    # os.environ['PYSPARK_DRIVER_PYTHON'] = "python"
+    # os.environ['PYSPARK_PYTHON'] = "./environment/bin/python"
     spark_submit_block = f"""
-    # export PYSPARK_DRIVER_PYTHON=python
-    # export PYSPARK_PYTHON=./environment/bin/python
     {SPARK_HOME}/bin/spark-submit \
     --packages com.amazonaws:aws-java-sdk:1.11.375 \
     --packages org.apache.hadoop:hadoop-aws:3.2.0 \
