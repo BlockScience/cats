@@ -37,7 +37,7 @@ class CATSession():
     def lazy_SparkSession(self, config_dict: dict = None):
         if config_dict is None:
             config_dict = self.plant_session_config
-        os.environ['PYSPARK_DRIVER_PYTHON'] = "python"
+        # os.environ['PYSPARK_DRIVER_PYTHON'] = "python"
         os.environ['PYSPARK_PYTHON'] = "./environment/bin/python"
         # config_dict['spark.pyspark.driver.python'] = "python"
         # config_dict['spark.pyspark.python'] = "./environment/bin/python"
