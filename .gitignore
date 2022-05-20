@@ -5,6 +5,7 @@ job_data
 *.egg-info
 spark-warehouse
 df.csv
+venv
 venv.tar.gz
 __pycache__
 */__pycache__

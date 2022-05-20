@@ -87,9 +87,10 @@ def spark_submit(
 pip3 install -r requirements.txt
 python3 setup.py sdist bdist_wheel
 pip3 install dist/pycats-0.0.0-py3-none-any.whl --force-reinstall
-venv-pack -o venv.tar.gz --force
+
 export PYSPARK_DRIVER_PYTHON=python
 export PYSPARK_PYTHON=./environment/bin/python
+venv-pack -o venv.tar.gz --force
 spark-submit  \
 --packages com.amazonaws:aws-java-sdk:1.11.375 \
 --packages org.apache.hadoop:hadoop-aws:3.2.0  \
