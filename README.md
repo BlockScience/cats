@@ -1,4 +1,4 @@
-# CATs: Content-Addressable Transformers
+# CATs: Content-Addressable Transformers ([Pre-Alpha](https://en.wikipedia.org/wiki/Software_release_life_cycle#Pre-alpha))
 
 ### Description:
 CATs is a unified distributed processing framework and web application back-end on a Kubernetes cluster to be 
