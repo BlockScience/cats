@@ -1,14 +1,14 @@
 # CATs: Content-Addressable Transformers ([Pre-Alpha](https://en.wikipedia.org/wiki/Software_release_life_cycle#Pre-alpha))
 
 ### Description:
-CATs is a unified distributed processing framework and web application back-end on a **[Kubernetes](https://kubernetes.io/)** cluster to be 
-orchestrated on a peer-to-peer mesh network client acting as a cluster head node. CATs enable the creation of Web3 data 
-products as decentralized service with data process verification using existing Web2 centralized cloud service technologies 
-(SaaS, PaaS, IaaS) in AWS, GCP, Azure, etc., without the need of a smart-contract language. CATs nurture collaboration 
-across domains between cross-functional / multi-disciplinary teams and organizations on products by 
-[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) the means of processing (input, 
-transformation / process, output, infrastructure [as Code (IaC)]) and using Content-Addresses as the means of data 
-transport between services.
+CATs is a unified distributed processing framework and web application back-end orchestrated with 
+**[Kubernetes](https://kubernetes.io/)** to be deployed on a peer-to-peer mesh network client acting as a 
+cluster head node. CATs enable the creation of Web3 data products as a decentralized service with data process 
+verification using existing Web2 centralized cloud service technologies (SaaS, PaaS, IaaS) in AWS, GCP, Azure, etc., 
+without the need of a smart-contract language. CATs nurture collaboration across domains between cross-functional / 
+multi-disciplinary teams and organizations on products by [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) 
+the means of processing (input, transformation / process, output, infrastructure [as Code (IaC)]) and using 
+Content-Addresses as the means of data transport between services.
 
 ### Illustrated CAT:
 ![alt_text](images/simple_cat_10.jpeg?raw=true)
@@ -99,8 +99,9 @@ processes
 9. Options to Content-Address Everything
 
 ### Long-Term Vision:
-  * CATs software is on a peer-to-peer (p2p) mesh network client that enable products implemented with the entire Cloud 
-  Service Model to be Decentralized Cloud Services as a Smart Contract (DCSaaSM) by Content-Addressing the entire service.
+  * CATs software is intended to be deployed on a peer-to-peer (p2p) mesh network client that enable products 
+  implemented with the entire Cloud Service Model to be Decentralized Cloud Services by Content-Addressing the entire 
+  service.
   * **[IPFS Compute](https://pkg.go.dev/github.com/abhiyerra/ipfs-compute)** will be used to as a 
   [WebAssembly](https://webassembly.org/) (WASM) module task server, broadcaster, & executor leveraging 
   [IPFS Lite](https://github.com/hsanjuan/ipfs-lite) on cluster nodes for distributed processing 
