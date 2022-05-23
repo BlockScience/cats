@@ -12,7 +12,7 @@
               ```bash
               cd <parrent directory>/cats
               source ./venv/bin/activate
-              python apps/cat1/execute.py
+              python3.9 apps/cat1/execute.py
               ```
               1. Deactivate Virtual Environment (Optional): `deactivate`
               ```bash

@@ -1,11 +1,14 @@
 # CATs: Content-Addressable Transformers
 
 ### Description:
-CATs is unified processing software framework and web application back-end that enables the creation of Web3 decentralized 
-data products with data process verification using Web2 centralized cloud services (SaaS, PaaS, IaaS), collaboration 
-across domains between cross-functional teams and organizations on products by 
-[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) the means of processing and using 
-Content-Addresses as the means of dataset transport between processes.
+CATs is a unified distributed processing framework and web application back-end cluster to be orchestrated on a 
+peer-to-peer mesh network client acting as a cluster head node. CATs enable the creation of Web3 data products as 
+decentralized service with data process verification using existing Web2 centralized cloud service technologies 
+(SaaS, PaaS, IaaS) in AWS, GCP, Azure, etc., without the need of a smart-contract language. CATs nurture collaboration 
+across domains between cross-functional / multi-disciplinary teams and organizations on products by 
+[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) the means of processing (input, 
+transformation / process, output, infrastructure) and using Content-Addresses as the means of dataset transport between 
+services / processes.
 
 ### Illustrated CAT:
 ![alt_text](images/simple_cat_10.jpeg?raw=true)
@@ -87,19 +90,20 @@ processes
       * CATsContainer
 
     B. Add dependencies to Terraform one CATnode exists
-3. Distributed debugger for Plant(s) \[SaaS(s)\]
-4. Unit & Integration Tests
-5. Produce new SaaS Plants with CAT Factory
+3. Unit Test: BOM CID equivalence
+4. Distributed debugger for Plant(s) \[SaaS(s)\]
+5. Unit & Integration Tests
+6. Produce new SaaS Plants with CAT Factory
 7. CI/CD
 8. Provenance catBOM
 9. Options to Content-Address Everything
 
 ### Long-Term Vision:
-  * CATs software intended to enable the offering of Web2 cloud services (SaaS, PaaS, IaaS) configured with Web3 peers 
-  on a peer-to-peer (p2p) mesh network client that enable products implemented with the entire Cloud Service Model to be 
-  smart-contracts by Content-Addressing the entire service.
-  * **[IPFS Compute](https://pkg.go.dev/github.com/abhiyerra/ipfs-compute)** used to as a task server & executor using 
-    the IPFS Lite client on cluster nodes for distributed data processing with WebAssembly (WASM) modules on IPFS 
+  * CATs software is on a peer-to-peer (p2p) mesh network client that enable products implemented with the entire Cloud 
+  Service Model to be Decentralized Cloud Services as a Smart Contract (DCSaaSM) by Content-Addressing the entire service.
+  * **[IPFS Compute](https://pkg.go.dev/github.com/abhiyerra/ipfs-compute)** will be used to as a 
+  [WebAssembly](https://webassembly.org/) (WASM) module task server, broadcaster, & executor leveraging 
+  [IPFS Lite](https://github.com/hsanjuan/ipfs-lite) on cluster nodes for distributed processing 
 
 ### [Installation](docs/Installation.md)
 
