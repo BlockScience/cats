@@ -1,14 +1,14 @@
-# CATs: Content-Addressable Transformers
+# CATs: Content-Addressable Transformers ([Pre-Alpha](https://en.wikipedia.org/wiki/Software_release_life_cycle#Pre-alpha))
 
 ### Description:
-CATs is a unified distributed processing framework and web application back-end cluster to be orchestrated on a 
-peer-to-peer mesh network client acting as a cluster head node. CATs enable the creation of Web3 data products as 
-decentralized service with data process verification using existing Web2 centralized cloud service technologies 
+CATs is a unified distributed processing framework and web application back-end on a **[Kubernetes](https://kubernetes.io/)** cluster to be 
+orchestrated on a peer-to-peer mesh network client acting as a cluster head node. CATs enable the creation of Web3 data 
+products as decentralized service with data process verification using existing Web2 centralized cloud service technologies 
 (SaaS, PaaS, IaaS) in AWS, GCP, Azure, etc., without the need of a smart-contract language. CATs nurture collaboration 
 across domains between cross-functional / multi-disciplinary teams and organizations on products by 
 [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) the means of processing (input, 
-transformation / process, output, infrastructure) and using Content-Addresses as the means of dataset transport between 
-services / processes.
+transformation / process, output, infrastructure [as Code (IaC)]) and using Content-Addresses as the means of data 
+transport between services.
 
 ### Illustrated CAT:
 ![alt_text](images/simple_cat_10.jpeg?raw=true)
