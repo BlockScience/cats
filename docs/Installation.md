@@ -68,14 +68,10 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
 * **Prerequisites:**
   * Install **[Python >= 3.9.7](https://www.python.org/downloads/release/python-397/)**: Based on this [guide](https://phoenixnap.com/kb/how-to-install-python-3-ubuntu#ftoc-heading-6)
   ```bash
-  wget https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz
-  tar -xf Python-3.9.7.tgz
-  cd Python-3.9.7
-  ./configure --enable-optimizations
-  sudo make install
-  python3 --version
-  sudo apt install python3-pip
   sudo apt update
+  sudo add-apt-repository ppa:deadsnakes/ppa
+  sudo apt install python3.9 python3-pip python3.9-venv
+  python3.9 --version
   cd ~/install
   ```
   * [**AWS Account (Instructions)**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
@@ -182,17 +178,17 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   cp $CATS_HOME/deps/spark/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/Dockerfile
   cp $CATS_HOME/deps/spark/python/Dockerfile $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile
   cp $CATS_HOME/deps/spark/entrypoint.sh $SPARK_HOME/kubernetes/dockerfiles/spark/entrypoint.sh
-  sudo apt install python3-pip python3.9-venv
-  sudo apt update
-  pip3 install --upgrade pip
-  pip3 install setuptools==62.2.0 wheel==0.37.1 virtualenv==20.14.1 venv-pack==0.2.0
-  python3 -m venv ./venv # create virtual environment
+  python3.9 -m pip install --upgrade pip
+  python3.9 -m pip install setuptools==62.2.0 wheel==0.37.1 virtualenv==20.14.1 venv-pack==0.2.0
+  python3.9 -m venv ./venv # create virtual environment
   source ./venv/bin/activate # activate virtual environment
-  pip3 install --upgrade pip
-  pip3 install setuptools==62.2.0
-  pip3 install -r requirements.txt
-  python3 setup.py sdist bdist_wheel
-  pip3 install dist/pycats-0.0.0-py3-none-any.whl
+  python3.9 -m pip install --upgrade pip
+  python3.9 -m pip install setuptools==62.2.0
+  python3.9 -m pip install -r requirements.txt
+  python3.9 setup.py sdist bdist_wheel
+  python3.9 -m pip install dist/pycats-0.0.0-py3-none-any.whl
   venv-pack -p ./venv -o venv.tar.gz --force
+  echo 'export PYSPARK_DRIVER_PYTHON=python' >> ~/.profile
+  echo 'export PYSPARK_PYTHON=./environment/bin/python' >> ~/.profile
   cd ~/install
   ```

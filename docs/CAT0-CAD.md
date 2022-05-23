@@ -10,7 +10,7 @@ catPipe (CAT1) as form of input:
      ```bash
      cd <parrent directory>/cats
      source ./venv/bin/activate
-     python apps/cat0/execute.py
+     python3.9 apps/cat0/execute.py
      ```
      2. Deactivate Virtual Environment (Optional): `deactivate`
      ```bash
