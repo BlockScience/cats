@@ -72,7 +72,6 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   sudo add-apt-repository ppa:deadsnakes/ppa
   sudo apt install python3.9 python3-pip python3.9-venv
   python3.9 --version
-  cd ~/install
   ```
   * [**AWS Account (Instructions)**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
     * **CATs AWS Access Setup**
@@ -152,7 +151,6 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   sudo apt-get update
   sudo apt-get install gnupg2
   curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor > hashicorp.gpg
-  # sudo install -o root -g root -m 644 hashicorp.gpg /etc/apt/trusted.gpg.d/
   curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
   sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
   sudo apt-get update 
@@ -190,5 +188,4 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   venv-pack -p ./venv -o venv.tar.gz --force
   echo 'export PYSPARK_DRIVER_PYTHON=python' >> ~/.profile
   echo 'export PYSPARK_PYTHON=./environment/bin/python' >> ~/.profile
-  cd ~/install
   ```
