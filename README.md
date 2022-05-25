@@ -33,7 +33,7 @@ that provide the means of verifying data transformation accuracy.
 * IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
 inputs, transformations, and outputs for verifying transformation accuracy given CIDs
 
-### CATs Architectural Quantum: CATkernel
+### CATkernel Architectural Quantum:
 ![alt_text](images/chaordic_kernel.jpeg?raw=true)
 
 
