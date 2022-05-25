@@ -33,6 +33,10 @@ that provide the means of verifying data transformation accuracy.
 * IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
 inputs, transformations, and outputs for verifying transformation accuracy given CIDs
 
+### CATs Architectural Quantum: CATkernel
+![alt_text](images/chaordic_kernel.jpeg?raw=true)
+
+
 ### CAT Concepts:
 CATs (Data) Pipeline inputs (I/O Data & Transformations) produce a sequence of Bill of Content Addressed Materials 
 (catBOM) that enable Data Provenance and cross-organization participation on (big) data processing using Distributed 
