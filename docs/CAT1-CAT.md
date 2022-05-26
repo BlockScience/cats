@@ -10,7 +10,7 @@
      1. **Execution:** 
         1. Builds (Optional for development), Terraforms minikube K8s cluster & builds Spark Image, and executes a CAT
               ```bash
-              cd <parrent directory>/cats
+              cd <parent directory>/cats
               source ./venv/bin/activate
               python3.9 apps/cat1/execute.py
               ```
