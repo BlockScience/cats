@@ -26,7 +26,7 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   * **Executing the Docker Command Without Sudo:** Inspired by [this](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
     ```bash
     sudo usermod -aG docker ${USER}
-    echo <password> | su - ${USER}
+    echo <user password> | su - ${USER}
     groups
     sudo usermod -aG docker <username>
     ```
@@ -37,10 +37,6 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
     ```bash
     sudo apt update
     sudo apt install -y virtualbox virtualbox-ext-pack virtualbox-qt
-    ```
-    * **Optional** Example: for Ubuntu Virtual Machine
-    ```bash
-    sudo apt install -y virtualbox-qt
     ```
     
   * **Install [Minikube](https://minikube.sigs.k8s.io/docs/): Local [Kubernetes](https://kubernetes.io/) Deployment**
