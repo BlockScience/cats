@@ -185,4 +185,6 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   venv-pack -p ./venv -o venv.tar.gz --force
   echo 'export PYSPARK_DRIVER_PYTHON=python' >> ~/.profile
   echo 'export PYSPARK_PYTHON=./environment/bin/python' >> ~/.profile
+  source ~/.profile
+  source ./venv/bin/activate # activate virtual environment
   ```
