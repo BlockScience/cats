@@ -31,11 +31,10 @@ Content-Addresses as the means of data transport between services.
 * IPFS **[CIDs](https://docs.ipfs.io/concepts/content-addressing/)** (Content Identifiers) are used as content addresses 
 that provide the means of verifying data transformation accuracy.
 * IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
-inputs, transformations, and outputs for verifying transformation accuracy given CIDs
+inputs, transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs
 
 ### CATkernel Architectural Quantum:
-![alt_text](images/chaordic_kernel.jpeg?raw=true)
-
+![alt_text](images/CATkernel.jpeg?raw=true)
 
 ### CAT Concepts:
 CATs (Data) Pipeline inputs (I/O Data & Transformations) produce a sequence of Bill of Content Addressed Materials 
@@ -84,12 +83,12 @@ processes
   ![alt_text](images/BOMchain_only.jpeg?raw=true)
   
 ### Next Steps:
-1. Replace s3 with IPFS Cluster and Filebase for Content-Addressable Storage in order to remove ipfs client from cluster workers
+1. Replace s3 with IPFS Cluster and Filebase for Content-Addressable Storage in order to use cluster worker IPFS client
    1. Alternative: for IPFS server bug (`ipfs init --profile server`) - loop IPFS initialization until provided a public 
    IP Address
 2. Implement CATnode MVP to remove the need for users to install dependencies:
 
-    A.Options:
+    A. Options:
       * CATsVM Disk Image (Ubuntu)
       * CATsContainer
 
@@ -113,7 +112,6 @@ processes
 ### [Installation](docs/Installation.md)
 
 ### [Demo Example & Infrastructure](docs/Demo.md)
-
 
 ### Image Citations:
 * **["Illustrated CAT"](https://github.com/BlockScience/cats#illustrated-cat)**
