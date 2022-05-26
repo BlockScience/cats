@@ -26,7 +26,7 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   * **Executing the Docker Command Without Sudo:** Inspired by [this](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
     ```bash
     sudo usermod -aG docker ${USER}
-    echo <password> | su - ${USER}
+    echo <user password> | su - ${USER}
     groups
     sudo usermod -aG docker <username>
     ```
@@ -38,15 +38,10 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
     sudo apt update
     sudo apt install -y virtualbox virtualbox-ext-pack virtualbox-qt
     ```
-    * **Optional** Example: for Ubuntu Virtual Machine
-    ```bash
-    sudo apt install -y virtualbox-qt
-    ```
-    
   * **Install [Minikube](https://minikube.sigs.k8s.io/docs/): Local [Kubernetes](https://kubernetes.io/) Deployment**
     ```bash
     wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-    sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+    sudo cp minikube-linux-amd64 /usr/local/bin/minikube
     sudo chmod 755 /usr/local/bin/minikube
     minikube version
     ```
@@ -54,7 +49,7 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
     ```bash
     curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
     chmod +x ./kubectl
-    sudo mv ./kubectl /usr/local/bin/kubectl
+    sudo cp ./kubectl /usr/local/bin/kubectl
     kubectl version -o json
     ```
     * **Set `KUBE_CONFIG_PATH`:**
@@ -139,7 +134,7 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
       ```bash
       wget wget https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
       tar -xvf spark-3.1.2-bin-hadoop3.2.tgz
-      sudo mv spark-3.1.2-bin-hadoop3.2 /usr/local/spark
+      sudo cp spark-3.1.2-bin-hadoop3.2 /usr/local/spark
       sudo echo 'export SPARK_HOME=/usr/local/spark' >> ~/.profile
       sudo echo 'export PATH=$SPARK_HOME/bin:$PATH' >> ~/.profile
       source ~/.profile
@@ -164,11 +159,13 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   tar -xvzf go-ipfs_v0.12.2_linux-amd64.tar.gz
   cd go-ipfs
   sudo bash install.sh
+  cd ..
   ipfs init
   ipfs --version
   ```
   * [**Install CATs:**](https://github.com/BlockScience/cats)
   ```bash
+  cd <cats parent directory>
   git clone https://github.com/BlockScience/cats.git
   cd cats
   echo 'export CATS_HOME='$PWD >> ~/.profile
