@@ -2,8 +2,9 @@
 
 ## catPipe Description
 
-This is an example of a catPipe given that the data is not initially on the IPFS network. This pipeline involves 2 
-CAT processes on 2 separate Apache Spark clusters on the Data Plane of the same Kubernetes (K8s) cluster
+This is an example of a catPipe given that the data is not Content-Addressed / initially on the IPFS network. 
+This pipeline involves two CAT processes on two separate Apache Spark clusters on the Data Plane of the same Kubernetes 
+(K8s) cluster
 
 #### catPipe: CAT Pipeline Activity Diagrams
 * catPipe I/O surface is the catBOM above

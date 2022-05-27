@@ -11,7 +11,7 @@ the means of processing (input, transformation / process, output, infrastructure
 Content-Addresses as the means of data transport between services.
 
 ### Illustrated CAT:
-![alt_text](images/simple_cat_10.jpeg?raw=true)
+![alt_text](images/simple_cat_11.jpeg?raw=true)
 
 ### Why CATs are useful:
 * **Execution:**

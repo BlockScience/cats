@@ -8,7 +8,7 @@ catPipe (CAT1) as form of input:
   1. **Execution:** Open terminal session, activate pre-created virtual environment, and execute CAT
      1. Builds (Optional for development), Terraforms minikube K8s cluster & builds Spark Image, and executes a CAT
      ```bash
-     cd <parrent directory>/cats
+     cd <parent directory>/cats
      source ./venv/bin/activate
      python3.9 apps/cat0/execute.py
      ```
