@@ -19,13 +19,23 @@ if __name__ == "__main__":
         cai_partitions=1
     )
 
-    print('cai invoice')
-    df = cat.plantSession.read.json(cat.cai_bom['cai_invoice_uri'].replace('s3://', 's3a://'))
-    df.show()
+    print('CAI Invoice')
+    df = cat.plantSession.read.json(cat.cao_bom['cai_invoice_uri'].replace('s3://', 's3a://'))
+    df.show(truncate=False)
+    print('catBOM:')
     pprint(cat.cai_bom)
     print()
-    pprint(cat.cat_log)
-    print()
+    print('catBOM:')
+    pprint(cat.cao_bom)
+
+    # print()
+    # print('CAI CAD')
+    # df = cat.plantSession.read.parquet(cat.cao_bom['cai_data_uri'].replace('s3://', 's3a://'))
+    # df.show()
+    # print()
+    # print('CATlog')
+    # pprint(cat.cat_log)
+    # print()
     # print(vars(cat))
 
     while True:
