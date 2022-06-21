@@ -20,7 +20,7 @@ if __name__ == "__main__":
     )
 
     print('CAI Invoice')
-    df = cat.plantSession.read.json(cat.cao_bom['cai_invoice_uri'].replace('s3://', 's3a://'))
+    df = cat.plantSession.read.json(cat.cai_bom['cai_invoice_uri'].replace('s3://', 's3a://'))
     df.show(truncate=False)
     print('catBOM:')
     pprint(cat.cai_bom)
