@@ -1,6 +1,6 @@
 import time
 from pprint import pprint
-from apps.cat1 import catFactory
+from apps.cat1_test import catFactory
 
 from pycats import CATSTORE
 from pycats.function.process.cat import Processor
@@ -24,18 +24,18 @@ if __name__ == "__main__":
         }
     )
 
-    df = cat.plantSession.read.parquet(cat.cai_bom['cao_data_uri'].replace('s3://', 's3a://'))
-    df.show()
-    print()
-    pprint(cat.cai_bom)
-    print()
-    pprint(cat.cao_bom)
-    print()
-    pprint(cat.catContext)
-    print()
-    pprint(cat.cat_log)
+    # df = cat.plantSession.read.parquet(cat.cai_bom['cao_data_uri'].replace('s3://', 's3a://'))
+    # df.show()
+    # print()
+    # pprint(cat.cai_bom)
+    # print()
+    # pprint(cat.cao_bom)
+    # print()
+    # pprint(cat.catContext)
+    # print()
+    # pprint(cat.cat_log)
 
-    while True:
-        time.sleep(1)
+    # while True:
+    #     time.sleep(1)
 
-    cat.plantSession.stop()
+    # cat.plantSession.stop()

@@ -409,7 +409,7 @@ class Processor(Plant):
 
         CAO_BOM_FILE_PATH = '/tmp/output_bom.json'
         with open(CAO_BOM_FILE_PATH, 'w') as f:
-            json.dump(self.cao_bom, f)
+            # json.dump(self.cao_bom, f)
             [_, self.cao_bom['cad_cid'], _] = self.ipfs_add(CAO_BOM_FILE_PATH)
             json.dump(self.cao_bom, f)
         f.close()

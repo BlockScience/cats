@@ -1,7 +1,6 @@
 import json
 import os
 import subprocess
-from pprint import pprint
 
 from pycats import CATS_HOME
 from pycats.function.process.cat import Processor

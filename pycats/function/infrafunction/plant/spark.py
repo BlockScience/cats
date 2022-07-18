@@ -13,7 +13,7 @@ SparkSessionConfig = {
     'spark.kubernetes.container.image': 'pyspark/spark-py:latest',
     'spark.kubernetes.container.image.pullPolicy': 'Never',
     'spark.kubernetes.authenticate.driver.serviceAccountName': 'spark',
-    'spark.kubernetes.executor.deleteOnTermination': 'true',
+    'spark.kubernetes.executor.deleteOnTermination': 'false',
     'spark.kubernetes.executor.secrets.aws-access': '/etc/secrets',
     'spark.kubernetes.executor.secretKeyRef.AWS_ACCESS_KEY_ID': 'aws-access:AWS_ACCESS_KEY_ID',
     'spark.kubernetes.executor.secretKeyRef.AWS_SECRET_ACCESS_KEY': 'aws-access:AWS_SECRET_ACCESS_KEY',
