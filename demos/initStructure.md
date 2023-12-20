@@ -43,7 +43,7 @@ init_bom_car_cid, init_bom_json_cid = service.initBOMcar(
     structure_cid=service.ipfsClient.add('main.tf'),
     function_cid='b',
     data_cid='QmUGhP2X8xo9dsj45vqx1H6i5WqPqLqmLQsHTTxd3ke8mp',
-    init_bom_filename='../experiments/bom.car'
+    init_bom_filename='../bom.car'
 )
 ```
 

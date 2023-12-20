@@ -21,7 +21,7 @@ init_bom_car_cid, init_bom_json_cid = service.initBOMcar(
     structure_cid=service.ipfsClient.add(f'main.tf'),
     function_cid='b',
     data_cid='QmUGhP2X8xo9dsj45vqx1H6i5WqPqLqmLQsHTTxd3ke8mp',
-    init_bom_filename=f'bom.car'  # include filename in bom
+    init_bom_filename=f'../old/bom.car'  # include filename in bom
 )
 catExe = Executor(service=service)
 enhanced_bom, bom = catExe.execute(init_bom_json_cid)

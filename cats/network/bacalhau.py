@@ -123,4 +123,4 @@ def main(file: str, num_files: int = -1):
                 shutil.move(f, "../../results")
 
 if __name__ == "__main__":
-    main("../../experiments/hashes.txt", 10)
+    main("../../hashes.txt", 10)
