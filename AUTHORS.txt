@@ -1,0 +1,17 @@
+Authors
+=======
+
+
+Implementation:
+- Joshua E. Jodesty from 2023 to present
+
+Research & Design:
+- Joshua E. Jodesty from 2020 to present
+- David Sisson from 2016 to present
+- Michael Zargham from 2016 to present
+
+Project Maintainers:
+- Joshua E. Jodesty <joshua@block.science>
+
+Original Contributors:
+- Joshua E. Jodesty

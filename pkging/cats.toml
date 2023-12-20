@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "CATs"
+version = "0.0.0"
+authors = [
+  { name="Joshua E. Jodesty", email="joshua@block.science"},
+]
+description = "CATs"
+readme = "README.md"
+requires-python = ">=3.12"

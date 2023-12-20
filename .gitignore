@@ -1,0 +1,13 @@
+*.egg-info
+.idea/
+.terraform/*
+.terraform.*
+terraform.tfstate
+terraform.tfstate.backup
+cats_vault/
+dist/
+*.pyc
+.ipynb_checkpoints
+.pytest_cache
+/examples/
+venv
