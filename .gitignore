@@ -14,3 +14,5 @@ venv
 .obsidian
 old
 offline_experiments
+testing/features/cat.py
+testing/tests/cat.py

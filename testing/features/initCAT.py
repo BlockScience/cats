@@ -1,44 +1,27 @@
-
-## Initialize BOM and use it to deploy Ray Cluster on Kubernetes
-
-##### Execute Demo:
-```python
-(venv) $ python -m testing.features.initStructure
-```
-
-##### Imports:
-
-```python
+import json
 import subprocess
 from pprint import pprint
+
 
 from cats.network import ipfsApi
 from cats.network import MeshClient
 from cats.service import Service
 from cats.executor import Executor
-```
 
-##### Destroy existing CAT Structure (IaC): ***Optional***
-```python
-subprocess.Popen('terraform destroy --auto-approve', shell=True).wait()
-```
+# subprocess.Popen(['ipfs', 'shutdown'])
+from testing.features.process import transform_batch
 
-##### Instantiate CAT Mesh service to connect to IPFS:
-```python
-# Start IPFS client daemon
-subprocess.call('ipfs daemon', shell=True)
+# subprocess.Popen('terraform destroy --auto-approve', shell=True).wait()
+# subprocess.Popen(['ipfs', 'daemon'])
 
-# Instantiate service
+
 service = Service(
     meshClient=MeshClient(
         ipfsClient=ipfsApi.Client('127.0.0.1', 5001)
     )
 )
-```
 
-##### Initialize (create and host) initial BOM on CAT Mesh:
 
-```python
 data_cid = 'QmQpyDtFsz2JLNTSrPRzLs1tzPrfBxYbCw6kehVWqUXLVN'
 ipfs_uri = 'ipfs://' + data_cid + '/*.csv'
 structure_json = service.ipfsClient.add(f'main.tf')
@@ -54,12 +37,8 @@ init_bom_car_cid, init_bom_json_cid = service.initBOMcar(
     init_data_cid=ipfs_uri,
     init_bom_filename=f'bom.car' # include filename in bom
 )
-```
-
-##### Executor uses service to deploy CAT Structure: [Ray](https://www.ray.io/) on [Kubernetes](https://kubernetes.io/)
-
-```python
 catExe = Executor(service=service)
-enhanced_bom, bom = catExe.initialize(init_bom_json_cid)
+enhanced_bom, bom = catExe.initialize()
 pprint(enhanced_bom)
-```
+
+test_catExe = catExe

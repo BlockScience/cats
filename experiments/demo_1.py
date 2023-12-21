@@ -24,7 +24,7 @@ init_bom_car_cid, init_bom_json_cid = service.initBOMcar(
     init_bom_filename=f'../old/bom.car'  # include filename in bom
 )
 catExe = Executor(service=service)
-enhanced_bom, bom = catExe.execute(init_bom_json_cid)
+enhanced_bom, bom = catExe.initialize(init_bom_json_cid)
 
 print(service.order_cid)
 print()

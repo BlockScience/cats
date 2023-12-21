@@ -16,38 +16,17 @@ class MeshClient(CoD):
         self.context = ...
         CoD.__init__(self)
 
-    # def getInvoice(self, invoiceCID: str):
-    #     return self.getObjs(invoiceCID)
-    #
-    # def getOrder(self, orderCID: str):
-    #     return self.getObjs(orderCID)
-    #
-    # def getInvoicesCID(self, orderCID: str):
-    #     order =  self.getOrder(orderCID)
-    #     return order.invoicesCID
-    #
-    # def getOrderCID(self, invoiceCID: str):
-    #     invoice =  self.getInvoice(invoiceCID)
-    #     return invoice.orderCID
-    #
-    # def getFunctionCID(self, orderCID: str):
-    #     order =  self.getOrder(orderCID)
-    #     return order.functionCID
-    #
-    # def getStructureCID(self, orderCID: str):
-    #     order =  self.getOrder(orderCID)
-    #     return order.structureCID
-
-    def initBOMjson(self, structure_cid: str, function_cid: str, data_cid: str, seed_cid=None):
+    def initBOMjson(self, structure_cid: str, structure_filepath: str, function_cid: str, init_data_cid: str, seed_cid=None):
         init_invoice = {
             'order_cid': None,
-            'data_cid': data_cid,
+            # 'data_cid': None,
             'seed_cid': seed_cid,
         }
         init_order = {
             'invoice_cid': None,
             'function_cid': function_cid,
-            'structure_cid': structure_cid
+            'structure_cid': structure_cid,
+            'structure_filepath': structure_filepath
         }
 
         init_invoice_cid = self.ipfsClient.add_json(init_invoice)
@@ -62,12 +41,13 @@ class MeshClient(CoD):
         init_bom = {
             'invoice_cid': invoice_cid,
             'log_cid': None,
+            'init_data_cid': init_data_cid
         }
         init_bom_json_cid = self.ipfsClient.add_json(init_bom)
         return init_bom_json_cid
 
-    def initBOMcar(self, structure_cid: str, function_cid: str, data_cid: str, init_bom_filename: str, seed_cid=None):
-        init_bom_json_cid = self.initBOMjson(structure_cid, function_cid, data_cid)
+    def initBOMcar(self, structure_cid: str, structure_filepath: str, function_cid: str, init_data_cid: str, init_bom_filename: str, seed_cid=None):
+        init_bom_json_cid = self.initBOMjson(structure_cid, structure_filepath, function_cid, init_data_cid)
         car_bom_cid, init_bom_json_cid = self.convertBOMtoCAR(init_bom_json_cid, init_bom_filename)
         return car_bom_cid, init_bom_json_cid
 
@@ -81,6 +61,9 @@ class MeshClient(CoD):
 
     def cat(self, cid: str):
         return subprocess.check_output(['ipfs', 'cat', cid]).decode()
+
+    def catObj(self, cid: str):
+        return subprocess.check_output(['ipfs', 'cat', cid])
 
     def getCar(self, cid: str, filepath: str):
         subprocess.check_output(
@@ -129,10 +112,10 @@ class MeshClient(CoD):
         enhanced_bom['order'] = json.loads(open('order.json', 'r').read())
 
         self.get(
-            enhanced_bom['order']['structure_cid']['Hash'],
-            enhanced_bom['order']['structure_cid']['Name']
+            enhanced_bom['order']['structure_cid'],
+            enhanced_bom['order']['structure_filepath']
         )
-        return enhanced_bom, bom
+        return deepcopy(enhanced_bom), bom
 
     def createInvoice(self, orderCID: str, dataCID: str, seedCID: str):
         invoice = {'orderCID': orderCID, 'dataCID': dataCID, 'seedCID': seedCID}

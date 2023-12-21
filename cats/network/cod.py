@@ -41,7 +41,7 @@ class CoD:
         print("job submitted: %s" % job_id)
         return job_id
 
-    def integration(self, job_id: str):
+    def integrate(self, job_id: str):
         cmd = f"bacalhau describe {job_id} --json".split(' ')
         result = subprocess.run(cmd, stdout=subprocess.PIPE)
         job_json = json.loads(result.stdout)

@@ -1,4 +1,6 @@
 # from cats.io.input import Function
+from pprint import pprint
+
 import cats
 from cats.service import Service
 from python_terraform import Terraform
@@ -46,9 +48,9 @@ class Structure:
 
     def deploy(self):
         self.service.executeCMD(['terraform', 'destroy', '--auto-approve'])
-        enhanced_bom, bom = self.service.meshClient.getEnhancedBom(self.bom_json_cid)
+        # enhanced_bom, bom = self.service.meshClient.getEnhancedBom(self.bom_json_cid)
         self.service.executeCMD(['terraform', 'init', '--upgrade'])
         self.service.executeCMD(['terraform', 'apply', '--auto-approve'])
         # ret_code, stdout, stderr = self.infraStructure.apply(skip_plan=True)
         # self.infraStructure.cmd = self.service.executeCMD.__get__(self.infraStructure, Terraform)
-        return enhanced_bom, bom
+        # return enhanced_bom, bom
