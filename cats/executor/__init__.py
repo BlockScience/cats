@@ -3,6 +3,7 @@
 # from cats.io.input.order import Order
 # from cats.io.output import Invoice
 import json
+import os
 import pickle
 from pprint import pprint
 
@@ -32,17 +33,27 @@ class Executor(Structure):
         # self.function: Function = self.order.function
         # ...
 
-    def execute(self, enhanced_bom):
-        self.enhanced_bom = enhanced_bom
-        self.invoiceCID = self.enhanced_bom['invoice_cid']
-        self.orderCID = self.enhanced_bom['invoice']['order_cid']
+    # def execute(self):
+    #     self.invoiceCID = self.enhanced_bom['invoice_cid']
+    #     self.orderCID = self.enhanced_bom['invoice']['order_cid']
+    #     self.structure.deploy()
+    #     self.ingress_job_id, self.integration_s3_output, self.egress_job_id = self.function.execute()
+    #     self.enhanced_bom['function'] = json.loads(
+    #         self.service.meshClient.cat(self.enhanced_bom['order']['function_cid'])
+    #     )
+    #     self.enhanced_bom['log'] = {
+    #         'ingress_job_id': self.ingress_job_id,
+    #         'integration_s3_output': self.integration_s3_output,
+    #         'egress_job_id': self.egress_job_id
+    #     }
+    #     self.enhanced_bom['invoice']['data_cid'] = self.service.meshClient.getEgressOutput(job_id=self.egress_job_id)
+    #     self.enhanced_bom['log_cid'] = self.service.ipfsClient.add_json(self.enhanced_bom['log'])
+    #     return self.enhanced_bom, None
 
-        self.structure.deploy()
+    def execute(self, enhanced_bom=None):
+        if enhanced_bom is not None:
+            self.enhanced_bom = enhanced_bom
 
-        return self.enhanced_bom, None
-
-
-    def initialize(self):
         self.invoiceCID = self.enhanced_bom['invoice_cid']
         self.orderCID = self.enhanced_bom['invoice']['order_cid']
 
@@ -54,7 +65,16 @@ class Executor(Structure):
             'integration_s3_output': self.integration_s3_output,
             'egress_job_id': self.egress_job_id
         }
+        self.enhanced_bom['invoice']['data_cid'] = self.service.meshClient.getEgressOutput(job_id=self.egress_job_id)
         self.enhanced_bom['log_cid'] = self.service.ipfsClient.add_json(self.enhanced_bom['log'])
+
+        del self.enhanced_bom['bom_json_cid']
+        del self.enhanced_bom['init_data_cid']
+        os.remove("bom.json")
+        os.remove("invoice.json")
+        os.remove("order.json")
+        os.remove("bom.car")
+        os.remove("cat-action-plane-config")
         return self.enhanced_bom, None
         # return self.invoiceCID
 

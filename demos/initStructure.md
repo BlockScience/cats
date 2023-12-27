@@ -60,6 +60,6 @@ init_bom_car_cid, init_bom_json_cid = service.initBOMcar(
 
 ```python
 catExe = Executor(service=service)
-enhanced_bom, bom = catExe.initialize(init_bom_json_cid)
+enhanced_bom, bom = catExe.execute(init_bom_json_cid)
 pprint(enhanced_bom)
 ```

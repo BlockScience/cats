@@ -1,6 +1,7 @@
 *.egg-info
 .idea/
 .terraform/*
+*/.terraform
 .terraform.*
 terraform.tfstate
 terraform.tfstate.backup
@@ -16,3 +17,9 @@ old
 offline_experiments
 testing/features/cat.py
 testing/tests/cat.py
+bom.car
+bom.json
+invoice.json
+order.json
+cat-action-plane-config
+catMesh

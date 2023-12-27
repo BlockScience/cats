@@ -28,6 +28,9 @@ class CoD:
     def ingress(self, input: str):
         publisher = "s3://catstore3/boms/result-{date}-{jobID}/,opt=region=us-east-2"
         cmd = f"bacalhau docker run -i {input} -p {publisher} --id-only --wait alpine -- sh -c"
+        # print(input)
+        # print(publisher)
+        # exit()
         cmd_list = cmd.split(' ') + ['cp -r /inputs/* /outputs/']
         submit = subprocess.run(
             cmd_list,
@@ -52,10 +55,19 @@ class CoD:
         ingress_s3_input = f"s3://{ingress_bucket}/{ingress_key}/outputs/"
         return ingress_s3_input
 
+    def getEgressOutput(self, job_id: str):
+        cmd = f"bacalhau describe {job_id} --json".split(' ')
+        result = subprocess.run(cmd, stdout=subprocess.PIPE)
+        job_json = json.loads(result.stdout)
+        executions = job_json["State"]["Executions"]
+        execution = list(filter(lambda d: d['State'] in ['Completed'], executions)).pop()
+        data_cid = execution['PublishedResults']['CID']
+        return data_cid
+
 
     def egress(self, integration_s3_output: str):
         input = f"{integration_s3_output}/,opt=region=us-east-2"
-        cmd = f"bacalhau docker run -i {input} --id-only --wait=false alpine -- sh -c"
+        cmd = f"bacalhau docker run -i {input} --id-only --wait alpine -- sh -c"
         cmd_list = cmd.split(' ') + ['cp -r /inputs/* /outputs/']
         submit = subprocess.run(
             cmd_list,

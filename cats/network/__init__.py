@@ -51,6 +51,13 @@ class MeshClient(CoD):
         car_bom_cid, init_bom_json_cid = self.convertBOMtoCAR(init_bom_json_cid, init_bom_filename)
         return car_bom_cid, init_bom_json_cid
 
+    def linkData(self, cid, subdir='outputs/'):
+        cmd = f"ipfs ls {cid}"
+        response = subprocess.check_output(cmd.split(' ')).decode()
+        dirs = response.split('\n')
+        res = [i for i in dirs if subdir in i]
+        return res[0].rstrip(f' - {subdir}')
+
     def get(self, cid: str, filepath: str):
         subprocess.check_output(
             f"ipfs get {cid}",

@@ -28,8 +28,10 @@ by providing a p2p distributed-computing job submission option in addition the c
 2. **[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)** (>= 1.22.2)
 3. **[helm](https://helm.sh/docs/intro/install/)** (>= v3.13.1)
 4. **[Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)** (>= 1.5.2)
+5. **[Install IPFS Kubo](https://docs.ipfs.tech/install/command-line/#system-requirements)** (0.24.0)
 
-### [Examples: ***Try CATs!***](./docs/EXAMPLES.md)
+[comment]: <> (### [Examples: ***Try CATs!***]&#40;./docs/EXAMPLES.md&#41;)
+### [Get Started: ***Try CAT Mesh!***](./docs/GET_STARTED.md)
 
 ### Technical Value:
 CATs' will utilized IPFS [CIDs](https://docs.ipfs.tech/concepts/content-addressing/#content-identifiers-cids) for 

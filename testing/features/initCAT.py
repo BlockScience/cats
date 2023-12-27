@@ -9,7 +9,7 @@ from cats.service import Service
 from cats.executor import Executor
 
 # subprocess.Popen(['ipfs', 'shutdown'])
-from testing.features.process import transform_batch
+from testing.features.process0 import transform_batch
 
 # subprocess.Popen('terraform destroy --auto-approve', shell=True).wait()
 # subprocess.Popen(['ipfs', 'daemon'])
@@ -23,7 +23,7 @@ service = Service(
 
 
 data_cid = 'QmQpyDtFsz2JLNTSrPRzLs1tzPrfBxYbCw6kehVWqUXLVN'
-ipfs_uri = 'ipfs://' + data_cid + '/*.csv'
+ipfs_uri = f'ipfs://{data_cid}/*.csv'
 structure_json = service.ipfsClient.add(f'main.tf')
 structure_cid = structure_json['Hash']
 structure_filepath = structure_json['Name']
@@ -38,7 +38,7 @@ init_bom_car_cid, init_bom_json_cid = service.initBOMcar(
     init_bom_filename=f'bom.car' # include filename in bom
 )
 catExe = Executor(service=service)
-enhanced_bom, bom = catExe.initialize()
+enhanced_bom, bom = catExe.execute()
 pprint(enhanced_bom)
 
 test_catExe = catExe

@@ -39,7 +39,7 @@ class Service:
     #     self.executor: Executor = Factory(response.json)
     #     self.executor.execute()
 
-    def initBOMcar(self, function_cid, init_data_cid, init_bom_filename, structure_cid=None, structure_filepath=None):
+    def initBOMcar(self, function_cid, init_data_cid, init_bom_filename='bom.car', structure_cid=None, structure_filepath=None):
         self.init_bom_car_cid, self.init_bom_json_cid = self.meshClient.initBOMcar(
             # structure_path=self.MeshClient.g,
             structure_cid=structure_cid,

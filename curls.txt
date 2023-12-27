@@ -1,0 +1,29 @@
+"init_data_cid": "ipfs://QmQpyDtFsz2JLNTSrPRzLs1tzPrfBxYbCw6kehVWqUXLVN/*.csv",
+
+curl -X POST -H "Content-Type: application/json" -d \
+'
+{
+    "invoice": {
+        "data_cid": "QmQpyDtFsz2JLNTSrPRzLs1tzPrfBxYbCw6kehVWqUXLVN"
+    },
+    "order": {
+        "function_cid": "QmdmvxLkxbAr1WdjYfDv8JLDUsNY38ugYUkJ4HMpNDGBfT",
+        "structure_cid": "QmYyFroE2Nw1BVg3D1MQdeZFrMAn9XWYHgWueMUKaRGops",
+        "structure_filepath": "main.tf"
+    }
+}' http://127.0.0.1:5000/cat/node/preproc
+
+"bom_json_cid": "QmdP21oRodss37DQcweVTffPetwsP4e4WRGkLLAJoYgdn5",
+"init_data_cid": "ipfs://QmQpyDtFsz2JLNTSrPRzLs1tzPrfBxYbCw6kehVWqUXLVN/*csv",
+
+curl -X POST -H "Content-Type: application/json" -d \
+'
+{
+    "invoice": {
+        "data_cid": "QmU2V7oYELujoA53oanPDsap9rDESry17HaowJi4Nh1ZLw"
+    }, "order": {
+        "function_cid": "QmdYejXMYtpnsdjxNuTXVCPxa5VmygkpYhCHYcHDGRqc8g",
+        "structure_cid": "QmYyFroE2Nw1BVg3D1MQdeZFrMAn9XWYHgWueMUKaRGops",
+        "structure_filepath": "main.tf"
+    }
+}' http://127.0.0.1:5000/cat/node/postproc
