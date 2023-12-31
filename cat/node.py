@@ -23,8 +23,6 @@ def initExecute():
         # if 'init_data_cid' not in bom:
         #     return jsonify({'error': 'CID not provided'}), 400
 
-        #
-        #
         data_cid = bom['invoice']['data_cid']
         ipfs_uri = f'ipfs://{data_cid}/*csv'
         service.initBOMcar(
@@ -35,19 +33,6 @@ def initExecute():
         )
         catFactory = Factory(service)
         enhanced_bom = catFactory.execute()
-
-        # structure_cid = bom['order']['structure_cid']
-        # structure_filepath = bom['order']['structure_filepath']
-        # function_cid = bom['order']['function_cid']
-        # service.initBOMcar(
-        #     structure_cid=structure_cid,
-        #     structure_filepath=structure_filepath,
-        #     function_cid=function_cid,
-        #     init_data_cid=ipfs_uri
-        # )
-
-        # catExe = Executor(service=service)
-        # enhanced_bom, _ = catExe.execute()
 
         # Return BOM
         return jsonify(enhanced_bom)
@@ -66,21 +51,16 @@ def execute():
         # if 'bom_json_cid' not in bom:
         #     return jsonify({'error': 'CID not provided'}), 400
 
-        prev_data_cid = bom['invoice']['data_cid']
-        data_cid = service.meshClient.linkData(prev_data_cid)
+        data_cid = service.meshClient.linkData(bom['invoice']['data_cid'])
         ipfs_uri = f'ipfs://{data_cid}/*csv'
-        structure_json = service.ipfsClient.add(bom['order']['structure_filepath'])
-        function_cid = bom['order']['function_cid']
         service.initBOMcar(
-            structure_cid=structure_json['Hash'],
-            structure_filepath=structure_json['Name'],
-            # function_cid=service.ipfsClient.add_str(function_json),
-            function_cid=function_cid,
+            structure_cid=bom['order']['structure_cid'],
+            structure_filepath=bom['order']['structure_filepath'],
+            function_cid=bom['order']['function_cid'],
             init_data_cid=ipfs_uri
         )
-        catExe = Executor(service=service)
-        enhanced_bom, _ = catExe.execute()
-
+        catFactory = Factory(service)
+        enhanced_bom = catFactory.execute()
 
         # Return BOM
         return jsonify(enhanced_bom)
