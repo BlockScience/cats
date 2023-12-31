@@ -1,5 +1,6 @@
 import json
 import pickle
+import subprocess
 from copy import copy, deepcopy
 from pprint import pprint
 
@@ -17,6 +18,7 @@ class Service:
         self.executeCMD = executeCMD
 
         self.init_bom_json_cid = None
+        self.bom_json_cid = None
         self.init_bom_car_cid = None
         self.enhanced_init_bom = None
         self.enhanced_bom = None
@@ -34,11 +36,6 @@ class Service:
         self.process = None
         self.dataCID = None
 
-    # # ToDo: EP: (Init) CAT
-    # def serve(self, response):
-    #     self.executor: Executor = Factory(response.json)
-    #     self.executor.execute()
-
     def initBOMcar(self, function_cid, init_data_cid, init_bom_filename='bom.car', structure_cid=None, structure_filepath=None):
         self.init_bom_car_cid, self.init_bom_json_cid = self.meshClient.initBOMcar(
             # structure_path=self.MeshClient.g,
@@ -49,9 +46,6 @@ class Service:
             init_bom_filename=init_bom_filename
         )
         self.enhanced_bom, init_bom = self.meshClient.getEnhancedBom(bom_json_cid=self.init_bom_json_cid)
-        # self.processCID = deepcopy(self.enhanced_bom['order']['function_cid'])
-        # pprint(self.enhanced_bom)
-        # exit()
 
         self.functionCID = self.enhanced_bom['order']['function_cid']
         function_dict = json.loads(self.meshClient.cat(self.functionCID))
@@ -68,3 +62,88 @@ class Service:
         self.init_bom_json_cid = self.enhanced_bom['bom_json_cid']
         self.bom_json_cid = self.init_bom_json_cid
         return self.init_bom_car_cid, self.init_bom_json_cid
+
+    def catSubmit(self, bom):
+        ppost = lambda args, endpoint: \
+            f'curl -X POST -H "Content-Type: application/json" -d \\\n\'{json.dumps(**args)}\' {endpoint}'
+        post = lambda args, endpoint: \
+            'curl -X POST -H "Content-Type: application/json" -d \'' + json.dumps(**args) + f'\' {endpoint}'
+        post_cmd = post({'obj': bom}, bom["order"]["endpoint"])
+        print(ppost({'obj': bom, 'indent': 4}, bom["order"]["endpoint"]))
+        response_str = subprocess.check_output(post_cmd, shell=True)
+        output_bom = json.loads(response_str)
+        # pprint(output_bom)
+        # exit()
+
+        output_bom['POST'] = post_cmd
+        return output_bom
+
+    def resubmit_bom(self,
+        bom, endpoint='http://127.0.0.1:5000/cat/node/postproc'
+    ):
+        def f(
+                process_obj, invoice_bom=bom,
+                endpoint=endpoint
+        ):
+            order_bom = deepcopy(invoice_bom)
+            del order_bom["order"]["invoice_cid"]
+            order_bom["function"]['process_cid'] = self.ipfsClient.add_pyobj(process_obj)
+            order_bom["order"]["function_cid"] = self.ipfsClient.add_str(json.dumps(order_bom["function"]))
+            order_bom["order"]["endpoint"] = endpoint
+            return order_bom
+
+        return f
+
+    def create_order(self,
+            process_obj, data_dirpath, structure_filepath,
+            endpoint='http://127.0.0.1:5000/cat/node/preproc'
+    ):
+        structure_cid, structure_name = self.meshClient.cidFile(structure_filepath)
+        function = {
+            'process_cid': self.ipfsClient.add_pyobj(process_obj),
+            'infrafunction_cid': None
+        }
+        order_bom = {
+            "invoice": {
+                "data_cid": self.meshClient.cidDir(data_dirpath)
+            },
+            "order": {
+                "function_cid": self.ipfsClient.add_str(json.dumps(function)),
+                "structure_cid": structure_cid,
+                "structure_filepath": structure_name,
+                "endpoint": endpoint
+            },
+            "function": function
+        }
+        self.order = order_bom
+        return self.order
+
+    def catJob_repl(self,
+            previous_invoice_bom, modify_bom,
+            endpoint='http://127.0.0.1:5000/cat/node/postproc'
+    ):
+        def resubmit_catJob(
+                process_obj
+        ):
+            def resubmit_order(process_obj=process_obj):
+                order_bom = modify_bom(process_obj, previous_invoice_bom, endpoint)
+                return order_bom, self.catSubmit(order_bom)
+
+            order_bom, invoice_bom = resubmit_order(process_obj)
+            return order_bom, invoice_bom, resubmit_order
+
+        return resubmit_catJob
+
+    def cat_repl(self,
+            order_bom, bom_function,
+            endpoint='http://127.0.0.1:5000/cat/node'
+    ):
+        preproc_endpoint = f'{endpoint}/preproc'
+        # order_bom["order"]['endpoint'] = preproc_endpoint
+        pprint(order_bom)
+        invoice_bom = self.catSubmit(order_bom)
+
+        postproc_endpoint = f'{endpoint}/postproc'
+        catJobRepl = self.catJob_repl(invoice_bom, bom_function, postproc_endpoint)
+        return order_bom, invoice_bom, catJobRepl
+

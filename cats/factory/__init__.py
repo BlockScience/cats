@@ -1,25 +1,34 @@
 import json
+from copy import deepcopy
 
 from cats.executor import Executor
-# from cats.io.input.order import Order
-
-
-# from cats.utils import Dict2Class
-# from cats.network import MeshClient, NetworkClient
+from cats.service import Service
 
 
 class Factory:
     def __init__(self,
-        order: json
+        service: Service,
+        order=None
     ):
-        self.orderJSON = order
-        self.orderDict = order.__dict__
-        # self.order: Order = Order(
-        #     orderCID=self.orderDict['orderCID'],
-        #     invoicesCID=self.orderDict['invoicesCID'],
-        #     functionCID=self.orderDict['functionCID'],
-        #     structureCID=self.orderDict['structureCID'],
-        #     netClient=NetworkClient()
-        # )
+        self.Executor = Executor(service=service)
+        self.order = order
 
-        return Executor(self.orderDict)
+    def initCAT(self,
+        function_cid, ipfs_uri,
+        structure_cid=None, structure_filepath=None
+    ):
+        return self.service.initBOMcar(
+            structure_cid=structure_cid,
+            structure_filepath=structure_filepath,
+            function_cid=function_cid,
+            init_data_cid=ipfs_uri
+        )
+
+    def execute(self):
+        enhanced_bom, _ = self.Executor.execute()
+        return enhanced_bom
+
+
+
+
+

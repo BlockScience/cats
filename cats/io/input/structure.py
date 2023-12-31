@@ -47,8 +47,15 @@ class Structure:
         # self.infraStructure: Terraform = Terraform(working_dir=cats.CWD)
 
     def deploy(self):
-        print('Deploy!')
+        print()
+        print()
+        print('Destroy Structure!')
         self.service.executeCMD(['terraform', 'destroy', '--auto-approve'])
-        self.service.executeCMD(['terraform', 'init', '--upgrade'])
-        # self.service.executeCMD(['terraform', 'plan'])
+        print()
+        print()
+        print('Initialize Structure!')
+        self.service.executeCMD(['terraform', 'init', '--upgrade']) # self.service.executeCMD(['terraform', 'plan'])
+        print()
+        print()
+        print('Deploy Structure!')
         self.service.executeCMD(['terraform', 'apply', '--auto-approve'])

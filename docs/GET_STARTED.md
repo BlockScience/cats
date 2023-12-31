@@ -15,9 +15,17 @@
     git clone ...
     ```
 ### A. Prepare CAT Node's Execution Environment:
-##### 1. Start IPFS daemon:
+##### 0. Start IPFS daemon:
 ```bash
 ipfs daemon &
+```
+
+##### 1. Provision Execution Environment of CAT Node's Action Plane:
+###### NOTE: Action Plain Re-Instantiated for each CAT
+```bash
+kind create cluster --name cat-action-plane
+# kubectl cluster-info --context kind-cat-action-plane
+# kind delete cluster cat-action-plane
 ```
 ##### 2. Create `venv`:
 ```bash
@@ -25,11 +33,15 @@ ipfs daemon &
 cd <CATs parent directory>/cats-research
 python -m venv ./venv
 ```
-#### 3. Activate (& deactivate) `venv`:
+#### 3. Manage Virtual Environment
+**Activate `venv`:**
 ```bash
-$ source ./venv/bin/activate
-(venv) $
-# (venv) $ deactivate
+source ./venv/bin/activate
+# (venv) $
+```
+**Deactivate `venv` (Optional):**
+```bash
+deactivate
 # $
 ```
 
@@ -61,7 +73,7 @@ curl -X POST -H "Content-Type: application/json" -d \
 '
 {
     "invoice": {
-        "data_cid": "QmU2V7oYELujoA53oanPDsap9rDESry17HaowJi4Nh1ZLw"
+        "data_cid": "QmVAhrXvswYDu37LJyeLxH1mt1mmFBP1voEuCYPzw6P1Lg"
     }, "order": {
         "function_cid": "QmdYejXMYtpnsdjxNuTXVCPxa5VmygkpYhCHYcHDGRqc8g",
         "structure_cid": "QmYyFroE2Nw1BVg3D1MQdeZFrMAn9XWYHgWueMUKaRGops",

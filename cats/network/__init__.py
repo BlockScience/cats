@@ -129,6 +129,23 @@ class MeshClient(CoD):
         invoice_cid = self.ipfsClient.add_json(invoice)
         return invoice_cid
 
+    def cidFile(self, filepath):
+        file_json = self.ipfsClient.add(filepath)
+        file_cid = file_json['Hash']
+        file_name = file_json['Name']
+        return file_cid, file_name
+
+    def cidDir(self, filepath):
+        data = self.ipfsClient.add(filepath)
+        if type(data) is list:
+            data_json = list(filter(lambda x: x['Name'] == filepath, data))[-1]
+            data_cid = data_json['Hash']
+            return data_cid
+        else:
+            data_json = data
+            data_cid = data_json['Hash']
+            return data_cid
+
 
 
 # class NetworkClient(CoD):

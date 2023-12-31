@@ -69,7 +69,7 @@ resource "kind_cluster" "default" {
   node_image = "kindest/node:v1.23.0"
   wait_for_ready = "true"
   depends_on = [
-    shell_script.delete_cats_k8s,
+#    shell_script.delete_cats_k8s,
 #    shell_script.setup_cod
   ]
 }

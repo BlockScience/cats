@@ -1,16 +1,17 @@
 from flask import Flask, request, jsonify
 cat = Flask(__name__)
-cat.debug = True
 
 from cats.network import ipfsApi, MeshClient
 from cats.service import Service
 from cats.executor import Executor
+from cats.factory import Factory
 
 service = Service(
     meshClient=MeshClient(
         ipfsClient=ipfsApi.Client('127.0.0.1', 5001)
     )
 )
+
 
 @cat.route('/cat/node/preproc', methods=['POST'])
 def initExecute():
@@ -22,21 +23,31 @@ def initExecute():
         # if 'init_data_cid' not in bom:
         #     return jsonify({'error': 'CID not provided'}), 400
 
+        #
+        #
         data_cid = bom['invoice']['data_cid']
         ipfs_uri = f'ipfs://{data_cid}/*csv'
-        structure_cid = bom['order']['structure_cid']
-        structure_filepath = bom['order']['structure_filepath']
-        function_cid = bom['order']['function_cid']
-
         service.initBOMcar(
-            structure_cid=structure_cid,
-            structure_filepath=structure_filepath,
-            function_cid=function_cid,
+            structure_cid=bom['order']['structure_cid'],
+            structure_filepath=bom['order']['structure_filepath'],
+            function_cid=bom['order']['function_cid'],
             init_data_cid=ipfs_uri
         )
+        catFactory = Factory(service)
+        enhanced_bom = catFactory.execute()
 
-        catExe = Executor(service=service)
-        enhanced_bom, _ = catExe.execute()
+        # structure_cid = bom['order']['structure_cid']
+        # structure_filepath = bom['order']['structure_filepath']
+        # function_cid = bom['order']['function_cid']
+        # service.initBOMcar(
+        #     structure_cid=structure_cid,
+        #     structure_filepath=structure_filepath,
+        #     function_cid=function_cid,
+        #     init_data_cid=ipfs_uri
+        # )
+
+        # catExe = Executor(service=service)
+        # enhanced_bom, _ = catExe.execute()
 
         # Return BOM
         return jsonify(enhanced_bom)
