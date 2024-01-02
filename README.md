@@ -21,16 +21,10 @@ communicate CATs provenance records within feedback loops of Data Initiatives
 
 ![alt_text](images/CATs_bom_ag.jpeg)
 
-### CAT Mesh: CATs Data Mesh platform with Data Provenance
+## CAT Mesh: 
+### CATs Data Mesh platform with Data Provenance
 **CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
-workloads to be portable between Web2 & Web3 infrastructure with minimal rework or modification. 
-
-[**CAT Mesh Design:**](docs/DESIGN.md)
-
-CAT Node uses the Architectural Quantum Domain-Driven Design principle described in 
-[**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html)
-
-![alt_text](images/CATkernel.jpeg)
+workloads to be portable between Web2 & Web3 infrastructure with minimal rework or modification.
 
 CAT Mesh closes the gap between data analysis and business operations by connecting Web3 and Web2 network planes. 
 Multi-disciplinary and cross-fuctional teams can use CAT Nodes to verify and scale distributed computing workloads with 
@@ -59,7 +53,14 @@ a domain's analytical data as a product; * code, data & metadata, and infrastruc
 * [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak Dehghani, et al.
 
 
-### CATs' Data Provenance Record: Bill of Materials
+CAT Node uses the Architectural Quantum Domain-Driven Design principle described in 
+[**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html)
+
+### CAT Node's Architectural Quantum:
+![alt_text](images/CATkernel.jpeg)
+* [**Design Desciption**](docs/DESIGN.md)
+
+### CATs' Data Provenance Record:
 **BOM (Bill of Materials):** 
 CATs Content-Addressed Data Provenance record for verifiable data processing and transport on 
 a Mesh network of CATs. BOMs are used as CAT’ input & output that contain CATs’ means of data processing

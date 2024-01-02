@@ -23,3 +23,5 @@ For example:
 * An **Analyst** or **Data Scientist** will use CATs Process interface deployed as FaaS for Analytical Data transformation
 * A **Backend** or **ML-Engineer** implementing a CAT application as SaaS for a Data Scientist to execute machine learning models / pipelines on a cloud managed Kubernetes PaaS as opposed to a machine learning handoff deployment.
 * An **Infrastructure Engineer** would use the Terraform to deploy multi-cloud IaaS for a CAT to be deployed by the Backend or ML-Engineer
+
+### [**Orginizational Value**](./org_value.md)
