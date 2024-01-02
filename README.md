@@ -116,9 +116,9 @@ structural elements required for its function”
 ### Collaborative value of CATs Architectural Quantum:
 The operation and maintenance of CATs’ Data Products on a Data Mesh can occur between independent teams that will operate, contribute, and maintain different portions of the entire cloud-service model in adherance to CATs' Architectural Quantum in a way suitable for their roles using the CATs’ API to serve individual Data Model entities on a Data Mesh for a variety of use-cases. CAT’s Data Product teams can be multidisciplinary due to the fact they can operate and maintain the different portions of the entire Web2 cloud service model based on role. 
 For example:
-* An **Analyst** or **Data Scientist** will use CATs Process interface deployed as SaaS for Analytical Data transformation
+* An **Analyst** or **Data Scientist** will use CATs Process interface deployed as FaaS for Analytical Data transformation
 * A **Backend** or **ML-Engineer** implementing a CAT application as SaaS for a Data Scientist to execute machine learning models / pipelines on a cloud managed Kubernetes PaaS as opposed to a machine learning handoff deployment.
-* An **Infrastructure Engineer** would use the Terraform CDK interface deployed as multi-cloud IaaS for a CAT to be deployed by the Backend or ML-Engineer
+* An **Infrastructure Engineer** would use the Terraform to deploy multi-cloud IaaS for a CAT to be deployed by the Backend or ML-Engineer
 
 ### Key Concepts:
 * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification)** - a process for which data is checked for 
