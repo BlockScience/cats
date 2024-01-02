@@ -16,7 +16,7 @@ prev_enhanced_bom = {'bom_json_cid': 'QmbFAVjKmMwUKKmLQXirBubHC8hYFtMoVDoA9nBFVK
     'log': {
         'egress_job_id': 'fe32740c-86ae-4573-8e74-4419e83228a8',
         'ingress_job_id': '0f54c119-1d55-435f-a191-637c6277dc8b',
-        'integration_s3_output': 's3://catstore3/boms/result-20231221-0f54c119-1d55-435f-a191-637c6277dc8b-integrated'
+        'integration_output': 's3://catstore3/boms/result-20231221-0f54c119-1d55-435f-a191-637c6277dc8b-integrated'
     },
     'log_cid': 'QmcTURZxoPNyqMU6ozRzfF1Tod8kjMebmde3qdfiEh88Zy',
     'order': {

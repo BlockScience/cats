@@ -18,6 +18,7 @@ def function_1(batch: Dict[str, np.ndarray]) -> Dict[str, np.ndarray]:
 
 
 def process_0(input, output):
+    # ray.init()
     ds_in = ray.data.read_csv(input)
     ds_out = ds_in.map_batches(function_0)
     print(ds_out.show(limit=1))
@@ -26,6 +27,7 @@ def process_0(input, output):
     return ds_out
 
 def process_1(input, output):
+    # ray.init()
     ds_in = ray.data.read_csv(input)
     ds_out = ds_in.map_batches(function_1)
     print(ds_out.show(limit=1))

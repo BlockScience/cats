@@ -7,7 +7,7 @@
  'invoice_cid': 'QmPJHZmdg2ZgKh9d72a1h72n5hfHoDJosKHYuCNM9XUQAi',
  'log': {'egress_job_id': 'f0b2f14b-b4ed-49f2-83ab-4b2b01106798',
          'ingress_job_id': '2a0c58ac-e85a-4101-b10f-70f607da3d21',
-         'integration_s3_output': 's3://catstore3/boms/result-20231221-2a0c58ac-e85a-4101-b10f-70f607da3d21-integrated'},
+         'integration_output': 's3://catstore3/boms/result-20231221-2a0c58ac-e85a-4101-b10f-70f607da3d21-integrated'},
  'log_cid': 'QmatCjhdsE1EMEbThH3wJK7TiTkd6PMCArEvEunybnqsHQ',
  'order': {'function_cid': 'QmYd9F6gRDH9PqP9TYWRQKxcPBFLk3mvCjAUJetzJxj8T6',
            'invoice_cid': 'QmbLEf4eqez8dyM1yS7c8iXwPQAQNE3jc3vgLQ4gbFVzbE',

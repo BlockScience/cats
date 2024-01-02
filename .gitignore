@@ -13,6 +13,7 @@ dist/
 /examples/
 venv
 .obsidian
+*.ipynb
 old
 offline_experiments
 testing/features/cat.py
