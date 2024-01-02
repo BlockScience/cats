@@ -21,17 +21,35 @@ parallelized compute access to IPFS data for CATs' data ingress and egress via I
 Data Mesh's peer-to-peer (p2p) network layer with CoD acting as CATs’ integration point between Web2 and Web3 workloads 
 by providing a p2p distributed-computing job submission option in addition the client-server option provided by Ray.
 
-### Environment Setup: 
-**Required Installation:**
+### Installation:
 0. **[Python](https://www.python.org/downloads/)** (>= 3.10.13)
 1. **[kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installing-from-release-binaries)** (>= 0.12.0)
 2. **[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)** (>= 1.22.2)
 3. **[helm](https://helm.sh/docs/intro/install/)** (>= v3.13.1)
-4. **[Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)** (>= 1.5.2)
-5. **[Install IPFS Kubo](https://docs.ipfs.tech/install/command-line/#system-requirements)** (0.24.0)
+4. **[CoD](https://docs.bacalhau.org/getting-started/installation/)** (>= v1.2.0)
+   ```bash
+   curl -sL https://get.bacalhau.org/install.sh | bash
+   ```
+5. **[Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)** (>= 1.5.2)
+6. **[IPFS Kubo](https://docs.ipfs.tech/install/command-line/#system-requirements)** (0.24.0)
+7. **[AWS S3](https://aws.amazon.com/s3/)**
+8. **Install CATs**
+    ```bash
+    git clone ...
+    ```
 
-[comment]: <> (### [Examples: ***Try CATs!***]&#40;./docs/EXAMPLES.md&#41;)
-### [Get Started: ***Try CAT Mesh!***](./docs/GET_STARTED.md)
+
+
+### Get Started:
+* [**Prepare CAT Node's Execution Environment**](./docs/ENV.md)
+* **Deploy CAT Node**
+  ```bash
+  cd <CATs parent directory>/cats-research
+  source ./venv/bin/activate
+  # (venv) $
+  PYTHONPATH=./ python catMesh/cat/node.py
+  ```
+* [**Create CAT Mesh**](./cats_demo.ipynb)
 
 ### Technical Value:
 CATs' will utilized IPFS [CIDs](https://docs.ipfs.tech/concepts/content-addressing/#content-identifiers-cids) for 
