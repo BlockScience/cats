@@ -1,47 +1,54 @@
 # CATs: Content-Addressable Transformers
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
-
+### Description
 **Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a scalable and 
 self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data Provenance. 
 CATs uses interoperable distributed computing frameworks deployable on Kubernetes.
 
-### Data Service collaboration via CATs:
-CAT Mesh streamline data service collaboration between organizations by providing a reliable and efficient way to manage, 
-share, and reference data and data processing by Content-Addressing the means of data transformation. **Content-Addressing** is a method of uniquely identifying and retrieving data based on its content rather than its location 
-or address. 
+CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
+share, and reference data and data processing via 
+[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) - a method of uniquely identifying 
+and retrieving data based on its content rather than its location or address.
 
-##### Collaborative Value of CATs:
+**CATs uses-case for Data Service collaboration:**
 * Organizations participating in Strategic Partnerships will employ CATs for rapid ratification of service agreements 
 within collaborative feedback loops of Data Initiatives
 * CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
-communicate CATs provenance records (a.k.a BOMs (Bills of Materials)) within feedback loops of Data Initiatives
+communicate CATs provenance records within feedback loops of Data Initiatives
 
 ![alt_text](images/CATs_bom_ag.jpeg)
 
-### CAT Mesh: ***CATs' self-serviced Data Mesh platform***
+### CAT Mesh: CATs Data Mesh platform with Data Provenance
+**CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
+workloads to be portable between Web2 & Web3 infrastructure with minimal rework or modification. 
 
-CATs establishes a scalable and self-serviced Data Mesh platform (**CAT Mesh**) for Multi-disciplinary and 
-cross-fuctional teams to verify and scale distributed computing workloads with Data Provenance using interoperable 
-computing frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific 
-Computing capabilities.
+CAT Mesh closes the gap between data analysis and business operations by connecting Web3 and Web2 network planes. 
+Multi-disciplinary and cross-fuctional teams can use CAT Nodes to verify and scale distributed computing workloads with 
+Data Provenance using interoperable computing frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big 
+Data processing with Scientific Computing capabilities.
 
-**Value:**
-
-CAT Mesh enables workloads to be portable between Web2 & Web3 infrastructure with minimal rework or modification. This portability closes 
-the gap between data analysis and business operations by connecting Web3 and Web2 network planes. 
-
-**Means: Content-Addressing**
-
-CAT Mesh workloads (or CATs) interface cloud service model (SaaS, PaaS, IaaS) offered by providers such as AWS, GCP, Azure, etc. on a 
-Mesh Network interconnected by [**Content-Addresed**](https://en.wikipedia.org/wiki/Content-addressable_storage) 
-data transport solutions such as [IPFS](https://ipfs.io/).
+CAT Mesh workloads (CATs) executed by CAT Nodes interface cloud service model (SaaS, PaaS, IaaS) offered by providers 
+such as AWS, GCP, Azure, etc. on a Mesh Network interconnected by [IPFS](https://ipfs.io/).
+CAT Nodes use [IPFS](https://ipfs.io/) to interconnect with CAT Mesh in the following ways:
 * IPFS **[CIDs](https://docs.ipfs.io/concepts/content-addressing/)** (Content-Identifiers) are used as content addresses 
 that provide the means of verifying data transformation accuracy.
 * IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
 inputs, transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs
 
 ![alt_text](images/cid_example.jpeg)
+
+CAT Nodes are **Data Products** - peer-nodes on a mesh network that encapsulate components (*) to function as a service providing access to 
+a domain's analytical data as a product; * code, data & metadata, and infrastructure
+
+![alt_text](images/data_product_domain.jpeg)
+
+**Image Description:** 
+* Large ovals in the image above represent **Data Products** servicing each other with Data:
+* "O" ovals are Operational Data web service endpoints
+* "D" ovals are Analytical Data web service endpoints
+* [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak Dehghani, et al.
+
 
 ### CATs' Data Provenance Record: Bill of Materials
 **BOM (Bill of Materials):** 
@@ -58,7 +65,7 @@ products and pipelines by enabling maintenance & reporting of
 [data and process lineage & provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/) as chains of 
 evidence using CIDs.
 
-**Interconnect CATs:** ***Establish a CAT Mesh with Data Provenance***
+### Establish a CAT Mesh:
 
 CAT Mesh is composed by CATs executing BOMs.
 
