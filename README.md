@@ -2,27 +2,26 @@
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
 # Description
-**Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a scalable and 
-self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data Provenance.
+**Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a 
+scalable and self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data 
+Provenance. CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
+share, and reference data and data processing via [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage)
 
 CATs uses interoperable distributed computing frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for 
 Big Data processing with Scientific Computing capabilities. CATs enable workload portability between Web2 & Web3 
 infrastructure with minimal rework or modification. This portability closes the gap between data analysis and business 
-operations by connecting Web3 and Web2 network planes. CATs interfaces the cloud service model (SaaS, PaaS, IaaS) 
-offered by providers such as AWS, GCP, Azure, etc. on a Mesh Network interconnected by [IPFS](https://ipfs.io/).
+operations by connecting the network planes of the cloud service model (SaaS, PaaS, IaaS) with [IPFS](https://ipfs.io/). 
+CATs enables cloud services model such as AWS, GCP, Azure, etc. executable on a **Data Mesh** network.
 
-**Installation**
-0. [Install Dependencies](./docs/INSTALL.md)
-1. Install CATs:
+##### Installation:
+
+0. **Install [Dependencies](./docs/INSTALL.md)**
+1. **Install CATs:**
     ```bash
     git clone ...
     cd <CATs parent directory>/cats-research
     pip install -r requirements.txt
     ```
-**Demo**
-* [Ray](https://www.ray.io/)
-* [Bacalhau](https://www.bacalhau.org/). 
-* [Kubernetes](https://kubernetes.io/)
 
 ## Data Service Collaboration
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
@@ -111,7 +110,7 @@ and Web3 workloads CoD provides a p2p distributed-computing job submission optio
 provided by Ray.
 
 ### Steps:
-#####  1. [Prepare CAT Node's Execution Environment](./docs/ENV.md)
+#####  1. Prepare CAT Node's [Execution Environment](./docs/ENV.md)
 #####  2. Deploy CAT Node:
   ```bash
   cd <CATs parent directory>/cats-research
