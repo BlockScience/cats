@@ -1,19 +1,41 @@
 # CATs: Content-Addressable Transformers
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
-# Description
+## Description
 **Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a 
 scalable and self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data 
-Provenance. CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
-share, and reference data and data processing via [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage)
+Provenance. CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way 
+to manage, share, and reference data and data processing via 
+[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage). 
 
-CATs uses interoperable distributed computing frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for 
-Big Data processing with Scientific Computing capabilities. CATs enable workload portability between Web2 & Web3 
-infrastructure with minimal rework or modification. This portability closes the gap between data analysis and business 
-operations by connecting the network planes of the cloud service model (SaaS, PaaS, IaaS) with [IPFS](https://ipfs.io/). 
-CATs enables cloud services model such as AWS, GCP, Azure, etc. executable on a **Data Mesh** network.
+Content-Addressing is a method of 
+uniquely identifying and retrieving data based on its content rather than its location or address. CATs provides 
+verifiable data processing and transport on a Mesh network of CATs by Content-Addresssing Data Provenance records with 
+[IPFS](https://ipfs.io/). CATs uses IPFS to interconnect CATs on a Mesh network 
+in the following ways:
+* IPFS **[CIDs](https://docs.ipfs.io/concepts/content-addressing/)** (Content-Identifiers) are used as content addresses 
+that provide the means of verifying data transformation accuracy.
+* IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
+inputs, transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs
 
-##### Installation:
+![alt_text](images/cid_example.jpeg)
+
+## Technical Specification:
+CATs' utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
+frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific Computing
+Ray provides CATs with interoperable computing frameworks with its 
+[ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
+[Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/). Ray is deployed as an execution middleware 
+on top of [Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/) to provide parallelized compute access to IPFS 
+data for CATs' data ingress and egress via IPFS. 
+
+CoD enables IPFS to serve as CATs' Data Mesh's network layer and act as an integration point that enables workload 
+portability between Web2 and Web3 with minimal rework or modification. This portability closes the gap between data 
+analysis and business operations by connecting the network planes of the cloud service model (SaaS, PaaS, IaaS) with 
+IPFS. Connecting these network planes enables the execution of the cloud services in AWS,
+GCP, Azure, etc. on a **Data Mesh** network of CATs.
+
+## Installation:
 
 0. **Install [Dependencies](./docs/INSTALL.md)**
 1. **Install CATs:**
@@ -25,9 +47,7 @@ CATs enables cloud services model such as AWS, GCP, Azure, etc. executable on a 
 
 ## Data Service Collaboration
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
-share, and reference data and data processing via 
-[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) - a method of uniquely identifying 
-and retrieving data based on its content rather than its location or address.
+share, and reference data and data processing via Content-Addressing Data Provenance records.
 
 **CATs' Collaborative Benefits:**
 * Organizations participating in Strategic Partnerships will employ CATs for rapid ratification of service agreements 
@@ -37,25 +57,13 @@ communicate CATs provenance records within feedback loops of Data Initiatives
 
 ![alt_text](images/CATs_bom_ag.jpeg)
 
-## CAT Mesh: 
-### CATs Data Mesh platform with Data Provenance
+## CAT Mesh: CATs Data Mesh platform with Data Provenance
 **CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
 workloads to be portable between Web2 & Web3 infrastructure with minimal rework or modification.
 
-CAT Mesh closes the gap between data analysis and business operations by connecting Web3 and Web2 network planes. 
-Multi-disciplinary and cross-fuctional teams can use CAT Nodes to verify and scale distributed computing workloads with 
-Data Provenance using interoperable computing frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big 
-Data processing with Scientific Computing capabilities.
-
-CAT Mesh workloads (CATs) executed by CAT Nodes interface cloud service model (SaaS, PaaS, IaaS) offered by providers 
-such as AWS, GCP, Azure, etc. on a Mesh Network interconnected by [IPFS](https://ipfs.io/).
-CAT Nodes use [IPFS](https://ipfs.io/) to interconnect with CAT Mesh in the following ways:
-* IPFS **[CIDs](https://docs.ipfs.io/concepts/content-addressing/)** (Content-Identifiers) are used as content addresses 
-that provide the means of verifying data transformation accuracy.
-* IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
-inputs, transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs
-
-![alt_text](images/cid_example.jpeg)
+Multi-disciplinary and cross-fuctional teams can use CAT Nodes to verify and scale distributed computing workloads. 
+Workloads (CATs) executed by CAT Nodes interface cloud service model (SaaS, PaaS, IaaS) offered by providers 
+such as AWS, GCP, Azure, etc. on a Mesh Network interconnected by IPFS. 
 
 CAT Nodes are **Data Products** - peer-nodes on a mesh network that encapsulate components (*) to function as a service providing access to 
 a domain's analytical data as a product; * code, data & metadata, and infrastructure
