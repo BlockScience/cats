@@ -5,6 +5,26 @@
 **Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a scalable and 
 self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data Provenance.
 
+CATs uses interoperable distributed computing frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for 
+Big Data processing with Scientific Computing capabilities. CATs enable workload portability between Web2 & Web3 
+infrastructure with minimal rework or modification. This portability closes the gap between data analysis and business 
+operations by connecting Web3 and Web2 network planes. CATs interfaces the cloud service model (SaaS, PaaS, IaaS) 
+offered by providers such as AWS, GCP, Azure, etc. on a Mesh Network interconnected by [IPFS](https://ipfs.io/).
+
+**Installation**
+0. [Install Dependencies](./docs/INSTALL.md)
+1. Install CATs:
+    ```bash
+    git clone ...
+    cd <CATs parent directory>/cats-research
+    pip install -r requirements.txt
+    ```
+**Demo**
+* [Ray](https://www.ray.io/)
+* [Bacalhau](https://www.bacalhau.org/). 
+* [Kubernetes](https://kubernetes.io/)
+
+## Data Service Collaboration
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
 share, and reference data and data processing via 
 [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) - a method of uniquely identifying 
@@ -17,13 +37,6 @@ within collaborative feedback loops of Data Initiatives
 communicate CATs provenance records within feedback loops of Data Initiatives
 
 ![alt_text](images/CATs_bom_ag.jpeg)
-
-### Technical Summary:
-CATs uses interoperable distributed computing frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for 
-Big Data processing with Scientific Computing capabilities. CATs enable workload portability between Web2 & Web3 
-infrastructure with minimal rework or modification. This portability closes the gap between data analysis and business 
-operations by connecting Web3 and Web2 network planes. CATs interfaces the cloud service model (SaaS, PaaS, IaaS) 
-offered by providers such as AWS, GCP, Azure, etc. on a Mesh Network interconnected by [IPFS](https://ipfs.io/).
 
 ## CAT Mesh: 
 ### CATs Data Mesh platform with Data Provenance
@@ -85,36 +98,28 @@ CAT Mesh is composed by CATs executing BOMs.
 
 ![alt_text](images/CATs_bom_connect.jpeg)
 
-## Get Started!
-
-
 ## Demo:
 CATs' demo utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
 frameworks for Big Data processing with Scientific Computing, with access to other 
 [Ray ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
 [Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/). 
 
-Ray is deployed as an execution middleware layer on top of [Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/). CoD will provide 
-parallelized compute access to IPFS data for CATs' data ingress and egress via IPFS. This enables IPFS to serve as CATs' 
-Data Mesh's peer-to-peer (p2p) network layer with CoD acting as CATs’ integration point between Web2 and Web3 workloads 
-CoD provides a p2p distributed-computing job submission option in addition the client-server option provided by Ray.
+Ray is deployed as an execution middleware layer on top of [Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/). 
+CoD will provide parallelized compute access to IPFS data for CATs' data ingress and egress via IPFS. This enables IPFS 
+to serve as CATs' Data Mesh's peer-to-peer (p2p) network layer with CoD acting as CATs’ integration point between Web2 
+and Web3 workloads CoD provides a p2p distributed-computing job submission option in addition the client-server option 
+provided by Ray.
 
 ### Steps:
-#####  0. [Install Dependencies](./docs/INSTALL.md)
-#####  1. Install CATs:
-    ```bash
-    git clone ...
-    pip install -r requirements.txt
-    ```
-#####  2. [Prepare CAT Node's Execution Environment](./docs/ENV.md)
-#####  3. Deploy CAT Node:
+#####  1. [Prepare CAT Node's Execution Environment](./docs/ENV.md)
+#####  2. Deploy CAT Node:
   ```bash
   cd <CATs parent directory>/cats-research
   source ./venv/bin/activate
   # (venv) $
   PYTHONPATH=./ python cat/node.py
   ```
-#####  4. [Establish CAT Mesh:](./cats_demo.ipynb)
+#####  3. Establish CAT Mesh: [Demo](./cats_demo.ipynb)
   ```bash
   cd <CATs parent directory>/cats-research
   # (venv) $
