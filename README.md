@@ -1,17 +1,19 @@
 # CATs: Content-Addressable Transformers
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
-### Description
+## Description
 **Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a scalable and 
 self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data Provenance. 
 CATs uses interoperable distributed computing frameworks deployable on Kubernetes.
+
+**Data Service Collaboration:**
 
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
 share, and reference data and data processing via 
 [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) - a method of uniquely identifying 
 and retrieving data based on its content rather than its location or address.
 
-**CATs uses-case for Data Service collaboration:**
+**Uses-cas for Data Service collaboration:**
 * Organizations participating in Strategic Partnerships will employ CATs for rapid ratification of service agreements 
 within collaborative feedback loops of Data Initiatives
 * CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
