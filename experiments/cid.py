@@ -14,7 +14,7 @@ service = Service(
 order_bom_0 = service.create_order(
     process_obj=process_0,
     data_dirpath='data',
-    structure_filepath='main.tf',
+    structure_filepath='../main.tf',
     endpoint='http://127.0.0.1:5000/cat/node/preproc'
 )
 

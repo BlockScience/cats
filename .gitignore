@@ -13,6 +13,7 @@ dist/
 /examples/
 venv
 .obsidian
+kind-config
 #*.ipynb
 old
 offline_experiments

@@ -25,6 +25,13 @@ communicate CATs provenance records within feedback loops of Data Initiatives
 **CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
 workloads to be portable between Web2 & Web3 infrastructure with minimal rework or modification. 
 
+[**CAT Mesh Design:**](docs/DESIGN.md)
+
+CAT Node uses the Architectural Quantum Domain-Driven Design principle described in 
+[**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html)
+
+![alt_text](images/CATkernel.jpeg)
+
 CAT Mesh closes the gap between data analysis and business operations by connecting Web3 and Web2 network planes. 
 Multi-disciplinary and cross-fuctional teams can use CAT Nodes to verify and scale distributed computing workloads with 
 Data Provenance using interoperable computing frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big 
@@ -89,6 +96,7 @@ CAT Mesh is composed by CATs executing BOMs.
 8. **Install CATs**
     ```bash
     git clone ...
+    pip install -r requirements.txt
     ```
 #####  B. [Prepare CAT Node's Execution Environment](./docs/ENV.md)
 #####  C. Deploy CAT Node:
@@ -99,26 +107,6 @@ CAT Mesh is composed by CATs executing BOMs.
   PYTHONPATH=./ python catMesh/cat/node.py
   ```
 #####  C. [Establish CAT Mesh](./cats_demo.ipynb)
-
-
-
-### CATs Architectural Quantum (Domain-Driven Design principle):
-![alt_text](images/CATkernel.jpeg?raw=true)
-CAT’s architectural design and implementation are the result of applied Engineering, Computer Science, Network Science, 
-and Social Science. CATs is software executing on a network client ontological to an MicroKernel Operating System. CATs’ 
-is designed to enable Data Products implemented as compute node peers on a Data Mesh network that encapsulate code, 
-data, metadata, and infrastructure to function as a service providing access to the business domain's analytical data as 
-a product. Data Products use the Architectural Quantum domain-driven design principle for peer nodes that represent the 
-“smallest unit of architecture that can be independently deployed with high functional cohesion, and includes all the 
-structural elements required for its function” 
-([“Data Mesh Principles and Logical Architecture”](https://martinfowler.com/articles/data-mesh-principles.html#:~:text=smallest%20unit%20of%20architecture%20that%20can%20be%20independently%20deployed%20with%20high%20functional%20cohesion%2C%20and%20includes%20all%20the%20structural%20elements%20required%20for%20its%20function.) - Zhamak Dehghani, et al.).
-
-### Collaborative value of CATs Architectural Quantum:
-The operation and maintenance of CATs’ Data Products on a Data Mesh can occur between independent teams that will operate, contribute, and maintain different portions of the entire cloud-service model in adherance to CATs' Architectural Quantum in a way suitable for their roles using the CATs’ API to serve individual Data Model entities on a Data Mesh for a variety of use-cases. CAT’s Data Product teams can be multidisciplinary due to the fact they can operate and maintain the different portions of the entire Web2 cloud service model based on role. 
-For example:
-* An **Analyst** or **Data Scientist** will use CATs Process interface deployed as FaaS for Analytical Data transformation
-* A **Backend** or **ML-Engineer** implementing a CAT application as SaaS for a Data Scientist to execute machine learning models / pipelines on a cloud managed Kubernetes PaaS as opposed to a machine learning handoff deployment.
-* An **Infrastructure Engineer** would use the Terraform to deploy multi-cloud IaaS for a CAT to be deployed by the Backend or ML-Engineer
 
 ### Key Concepts:
 * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification)** - a process for which data is checked for 

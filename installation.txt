@@ -1,2 +1,0 @@
-npm install --global cdktf-cli@latest
-pip install --user pipenv
