@@ -1,27 +1,71 @@
 # CATs: Content-Addressable Transformers
-![alt_text](images/CATs_chaordic_kernel.jpeg?raw=true)
+![alt_text](images/CATs_chaordic_kernel.jpeg)
 
-### Description:
-CATs (Content-Addressable Transformers) is a unified Data Product collaboration framework written in Python that 
-establishes a scalable and self-serviced decentralized Data Mesh network of verifiable and scalable distributed 
-computing workloads with Data Provenance using interoperable distributed computing frameworks deployable on 
-**[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific Computing capabilities. CATs enable 
-workloads to be portable between Web2 & Web3 infrastructure with minimal rework or modification. This portability closes 
-the gap between data analysis and business operations by connecting Web3 and Web2 network planes. CATs accomplishes this 
-by interfacing the Web2 cloud service model (SaaS, PaaS, IaaS) offered by providers such as AWS, GCP, Azure, etc. on a 
-Mesh Network interconnected by Web3 [**Content-Addresed**](https://en.wikipedia.org/wiki/Content-addressable_storage) 
-data transport solutions such as [IPFS](https://ipfs.io/). 
 
-CATs will utilize [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
-frameworks for Big Data processing with Scientific Computing capabilities, with access to other 
-[Ray ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
-[Apache Spark](https://spark.apache.org/) & [Dask](https://www.dask.org/). Ray will be deployed as an execution 
-middleware layer on top of [Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/). CoD will provide 
-parallelized compute access to IPFS data for CATs' data ingress and egress via IPFS. This enables IPFS to serve as CATs' 
-Data Mesh's peer-to-peer (p2p) network layer with CoD acting as CATs’ integration point between Web2 and Web3 workloads 
-by providing a p2p distributed-computing job submission option in addition the client-server option provided by Ray.
+**Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a scalable and 
+self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data Provenance. 
+CATs uses interoperable distributed computing frameworks deployable on Kubernetes.
 
-### Installation:
+### Data Service collaboration via CATs:
+CAT Mesh streamline data service collaboration between organizations by providing a reliable and efficient way to manage, 
+share, and reference data and data processing by Content-Addressing the means of data transformation. **Content-Addressing** is a method of uniquely identifying and retrieving data based on its content rather than its location 
+or address. 
+
+##### Collaborative Value of CATs:
+* Organizations participating in Strategic Partnerships will employ CATs for rapid ratification of service agreements 
+within collaborative feedback loops of Data Initiatives
+* CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
+communicate CATs provenance records (a.k.a BOMs (Bills of Materials)) within feedback loops of Data Initiatives
+
+![alt_text](images/CATs_bom_ag.jpeg)
+
+### CAT Mesh: ***CATs' self-serviced Data Mesh platform***
+
+CATs establishes a scalable and self-serviced Data Mesh platform (**CAT Mesh**) for Multi-disciplinary and 
+cross-fuctional teams to verify and scale distributed computing workloads with Data Provenance using interoperable 
+computing frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific 
+Computing capabilities.
+
+**Value:**
+
+CAT Mesh enables workloads to be portable between Web2 & Web3 infrastructure with minimal rework or modification. This portability closes 
+the gap between data analysis and business operations by connecting Web3 and Web2 network planes. 
+
+**Means: Content-Addressing**
+
+CAT Mesh workloads (or CATs) interface cloud service model (SaaS, PaaS, IaaS) offered by providers such as AWS, GCP, Azure, etc. on a 
+Mesh Network interconnected by [**Content-Addresed**](https://en.wikipedia.org/wiki/Content-addressable_storage) 
+data transport solutions such as [IPFS](https://ipfs.io/).
+* IPFS **[CIDs](https://docs.ipfs.io/concepts/content-addressing/)** (Content-Identifiers) are used as content addresses 
+that provide the means of verifying data transformation accuracy.
+* IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
+inputs, transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs
+
+![alt_text](images/cid_example.jpeg)
+
+### CATs' Data Provenance Record: Bill of Materials
+**BOM (Bill of Materials):** 
+CATs Content-Addressed Data Provenance record for verifiable data processing and transport on 
+a Mesh network of CATs. BOMs are used as CAT’ input & output that contain CATs’ means of data processing
+
+![alt_text](images/CATs_bom_activity.jpeg)
+
+BOMs employ CIDs for location-agnostic retrieval based on its content as well as processes and 
+[Data Veification](https://en.wikipedia.org/wiki/Data_verification). BOM CIDs can be used to verify the means of processing 
+data (input, transformation / process, output, infrastructure-as-code (IaC)). they can also 
+make CATs resilient by enabling re-execution via retrieval. CATs certifies the accuracy of data processing on data 
+products and pipelines by enabling maintenance & reporting of 
+[data and process lineage & provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/) as chains of 
+evidence using CIDs.
+
+**Interconnect CATs:** ***Establish a CAT Mesh with Data Provenance***
+
+CAT Mesh is composed by CATs executing BOMs.
+
+![alt_text](images/CATs_bom_connect.jpeg)
+
+### Get Started!
+##### A. Installation:
 0. **[Python](https://www.python.org/downloads/)** (>= 3.10.13)
 1. **[kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installing-from-release-binaries)** (>= 0.12.0)
 2. **[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)** (>= 1.22.2)
@@ -37,38 +81,15 @@ by providing a p2p distributed-computing job submission option in addition the c
     ```bash
     git clone ...
     ```
-
-
-
-### Get Started:
-* [**Prepare CAT Node's Execution Environment**](./docs/ENV.md)
-* **Deploy CAT Node**
+#####  B. [Prepare CAT Node's Execution Environment](./docs/ENV.md)
+#####  C. Deploy CAT Node:
   ```bash
   cd <CATs parent directory>/cats-research
   source ./venv/bin/activate
   # (venv) $
   PYTHONPATH=./ python catMesh/cat/node.py
   ```
-* [**Create CAT Mesh**](./cats_demo.ipynb)
-
-### Technical Value:
-CATs' will utilized IPFS [CIDs](https://docs.ipfs.tech/concepts/content-addressing/#content-identifiers-cids) for 
-Content-Addressing transformations / processes. CIDs will be issued to a process (CAT) and its means of processing to be 
-used for location-agnostic retrieval based on its content as well as processes and 
-[Data Veification](https://en.wikipedia.org/wiki/Data_verification). They can be used to verify the means of processing 
-data (input, transformation / process, output, infrastructure-as-code (IaC)) within CATs' provenance records. CIDs also 
-make CATs resilient by enabling re-execution via retrieval. CATs certifies the accuracy of data processing on data 
-products and pipelines by enabling maintenance & reporting of 
-[data and process lineage & provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/) as chains of 
-evidence using CIDs. Multi-disciplinary and cross-fuctional teams can use CATs' peers to scale and execute execution of 
-interoperable frameworks for Distributed, Concurrent and/or Parallelized execution 
-([0.](https://en.wikipedia.org/wiki/Distributed_computing))
-
-**Content-Addressing Data Processing with IPFS:**
-* IPFS **[CIDs](https://docs.ipfs.io/concepts/content-addressing/)** (Content-Identifiers) are used as content addresses 
-that provide the means of verifying data transformation accuracy.
-* IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
-inputs, transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs
+#####  C. [Establish CAT Mesh](./cats_demo.ipynb)
 
 
 ### Orginizational Value:

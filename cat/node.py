@@ -60,12 +60,8 @@ def execute_init_cat():
         order_request = request.get_json()
         order_request["order"] = json.loads(service.meshClient.cat(order_request["order_cid"]))
         order_request['invoice'] = json.loads(service.meshClient.cat(order_request['order']['invoice_cid']))
-        pprint(order_request["order"])
-        pprint(order_request['invoice']['data_cid'])
-
-
-
-        # bom['invoice']['data_cid'] = service.meshClient.linkData(bom['invoice']['data_cid'])
+        # pprint(order_request["order"])
+        # pprint(order_request['invoice']['data_cid'])
 
         # IPFS checks
         # if 'bom_cid' not in bom:
@@ -89,8 +85,8 @@ def execute_link_cat():
         order_request = request.get_json()
         order_request["order"] = json.loads(service.meshClient.cat(order_request["order_cid"]))
         order_request['invoice'] = json.loads(service.meshClient.cat(order_request['order']['invoice_cid']))
-        pprint(order_request["order"])
-        pprint(order_request['invoice']['data_cid'])
+        # pprint(order_request["order"])
+        # pprint(order_request['invoice']['data_cid'])
 
         prev_data_cid = order_request['invoice']['data_cid']
         data_cid = service.meshClient.linkData(prev_data_cid)
