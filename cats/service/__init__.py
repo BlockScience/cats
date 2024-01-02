@@ -65,7 +65,12 @@ class Service:
 
     def catSubmit(self, bom):
         order = json.loads(self.meshClient.cat(bom["order_cid"]))
+        print("Order:")
+        print()
         pprint(order)
+        print()
+        print()
+
         ppost = lambda args, endpoint: \
             f'curl -X POST -H "Content-Type: application/json" -d \\\n\'{json.dumps(**args)}\' {endpoint}'
         post = lambda args, endpoint: \
@@ -73,6 +78,8 @@ class Service:
 
         post_cmd = post({'obj': bom}, order["endpoint"])
         print(ppost({'obj': bom, 'indent': 4}, order["endpoint"]))
+        print()
+        print()
         response_str = subprocess.check_output(post_cmd, shell=True)
         output_bom = json.loads(response_str)
         # pprint(output_bom)
