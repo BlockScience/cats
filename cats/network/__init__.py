@@ -2,8 +2,9 @@ import json
 import os
 import subprocess
 from copy import copy, deepcopy
+from pprint import pprint
 
-import ipfsapi as ipfsApi
+from cats import CATS_HOME
 from cats.network.aws import s3_client
 from cats.network.cod import CoD
 
@@ -51,20 +52,21 @@ class MeshClient(CoD):
         car_bom_cid, init_bom_json_cid = self.convertBOMtoCAR(init_bom_json_cid, init_bom_filename)
         return car_bom_cid, init_bom_json_cid
 
-    def linkData(self, cid, subdir='outputs/'):
+    def linkData(self, cid, subdir=' - outputs/'):
         cmd = f"ipfs ls {cid}"
         response = subprocess.check_output(cmd.split(' ')).decode()
         dirs = response.split('\n')
         res = [i for i in dirs if subdir in i]
-        return res[0].rstrip(f' - {subdir}')
+        return res[0].split(' - ')[0]
 
-    def get(self, cid: str, filepath: str):
+    def get(self, cid: str, filepath: str, output: str = CATS_HOME):
         subprocess.check_output(
-            f"ipfs get {cid}",
+            f"ipfs get {cid} --output {output}/{filepath}",
             stderr=subprocess.STDOUT,
             shell=True
         )
-        os.rename(cid, filepath)
+        # os.rename(cid, filepath)
+        return filepath
 
     def cat(self, cid: str):
         return subprocess.check_output(['ipfs', 'cat', cid]).decode()
@@ -135,10 +137,11 @@ class MeshClient(CoD):
         file_name = file_json['Name']
         return file_cid, file_name
 
-    def cidDir(self, filepath):
+    def cidDir(self, filepath: str):
         data = self.ipfsClient.add(filepath)
+        data_dir = filepath.split('/')[-1]
         if type(data) is list:
-            data_json = list(filter(lambda x: x['Name'] == filepath, data))[-1]
+            data_json = list(filter(lambda x: x['Name'] == data_dir, data))[-1]
             data_cid = data_json['Hash']
             return data_cid
         else:

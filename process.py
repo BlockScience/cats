@@ -21,6 +21,8 @@ def process_0(input, output):
     # ray.init()
     ds_in = ray.data.read_csv(input)
     ds_out = ds_in.map_batches(function_0)
+    idx_ds = ray.data.range(ds_out.count())
+    ds_out = idx_ds.zip(ds_out)
     print(ds_out.show(limit=1))
     ds_out.write_csv(output)
     ray.shutdown()

@@ -1,11 +1,13 @@
-import json
-import pickle
-import subprocess
+import glob, json, os, pickle, subprocess
 from copy import deepcopy
 from pprint import pprint
 
+import pandas as pd
+from pandas import DataFrame
+
+from cats import CATS_HOME
 from cats.service.utils import executeCMD
-from cats.network import ipfsApi
+import ipfsapi as ipfsApi
 from cats.network import MeshClient
 
 
@@ -35,6 +37,26 @@ class Service:
         self.processCID = None
         self.process = None
         self.dataCID = None
+
+    def cid_to_pandasDF(self, cid, download_dir, format='*.csv', read_dir='/outputs', parrent_dir=CATS_HOME):
+        path = f'{parrent_dir}/{download_dir}'  # or unix / linux / mac path
+        os.system(f"rm -rf {path}")
+        self.meshClient.get(cid, download_dir, parrent_dir)
+
+        # Get the files from the path provided
+        files = glob.glob(os.path.join(f"{path}{read_dir}", format))
+        dfs = list(pd.read_csv(f).assign(filename=f) for f in files)
+        pprint(dfs)
+        df = None
+        for dfx in dfs:
+            if df is None:
+                df = dfx
+            else:
+                # df.append(dfx)
+                df = pd.concat([df, dfx], ignore_index=True)
+        return df
+
+
 
     def initBOMcar(self, function_cid, init_data_cid, init_bom_filename='bom.car', structure_cid=None, structure_filepath=None):
         self.init_bom_car_cid, self.init_bom_json_cid = self.meshClient.initBOMcar(
@@ -109,8 +131,8 @@ class Service:
 
 
     def create_order_request(self,
-            process_obj, data_dirpath, structure_filepath,
-            endpoint='http://127.0.0.1:5000/cat/node/execute'
+        process_obj, data_dirpath, structure_filepath,
+        endpoint='http://127.0.0.1:5000/cat/node/execute'
     ):
         structure_cid, structure_name = self.meshClient.cidFile(structure_filepath)
         function = {

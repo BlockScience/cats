@@ -124,7 +124,7 @@ provided by Ray.
   cd <CATs parent directory>/cats-research
   source ./venv/bin/activate
   # (venv) $
-  PYTHONPATH=./ python cat/node.py
+  PYTHONPATH=./ python cats/node.py
   ```
 #####  3. Establish CAT Mesh: [Demo](./cats_demo.ipynb)
   ```bash
