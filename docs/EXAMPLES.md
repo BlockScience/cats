@@ -1,4 +1,2 @@
-### [Demos:](../demos)
-* **[initStructure:](../demos/initStructure.md)** 
-  * **[Functionality:](../testing/features/initCAT.py)** **Initialize BOM and use it to deploy Ray Cluster on Kubernetes**
-  * **[Test:](../testing/tests/initCAT.py)** `python -m pytest -s testing/tests/initCAT.py`
+### [Demos:](../cats_demo.ipynb) Execute a CATs on a single node Data (CAT) Mesh
+### [Test:](../tests/verification_test.py) `python -m pytest -s testing/tests/initCAT.py`

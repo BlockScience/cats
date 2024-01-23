@@ -46,7 +46,7 @@ GCP, Azure, etc. on a **Data Mesh** network of CATs.
     pip install -r requirements.txt
     ```
 
-## Data Service Collaboration
+## Data Service Collaboration:
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
 share, and reference data and data processing via Content-Addressing Data Provenance records.
 
@@ -78,11 +78,11 @@ providing access to a domain's analytical data as a product; * code, data & meta
 * [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
 Dehghani, et al.
 
+### CAT Node's Architectural Quantum:
 
 CAT Node uses the Architectural Quantum Domain-Driven Design principle described in 
 [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html)
 
-### CAT Node's Architectural Quantum:
 ![alt_text](images/CATkernel.jpeg)
 * [**Design Desciption**](docs/DESIGN.md)
 
@@ -128,11 +128,12 @@ distributed-computing job submission option in addition the client-server option
   # (venv) $
   PYTHONPATH=./ python cats/node.py
   ```
-#####  3. Establish CAT Mesh: [Demo](./cats_demo.ipynb)
+#####  3. Establish Data (CAT) Mesh: [Demo](./cats_demo.ipynb) Execute a CATs on a single node Mesh
   ```bash
   cd <CATs parent directory>/cats-research
   # (venv) $
   jupyter notebook cat_demo.ipynb
+  # Run > Run All Cells
   ```
 
 ## Key Concepts:

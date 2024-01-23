@@ -5,6 +5,7 @@ requires = [
     "ipfsApi==0.4.4",
     "ray[default, data]==2.7.1",
     "flask==3.0.0",
+    "tqdm==4.66.1",
     "notebook==7.0.6",
     "boto3"
 ]
