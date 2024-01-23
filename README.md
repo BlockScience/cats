@@ -66,8 +66,8 @@ Multi-disciplinary and cross-fuctional teams can use CAT Nodes to verify and sca
 Workloads (CATs) executed by CAT Nodes interface cloud service model (SaaS, PaaS, IaaS) offered by providers 
 such as AWS, GCP, Azure, etc. on a Mesh Network interconnected by IPFS. 
 
-CAT Nodes are **Data Products** - peer-nodes on a mesh network that encapsulate components (*) to function as a service providing access to 
-a domain's analytical data as a product; * code, data & metadata, and infrastructure
+CAT Nodes are **Data Products** - peer-nodes on a mesh network that encapsulate components (*) to function as a service 
+providing access to a domain's analytical data as a product; * code, data & metadata, and infrastructure
 
 ![alt_text](images/data_product_domain.jpeg)
 
@@ -75,7 +75,8 @@ a domain's analytical data as a product; * code, data & metadata, and infrastruc
 * Large ovals in the image above represent **Data Products** servicing each other with Data:
 * "O" ovals are Operational Data web service endpoints
 * "D" ovals are Analytical Data web service endpoints
-* [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak Dehghani, et al.
+* [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
+Dehghani, et al.
 
 
 CAT Node uses the Architectural Quantum Domain-Driven Design principle described in 
@@ -112,11 +113,11 @@ frameworks for Big Data processing with Scientific Computing, with access to oth
 [Ray ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
 [Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/). 
 
-Ray is deployed as an execution middleware layer on top of [Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/). 
-CoD will provide parallelized compute access to IPFS data for CATs' data ingress and egress via IPFS. This enables IPFS 
-to serve as CATs' Data Mesh's peer-to-peer (p2p) network layer with CoD acting as CATs’ integration point between Web2 
-and Web3 workloads CoD provides a p2p distributed-computing job submission option in addition the client-server option 
-provided by Ray.
+Ray is deployed as an execution middleware layer on top of 
+[Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/). CoD will provide parallelized compute access to IPFS 
+data for CATs' data ingress and egress via IPFS. This enables IPFS to serve as CATs' Data Mesh's peer-to-peer (p2p) 
+network layer with CoD acting as CATs’ integration point between Web2 and Web3 workloads CoD provides a p2p 
+distributed-computing job submission option in addition the client-server option provided by Ray.
 
 ### Steps:
 #####  1. Prepare CAT Node's [Execution Environment](./docs/ENV.md)
@@ -137,9 +138,11 @@ provided by Ray.
 ## Key Concepts:
 * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification)** - a process for which data is checked for 
 accuracy and inconsistencies before processed
-* **[Data Provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/)** - a means of proving data lineage using historical records that provide the means 
+* **[Data Provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/)** - a means of proving data 
+lineage using historical records that provide the means 
 of pipeline re-execution and **[data validation](https://en.wikipedia.org/wiki/Data_validation)**
-* **[Data Lineage](https://bi-insider.com/posts/data-lineage-and-data-provenance/)** - reporting of data lifecyle from source to destination
+* **[Data Lineage](https://bi-insider.com/posts/data-lineage-and-data-provenance/)** - reporting of data lifecyle from 
+source to destination
 * **[Distributed Computing](https://en.wikipedia.org/wiki/Distributed_computing)** - typically the concurrent and/or 
 parallel execution of job tasks distributed to networked computers processing data
 * **[Bill of Materials (BOM)](https://en.wikipedia.org/wiki/Bill_of_materials)** - an extensive list of raw materials,
