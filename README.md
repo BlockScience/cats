@@ -42,6 +42,7 @@ GCP, Azure, etc. on a **Data Mesh** network of CATs.
     ```bash
     git clone ...
     cd <CATs parent directory>/cats-research
+    python -m pip install --upgrade pip
     pip install -r requirements.txt
     ```
 

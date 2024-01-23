@@ -3,18 +3,15 @@
 .terraform/*
 */.terraform
 .terraform.*
-terraform.tfstate
-terraform.tfstate.backup
+terraform.*
 cats_vault/
-dist/
+old
 *.pyc
 .ipynb_checkpoints
 .pytest_cache
 /examples/
 venv
 .obsidian
-#*.ipynb
-old
 offline_experiments
 testing/features/cat.py
 testing/tests/cat.py
@@ -23,4 +20,5 @@ bom.json
 invoice.json
 order.json
 cat-action-plane-config
-catMesh
+old/experiments/catMesh
+online
