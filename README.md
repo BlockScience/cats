@@ -46,6 +46,36 @@ GCP, Azure, etc. on a **Data Mesh** network of CATs.
     pip install -r requirements.txt
     ```
 
+## Demo:
+CATs' demo utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
+frameworks for Big Data processing with Scientific Computing, with access to other 
+[Ray ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
+[Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/). 
+
+Ray is deployed as an execution middleware layer on top of 
+[Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/). CoD will provide parallelized compute access to IPFS 
+data for CATs' data ingress and egress via IPFS. This enables IPFS to serve as CATs' Data Mesh's peer-to-peer (p2p) 
+network layer with CoD acting as CATs’ integration point between Web2 and Web3 workloads CoD provides a p2p 
+distributed-computing job submission option in addition the client-server option provided by Ray.
+
+#### Steps:
+#####  1. Prepare CAT Node's [Execution Environment](./docs/ENV.md)
+#####  2. Deploy CAT Node:
+```bash
+cd <CATs parent directory>/cats-research
+source ./venv/bin/activate
+# (venv) $
+PYTHONPATH=./ python cats/node.py
+  ```
+#####  3. Establish Data (CAT) Mesh: [Demo](./cats_demo.ipynb) 
+Execute a CATs on a single node Mesh.
+```bash
+cd <CATs parent directory>/cats-research
+# (venv) $
+jupyter notebook cat_demo.ipynb
+# Run > Run All Cells
+```
+
 ## Data Service Collaboration:
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
 share, and reference data and data processing via Content-Addressing Data Provenance records.
@@ -107,34 +137,7 @@ CAT Mesh is composed by CATs executing BOMs.
 
 ![alt_text](images/CATs_bom_connect.jpeg)
 
-## Demo:
-CATs' demo utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
-frameworks for Big Data processing with Scientific Computing, with access to other 
-[Ray ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
-[Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/). 
 
-Ray is deployed as an execution middleware layer on top of 
-[Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/). CoD will provide parallelized compute access to IPFS 
-data for CATs' data ingress and egress via IPFS. This enables IPFS to serve as CATs' Data Mesh's peer-to-peer (p2p) 
-network layer with CoD acting as CATs’ integration point between Web2 and Web3 workloads CoD provides a p2p 
-distributed-computing job submission option in addition the client-server option provided by Ray.
-
-### Steps:
-#####  1. Prepare CAT Node's [Execution Environment](./docs/ENV.md)
-#####  2. Deploy CAT Node:
-  ```bash
-  cd <CATs parent directory>/cats-research
-  source ./venv/bin/activate
-  # (venv) $
-  PYTHONPATH=./ python cats/node.py
-  ```
-#####  3. Establish Data (CAT) Mesh: [Demo](./cats_demo.ipynb) Execute a CATs on a single node Mesh
-  ```bash
-  cd <CATs parent directory>/cats-research
-  # (venv) $
-  jupyter notebook cat_demo.ipynb
-  # Run > Run All Cells
-  ```
 
 ## Key Concepts:
 * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification)** - a process for which data is checked for 
