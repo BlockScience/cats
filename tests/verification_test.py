@@ -18,7 +18,6 @@ cat_order_request_0 = service.create_order_request(
     endpoint='http://127.0.0.1:5000/cat/node/init'
 )
 cat_invoiced_response_0 = service.catSubmit(cat_order_request_0)
-cat_order_request_1 = service.linkProcess(cat_invoiced_response_0, process_1)
 
 
 class TestDataVerificationCAT0:
@@ -41,6 +40,7 @@ class TestDataVerificationCAT0:
         )
 
 
+cat_order_request_1 = service.linkProcess(cat_invoiced_response_0, process_1)
 class TestDataVerificationCAT1:
     cat_invoiced_response_1 = service.catSubmit(cat_order_request_1)
     flat_cat_invoiced_response_1 = service.flatten_bom(cat_invoiced_response_1)

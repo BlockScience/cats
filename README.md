@@ -36,7 +36,6 @@ IPFS. Connecting these network planes enables the execution of the cloud service
 GCP, Azure, etc. on a **Data Mesh** network of CATs.
 
 ## Installation:
-
 0. **Install [Dependencies](./docs/INSTALL.md)**
 1. **Install CATs:**
     ```bash
@@ -45,8 +44,6 @@ GCP, Azure, etc. on a **Data Mesh** network of CATs.
     python -m pip install --upgrade pip
     pip install -r requirements.txt
     ```
-   
-## Testing:
 
 ## [Demo:](./cats_demo.ipynb) 
 CATs' demo utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
@@ -86,8 +83,8 @@ Execute a CATs on a single node Mesh.
 jupyter notebook cats_demo.ipynb
 # Run > Run All Cells
 ```
-##### [Testing](./tests/verification_test.py): `pytest -s tests/verification_test.py`
-* Requirement: Step 3
+* [**Tests**](./tests/verification_test.py): `pytest -s tests/verification_test.py`
+  * Requirement: Step 3
 
 ## Data Service Collaboration:
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
