@@ -46,7 +46,6 @@ class Service:
         # Get the files from the path provided
         files = glob.glob(os.path.join(f"{path}{read_dir}", format))
         dfs = list(pd.read_csv(f).assign(filename=f) for f in files)
-        pprint(dfs)
         df = None
         for dfx in dfs:
             if df is None:

@@ -45,8 +45,10 @@ GCP, Azure, etc. on a **Data Mesh** network of CATs.
     python -m pip install --upgrade pip
     pip install -r requirements.txt
     ```
+   
+## Testing:
 
-## Demo:
+## [Demo:](./cats_demo.ipynb) 
 CATs' demo utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
 frameworks for Big Data processing with Scientific Computing, with access to other 
 [Ray ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
@@ -59,22 +61,33 @@ network layer with CoD acting as CATs’ integration point between Web2 and Web3
 distributed-computing job submission option in addition the client-server option provided by Ray.
 
 #### Steps:
-#####  1. Prepare CAT Node's [Execution Environment](./docs/ENV.md)
-#####  2. Deploy CAT Node:
+##### 0. Start IPFS daemon:
+```bash
+ipfs daemon
+```
+* **Optional:** 
+  * Shut down IPFS daemon: `ipfs shutdown`
+##### 1. [Create Virtual Environment](./docs/ENV.md)
+##### 2. Activate Virtual Environment
 ```bash
 cd <CATs parent directory>/cats-research
 source ./venv/bin/activate
 # (venv) $
+```
+##### 3. Deploy CAT Node:
+```bash
+# (venv) $
 PYTHONPATH=./ python cats/node.py
-  ```
-#####  3. Establish Data (CAT) Mesh: [Demo](./cats_demo.ipynb) 
+```
+##### 4. Establish Data (CAT) Mesh: [Demo](./cats_demo.ipynb) 
 Execute a CATs on a single node Mesh.
 ```bash
-cd <CATs parent directory>/cats-research
 # (venv) $
-jupyter notebook cat_demo.ipynb
+jupyter notebook cats_demo.ipynb
 # Run > Run All Cells
 ```
+##### [Testing](./tests/verification_test.py): `pytest -s tests/verification_test.py`
+* Requirement: Step 3
 
 ## Data Service Collaboration:
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
