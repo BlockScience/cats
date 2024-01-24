@@ -1,24 +1,42 @@
 # CATs: Content-Addressable Transformers
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
-## Description
+## Description:
 **Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a 
 scalable and self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data 
-Provenance. CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way 
+Provenance. CATs streamline Data Service Collaboration between organizations by providing a reliable and efficient way 
 to manage, share, and reference data and data processing via 
-[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage). 
-
-Content-Addressing is a method of 
-uniquely identifying and retrieving data based on its content rather than its location or address. CATs provides 
-verifiable data processing and transport on a Mesh network of CATs by Content-Addresssing Data Provenance records with 
-[IPFS](https://ipfs.io/). CATs uses IPFS to interconnect CATs on a Mesh network 
-in the following ways:
-* IPFS **[CIDs](https://docs.ipfs.io/concepts/content-addressing/)** (Content-Identifiers) are used as content addresses 
-that provide the means of verifying data transformation accuracy.
-* IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** is used to identify and retrieve 
-inputs, transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs
-
+[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage).
 ![alt_text](images/cid_example.jpeg)
+CATs streamline **Data Service Collaboration** between organizations by providing a reliable and efficient way to manage, 
+share, and reference data and data processing via Content-Addressing Data Provenance records. 
+* **Content-Addressing** is a method of uniquely identifying and retrieving data based on its content rather than its 
+location or address. CATs provides verifiable data processing and transport on a Mesh network of CATs interconnected by 
+Content-Addresssing Data Provenance records with [IPFS](https://ipfs.io/)
+**[CIDs](https://docs.ipfs.io/concepts/content-addressing/)** (Content-Identifiers) as content addresses issued by 
+IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** to identify and retrieve inputs, 
+transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs
+* Organizations and Collaborators participating in Strategic Partnerships will employ CATs for rapid ratification of 
+service agreements within collaborative feedback loops of Data Initiatives. CATs' apply an **Architectural Quantum** 
+Domain-Driven Design principle described in 
+[**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to reify Data Initiatives.
+![alt_text](images/CATkernel.jpeg)
+* CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
+communicate CATs provenance records within feedback loops of Data Initiatives.
+![alt_text](images/CATs_bom_ag.jpeg)
+
+## Installation:
+0. **Install [Platform Dependencies](./docs/DEPS.md)**
+1. **Install CATs:**
+    ```bash
+    git clone git@github.com:BlockScience/cats.git
+    cd cats
+    python -m pip install --upgrade pip
+    pip install dist/*.whl
+    ```
+## Get Started!:
+   1. ### Demo: [Establish a CAT Mesh](./docs/DEMO.md)
+   2. ### Test: [CAT Mesh Verification](./docs/TEST.md)
 
 ## Technical Specification:
 CATs' utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
@@ -35,33 +53,6 @@ This portability closes the gap between data analysis and business operations by
 cloud service model (SaaS, PaaS, IaaS) with IPFS. Connecting these network planes enables the execution of the cloud
 services in AWS, GCP, Azure, etc. on a **Data Mesh** network of CATs. CoD enables this connection as p2p 
 distributed-computing job submission in addition to the client-server job submission provided by Ray.
-
-## Installation:
-0. **Install [Platform Dependencies](./docs/DEPS.md)**
-1. **Install CATs:**
-    ```bash
-    git clone git@github.com:BlockScience/cats.git
-    cd cats
-    python -m pip install --upgrade pip
-    pip install dist/*.whl
-    ```
-## Get Started!:
-   1. ### Demo: [Establish a CAT Mesh](./docs/DEMO.md)
-   2. ### Test: [CAT Mesh Verification](./docs/TEST.md)
-
-## Data Service Collaboration:
-CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
-share, and reference data and data processing via Content-Addressing Data Provenance records.
-
-**CATs' Collaborative Benefits:**
-* Organizations and Collaborators participating in Strategic Partnerships will employ CATs for rapid ratification of 
-service agreements within collaborative feedback loops of Data Initiatives. CATs' apply an **Architectural Quantum** 
-Domain-Driven Design principle described in 
-[**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to reify Data Initiatives.
-![alt_text](images/CATkernel.jpeg)
-* CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
-communicate CATs provenance records within feedback loops of Data Initiatives.
-![alt_text](images/CATs_bom_ag.jpeg)
 
 ## CAT Mesh: CATs Data Mesh platform with Data Provenance
 **CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
