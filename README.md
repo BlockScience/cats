@@ -19,7 +19,7 @@ IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distribution
 transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs.
 ![alt_text](images/cid_example.jpeg)
 
-## Data Service Collaboration:
+## CATs' **Architectural Quantum**
 Organizations and Collaborators participating in Strategic Partnerships will employ CATs for rapid ratification of 
 service agreements within collaborative feedback loops of Data Initiatives. CATs' apply an **Architectural Quantum** 
 Domain-Driven Design principle described in 
@@ -27,7 +27,7 @@ Domain-Driven Design principle described in
 [reify Data Initiatives](https://github.com/BlockScience/cats?tab=readme-ov-file#data-initiatives-reification).
 ![alt_text](images/CATkernel.jpeg)
 
-## Data Initiatives Reification:
+## Data Initiatives Reification via Data Service Collaboration:
 CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
 communicate CATs provenance records within feedback loops of Data Initiatives.
 ![alt_text](images/CATs_bom_ag.jpeg)
