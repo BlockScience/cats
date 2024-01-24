@@ -2,7 +2,7 @@
 ##### 0. Create `venv`:
 ```bash
 # CATs working directory
-cd <CATs parent directory>/cats-research
+cd cats
 python -m venv ./venv
 ```
 #### 1. Activate/Deactivate Virtual Environment

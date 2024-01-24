@@ -9,7 +9,7 @@ ipfs daemon
 ##### 1. [Create Virtual Environment](./docs/ENV.md)
 ##### 2. Activate Virtual Environment
 ```bash
-cd <CATs parent directory>/cats-research
+cd cats
 source ./venv/bin/activate
 # (venv) $
 ```

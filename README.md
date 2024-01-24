@@ -37,17 +37,17 @@ services in AWS, GCP, Azure, etc. on a **Data Mesh** network of CATs. CoD enable
 distributed-computing job submission in addition to the client-server job submission provided by Ray.
 
 ## Installation:
-0. **Install [Dependencies](./docs/INSTALL.md)**
+0. **Install [Platform Dependencies](./docs/DEPS.md)**
 1. **Install CATs:**
     ```bash
-    git clone ...
-    cd <CATs parent directory>/cats-research
+    git clone git@github.com:BlockScience/cats.git
+    cd cats
     python -m pip install --upgrade pip
     pip install dist/*.whl
     ```
 ## Get Started!:
-   1. ### [Demo](./docs/DEMO.md)
-   2. ### [Test](./docs/TEST.md)
+   1. ### Demo: [Establish a CAT Mesh](./docs/DEMO.md)
+   2. ### Test: [CAT Mesh Verification](./docs/TEST.md)
 
 ## Data Service Collaboration:
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
@@ -58,8 +58,12 @@ share, and reference data and data processing via Content-Addressing Data Proven
 within collaborative feedback loops of Data Initiatives
 * CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
 communicate CATs provenance records within feedback loops of Data Initiatives
-
 ![alt_text](images/CATs_bom_ag.jpeg)
+
+##CATs' Architectural Quantum:
+  * CAT Node uses the Architectural Quantum Domain-Driven Design principle described in 
+  [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html)
+  ![alt_text](images/CATkernel.jpeg)
 
 ## CAT Mesh: CATs Data Mesh platform with Data Provenance
 **CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
@@ -80,36 +84,22 @@ providing access to a domain's analytical data as a product; * code, data & meta
 * "D" ovals are Analytical Data web service endpoints
 * [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
 Dehghani, et al.
-
-### CAT Node's Architectural Quantum:
-
-CAT Node uses the Architectural Quantum Domain-Driven Design principle described in 
-[**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html)
-
-![alt_text](images/CATkernel.jpeg)
 * [**Design Desciption**](docs/DESIGN.md)
 
 ### CATs' Data Provenance Record:
-**BOM (Bill of Materials):** 
-CATs Content-Addressed Data Provenance record for verifiable data processing and transport on 
-a Mesh network of CATs. BOMs are used as CAT’ input & output that contain CATs’ means of data processing
+**BOM (Bill of Materials)** are CATs' Content-Addressed Data Provenance record for verifiable data processing and 
+transport on a Mesh network of CATs. BOMs are used as CAT’ input & output that contain CATs’ means of data processing. 
 
-![alt_text](images/CATs_bom_activity.jpeg)
-
-BOMs employ CIDs for location-agnostic retrieval based on its content as well as processes and 
+* BOMs employ CIDs for location-agnostic retrieval based on its content as well as processes and 
 [Data Veification](https://en.wikipedia.org/wiki/Data_verification). BOM CIDs can be used to verify the means of processing 
 data (input, transformation / process, output, infrastructure-as-code (IaC)). they can also 
 make CATs resilient by enabling re-execution via retrieval. CATs certifies the accuracy of data processing on data 
 products and pipelines by enabling maintenance & reporting of 
 [data and process lineage & provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/) as chains of 
 evidence using CIDs.
-
-### Establish a CAT Mesh:
-
-CAT Mesh is composed by CATs executing BOMs.
-
+![alt_text](images/CATs_bom_activity.jpeg)
+* CAT Mesh is composed by CATs executing BOMs.
 ![alt_text](images/CATs_bom_connect.jpeg)
-
 
 
 ## Key Concepts:

@@ -1,4 +1,4 @@
-### Orginizational Value:
+### Organizational Value:
 CATs empower effective cross-domain collaboration on a 
 [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) across business and 
 knowledge domains between cross-functional & multi-disciplinary teams and organizations. A Data Mesh solution involves 

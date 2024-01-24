@@ -1,9 +1,9 @@
 ## [Test(s)](./tests/verification_test.py):
-* **Virtual Environment:**
-  1. [Create Virtual Environment](./docs/ENV.md)
-  2. Activate Virtual Environment
+* **[Install CATs](https://github.com/BlockScience/cats/tree/cats2?tab=readme-ov-file#installation)**
+* **[Create Virtual Environment](./docs/ENV.md)**
+* **Activate Virtual Environment**
   ```bash
-  cd <CATs parent directory>/cats-research
+  cd cats
   source ./venv/bin/activate
   # (venv) $
   ```
