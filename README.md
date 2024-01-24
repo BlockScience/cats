@@ -24,10 +24,10 @@ Organizations and Collaborators participating in Strategic Partnerships will emp
 service agreements within collaborative feedback loops of Data Initiatives. CATs' apply an **Architectural Quantum** 
 Domain-Driven Design principle described in 
 [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to 
-[reify Data Initiatives](https://github.com/BlockScience/cats?tab=readme-ov-file#data-initiatives-reification).
+[reify Data Initiatives](https://github.com/BlockScience/cats?tab=readme-ov-file#data-initiative-reification-via-data-service-collaboration).
 ![alt_text](images/CATkernel.jpeg)
 
-## Data Initiatives Reification via Data Service Collaboration:
+## Data Initiative Reification via Data Service Collaboration:
 CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
 communicate CATs provenance records within feedback loops of Data Initiatives.
 ![alt_text](images/CATs_bom_ag.jpeg)
