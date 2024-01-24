@@ -1,4 +1,4 @@
-##### Install Requirements:
+##### Platform Dependencies:
 0. **[Python](https://www.python.org/downloads/release/python-31013/)** (>= 3.10.13)
 1. **[kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installing-from-release-binaries)** (>= 0.12.0)
 2. **[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)** (>= 1.22.2)
