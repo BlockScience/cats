@@ -26,6 +26,7 @@ Domain-Driven Design principle described in
 [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to reify Data Initiatives.
 ![alt_text](images/CATkernel.jpeg)
 
+## Data Initiatives Reification:
 CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
 communicate CATs provenance records within feedback loops of Data Initiatives.
 ![alt_text](images/CATs_bom_ag.jpeg)
