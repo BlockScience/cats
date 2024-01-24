@@ -30,10 +30,11 @@ on top of [Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/) to p
 data for CATs' data ingress and egress via IPFS. 
 
 CoD enables IPFS to serve as CATs' Data Mesh's network layer and act as an integration point that enables workload 
-portability between Web2 and Web3 with minimal rework or modification. This portability closes the gap between data 
-analysis and business operations by connecting the network planes of the cloud service model (SaaS, PaaS, IaaS) with 
-IPFS. Connecting these network planes enables the execution of the cloud services in AWS,
-GCP, Azure, etc. on a **Data Mesh** network of CATs.
+portability between client-server cloud platforms and p2p mesh networks with minimal rework or modification. 
+This portability closes the gap between data analysis and business operations by connecting the network planes of the 
+cloud service model (SaaS, PaaS, IaaS) with IPFS. Connecting these network planes enables the execution of the cloud
+services in AWS, GCP, Azure, etc. on a **Data Mesh** network of CATs. CoD enables this connection as p2p 
+distributed-computing job submission in addition to the client-server job submission provided by Ray.
 
 ## Installation:
 0. **Install [Dependencies](./docs/INSTALL.md)**
@@ -45,18 +46,7 @@ GCP, Azure, etc. on a **Data Mesh** network of CATs.
     pip install dist/*.whl
     ```
 
-## [Demo:](./cats_demo.ipynb) 
-CATs' demo utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
-frameworks for Big Data processing with Scientific Computing, with access to other 
-[Ray ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
-[Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/). 
-
-Ray is deployed as an execution middleware layer on top of 
-[Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/). CoD will provide parallelized compute access to IPFS 
-data for CATs' data ingress and egress via IPFS. This enables IPFS to serve as CATs' Data Mesh's peer-to-peer (p2p) 
-network layer with CoD acting as CATs’ integration point between Web2 and Web3 workloads CoD provides a p2p 
-distributed-computing job submission option in addition the client-server option provided by Ray.
-
+## [Demo:](./cats_demo.ipynb)
 #### Steps:
 ##### 0. Start IPFS daemon:
 ```bash
