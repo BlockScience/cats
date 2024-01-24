@@ -2,7 +2,7 @@
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
 ## Description:
-**Content-Addressable Transformers** (**CATS**) is a unified 
+**Content-Addressable Transformers** (**CATs**) is a unified 
 [**Data Service Collaboration**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
 framework that establishes a scalable and self-serviced Data Platform as a Data Mesh network of scalable and 
 interoperable distributed computing workloads with Data Provenance. CATs enables the 
@@ -11,8 +11,10 @@ by providing an interface for Data Service Collaboration between organizations. 
 efficient way to manage, share, and reference data and data processing via **Content-Addressing** Data Provenance 
 records.
 
-CATs' utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
-frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific Computing
+CATs' utilizes [Ray](https://www.ray.io/) for interoperable distributed computing 
+frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific Computing.
+Ray is a unified compute framework that enables the development of parallel and 
+distributed applications for scalable data transformation, Machine Learning, and AI.
 Ray provides CATs with interoperable computing frameworks with its 
 [ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
 [Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/). Ray is deployed as an execution middleware 
