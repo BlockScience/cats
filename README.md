@@ -45,27 +45,9 @@ distributed-computing job submission in addition to the client-server job submis
     python -m pip install --upgrade pip
     pip install dist/*.whl
     ```
-
-## [Demo](./docs/DEMO.md)
-## [Test(s)](./tests/verification_test.py):
-* **Virtual Environment:**
-  1. [Create Virtual Environment](./docs/ENV.md)
-  2. Activate Virtual Environment
-  ```bash
-  cd <CATs parent directory>/cats-research
-  source ./venv/bin/activate
-  # (venv) $
-  ```
-* **Session 1**
-  ```bash
-  # (venv) $
-  PYTHONPATH=./ python cats/node.py
-  ```
-* **Session 2**
-  ```bash
-  # (venv) $
-  pytest -s tests/verification_test.py
-  ```
+## Get Started!:
+   1. ### [Demo](./docs/DEMO.md)
+   2. ### [Test](./docs/TEST.md)
 
 ## Data Service Collaboration:
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
