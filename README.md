@@ -46,35 +46,26 @@ distributed-computing job submission in addition to the client-server job submis
     pip install dist/*.whl
     ```
 
-## [Demo:](./cats_demo.ipynb)
-#### Steps:
-##### 0. Start IPFS daemon:
-```bash
-ipfs daemon
-```
-* **Optional:** 
-  * Shut down IPFS daemon: `ipfs shutdown`
-##### 1. [Create Virtual Environment](./docs/ENV.md)
-##### 2. Activate Virtual Environment
-```bash
-cd <CATs parent directory>/cats-research
-source ./venv/bin/activate
-# (venv) $
-```
-##### 3. Deploy CAT Node:
-```bash
-# (venv) $
-PYTHONPATH=./ python cats/node.py
-```
-##### 4. Establish Data (CAT) Mesh: [Demo](./cats_demo.ipynb) 
-Execute a CATs on a single node Mesh.
-```bash
-# (venv) $
-jupyter notebook cats_demo.ipynb
-# Run > Run All Cells
-```
-* [**Tests**](./tests/verification_test.py): `pytest -s tests/verification_test.py`
-  * Requirement: Step 3
+## [Demo](./docs/DEMO.md)
+## [Test(s)](./tests/verification_test.py):
+* **Virtual Environment:**
+  1. [Create Virtual Environment](./docs/ENV.md)
+  2. Activate Virtual Environment
+  ```bash
+  cd <CATs parent directory>/cats-research
+  source ./venv/bin/activate
+  # (venv) $
+  ```
+* **Session 1**
+  ```bash
+  # (venv) $
+  PYTHONPATH=./ python cats/node.py
+  ```
+* **Session 2**
+  ```bash
+  # (venv) $
+  pytest -s tests/verification_test.py
+  ```
 
 ## Data Service Collaboration:
 CATs streamline Data Service collaboration between organizations by providing a reliable and efficient way to manage, 
