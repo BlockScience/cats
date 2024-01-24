@@ -78,7 +78,7 @@ CAT Nodes are **Data Products** - peer-nodes on a mesh network that encapsulate 
 providing access to a domain's analytical data as a product; * code, data & metadata, and infrastructure
 ![alt_text](images/data_product_domain.jpeg)
 **Image Description:** 
-* Large ovals in the image above represent **Data Products** servicing each other with Data:
+* Large ovals in the image above represent **Data Products** servicing each other with Data
 * "O" ovals are Operational Data web service endpoints
 * "D" ovals are Analytical Data web service endpoints
 * [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
