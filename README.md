@@ -99,7 +99,6 @@ evidence using CIDs.
 * CAT Mesh is composed by CATs executing BOMs.
 ![alt_text](images/CATs_bom_connect.jpeg)
 
-
 ## Key Concepts:
 * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification)** - a process for which data is checked for 
 accuracy and inconsistencies before processed
