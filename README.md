@@ -2,14 +2,41 @@
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
 ## Description:
-**Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a 
-scalable and self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data 
-Provenance. CATs enables the [continuous reification of 
-**Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
-by providing an interface for 
+**Content-Addressable Transformers** (**CATS**) is a unified 
 [**Data Service Collaboration**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
-between organizations. This interface provides a reliable and efficient way to manage, share, and reference data and 
-data processing via **Content-Addressing** Data Provenance records. 
+framework that establishes a scalable and self-serviced Data Platform as a Data Mesh network of scalable and 
+interoperable distributed computing workloads with Data Provenance. CATs enables the 
+[continuous reification of **Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
+by providing an interface for Data Service Collaboration between organizations. This interface provides a reliable and 
+efficient way to manage, share, and reference data and data processing via **Content-Addressing** Data Provenance 
+records.
+
+CATs' utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
+frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific Computing
+Ray provides CATs with interoperable computing frameworks with its 
+[ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
+[Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/). Ray is deployed as an execution middleware 
+on top of [Bacalhau’s](https://www.bacalhau.org/) [Compute Over Data (CoD)](https://github.com/bacalhau-project/bacalhau) 
+to provide parallelized compute access to IPFS data for CATs' data ingress and egress via IPFS. 
+
+CoD enables IPFS to serve as CATs' Data Mesh's network layer and act as an integration point that enables workload 
+portability between client-server cloud platforms and p2p mesh networks with minimal rework or modification. 
+This portability closes the gap between data analysis and business operations by connecting the network planes of the 
+cloud service model (SaaS, PaaS, IaaS) with IPFS. Connecting these network planes enables the execution of the cloud
+services in AWS, GCP, Azure, etc. on a **Data Mesh** network of CATs. CoD enables this connection as p2p 
+distributed-computing job submission in addition to the client-server job submission provided by Ray.
+
+### Get Started!:
+0. **Install [Platform Dependencies](./docs/DEPS.md)**
+1. **Install CATs:**
+    ```bash
+    git clone git@github.com:BlockScience/cats.git
+    cd cats
+    python -m pip install --upgrade pip
+    pip install dist/*.whl
+    ```
+2. **Demo:** [**Establish a CAT Mesh**](./docs/DEMO.md)
+3. **Test:** [**CAT Mesh Verification**](./docs/TEST.md)
 
 ### Content-Addressed Data Provenance:
 [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) is a method of uniquely identifying 
@@ -35,35 +62,6 @@ reify Data Initiatives.
 executed as interconnecting services on a Data Mesh that grows naturally when organizations communicate CATs provenance 
 records within feedback loops of Data Initiatives. 
 ![alt_text](images/CATs_bom_ag.jpeg)
-
-## Installation:
-0. **Install [Platform Dependencies](./docs/DEPS.md)**
-1. **Install CATs:**
-    ```bash
-    git clone git@github.com:BlockScience/cats.git
-    cd cats
-    python -m pip install --upgrade pip
-    pip install dist/*.whl
-    ```
-## Get Started!:
-   1. ### Demo: [Establish a CAT Mesh](./docs/DEMO.md)
-   2. ### Test: [CAT Mesh Verification](./docs/TEST.md)
-
-## Technical Specification:
-CATs' utilizes [Ray](https://www.ray.io/), a unified compute framework for interoperable distributed computing 
-frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific Computing
-Ray provides CATs with interoperable computing frameworks with its 
-[ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
-[Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/). Ray is deployed as an execution middleware 
-on top of [Bacalhau’s Compute over Data (CoD)](https://www.bacalhau.org/) to provide parallelized compute access to IPFS 
-data for CATs' data ingress and egress via IPFS. 
-
-CoD enables IPFS to serve as CATs' Data Mesh's network layer and act as an integration point that enables workload 
-portability between client-server cloud platforms and p2p mesh networks with minimal rework or modification. 
-This portability closes the gap between data analysis and business operations by connecting the network planes of the 
-cloud service model (SaaS, PaaS, IaaS) with IPFS. Connecting these network planes enables the execution of the cloud
-services in AWS, GCP, Azure, etc. on a **Data Mesh** network of CATs. CoD enables this connection as p2p 
-distributed-computing job submission in addition to the client-server job submission provided by Ray.
 
 ## CAT Mesh: CATs Data Mesh platform with Data Provenance
 **CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
