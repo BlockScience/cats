@@ -19,6 +19,7 @@ IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distribution
 transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs.
 ![alt_text](images/cid_example.jpeg)
 
+## Data Service Collaboration
 Organizations and Collaborators participating in Strategic Partnerships will employ CATs for rapid ratification of 
 service agreements within collaborative feedback loops of Data Initiatives. CATs' apply an **Architectural Quantum** 
 Domain-Driven Design principle described in 
