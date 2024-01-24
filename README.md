@@ -5,7 +5,7 @@
 **Content-Addressable Transformers** (**CATS**) is a unified data service collaboration framework that establishes a 
 scalable and self-serviced Data Platform as a Data Mesh network of scalable & distributed computing workloads with Data 
 Provenance. CATs streamline 
-[Data Service Collaboration](https://github.com/BlockScience/cats?tab=readme-ov-file#get-started) 
+[Data Service Collaboration](https://github.com/BlockScience/cats?tab=readme-ov-file#data-service-collaboration) 
 between organizations by providing a reliable and efficient way to manage, share, and reference data and data processing 
 via [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage).
 CATs streamline **Data Service Collaboration** between organizations by providing a reliable and efficient way to manage, 
@@ -19,7 +19,7 @@ IPFS **[client](https://docs.ipfs.io/install/command-line/#official-distribution
 transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs.
 ![alt_text](images/cid_example.jpeg)
 
-## Data Service Collaboration
+## Data Service Collaboration:
 Organizations and Collaborators participating in Strategic Partnerships will employ CATs for rapid ratification of 
 service agreements within collaborative feedback loops of Data Initiatives. CATs' apply an **Architectural Quantum** 
 Domain-Driven Design principle described in 
