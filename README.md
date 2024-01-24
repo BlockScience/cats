@@ -54,16 +54,14 @@ CATs streamline Data Service collaboration between organizations by providing a 
 share, and reference data and data processing via Content-Addressing Data Provenance records.
 
 **CATs' Collaborative Benefits:**
-* Organizations participating in Strategic Partnerships will employ CATs for rapid ratification of service agreements 
-within collaborative feedback loops of Data Initiatives
+* Organizations and Collaborators participating in Strategic Partnerships will employ CATs for rapid ratification of 
+service agreements within collaborative feedback loops of Data Initiatives. CATs' apply an **Architectural Quantum** 
+Domain-Driven Design principle described in 
+[**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to reify Data Initiatives.
+![alt_text](images/CATkernel.jpeg)
 * CATs will be compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations 
-communicate CATs provenance records within feedback loops of Data Initiatives
+communicate CATs provenance records within feedback loops of Data Initiatives.
 ![alt_text](images/CATs_bom_ag.jpeg)
-
-##CATs' Architectural Quantum:
-  * CAT Node uses the Architectural Quantum Domain-Driven Design principle described in 
-  [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html)
-  ![alt_text](images/CATkernel.jpeg)
 
 ## CAT Mesh: CATs Data Mesh platform with Data Provenance
 **CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
