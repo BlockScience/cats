@@ -23,7 +23,8 @@ transformations, outputs, and infrastructure (as code [IaC]) for verifying trans
 Organizations and Collaborators participating in Strategic Partnerships will employ CATs for rapid ratification of 
 service agreements within collaborative feedback loops of Data Initiatives. CATs' apply an **Architectural Quantum** 
 Domain-Driven Design principle described in 
-[**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to reify Data Initiatives.
+[**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to 
+[reify Data Initiatives](https://github.com/BlockScience/cats?tab=readme-ov-file#data-initiatives-reification).
 ![alt_text](images/CATkernel.jpeg)
 
 ## Data Initiatives Reification:
