@@ -65,6 +65,19 @@ compiled and executed as interconnecting services on a Data Mesh that grows natu
 CATs provenance records within feedback loops of Data Initiatives.
 ![alt_text](images/CATs_bom_ag.jpeg)
 
+### CATs' Data Provenance Record:
+**BOM (Bill of Materials)** are CATs' Content-Addressed Data Provenance record for verifiable data processing and 
+transport on a Mesh network of CATs. BOMs are used as CAT’ input & output that contain CATs’ means of data processing.
+* BOMs employ CIDs for location-agnostic retrieval based on its content as well as processes and 
+[Data Verification](https://en.wikipedia.org/wiki/Data_verification). BOM CIDs can be used to verify the means of processing 
+data (input, transformation / process, output, infrastructure-as-code (IaC)) they can also make CATs resilient by 
+enabling re-execution via retrieval. CATs certifies the accuracy of data processing on data products and pipelines by 
+enabling maintenance & reporting of [data and process lineage & provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/) as chains of 
+evidence using CIDs.
+![alt_text](images/CATs_bom_activity.jpeg)
+* CAT Mesh is composed by CATs executing BOMs.
+![alt_text](images/CATs_bom_connect.jpeg)
+
 ### CAT Mesh: CATs Data Mesh platform with Data Provenance
 **CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
 workloads to be portable between client-server cloud platforms and p2p mesh network with minimal rework or modification.
@@ -84,19 +97,6 @@ providing access to a domain's analytical data as a product; * code, data & meta
 * [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
 Dehghani, et al.
 * [**Design Description**](docs/DESIGN.md)
-
-### CATs' Data Provenance Record:
-**BOM (Bill of Materials)** are CATs' Content-Addressed Data Provenance record for verifiable data processing and 
-transport on a Mesh network of CATs. BOMs are used as CAT’ input & output that contain CATs’ means of data processing.
-* BOMs employ CIDs for location-agnostic retrieval based on its content as well as processes and 
-[Data Verification](https://en.wikipedia.org/wiki/Data_verification). BOM CIDs can be used to verify the means of processing 
-data (input, transformation / process, output, infrastructure-as-code (IaC)) they can also make CATs resilient by 
-enabling re-execution via retrieval. CATs certifies the accuracy of data processing on data products and pipelines by 
-enabling maintenance & reporting of [data and process lineage & provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/) as chains of 
-evidence using CIDs.
-![alt_text](images/CATs_bom_activity.jpeg)
-* CAT Mesh is composed by CATs executing BOMs.
-![alt_text](images/CATs_bom_connect.jpeg)
 
 ## Key Concepts:
 * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification)** - a process for which data is checked for 
