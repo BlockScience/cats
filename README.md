@@ -56,6 +56,7 @@ Organizations and collaborators participating will employ CATs for rapid ratific
 collaborative feedback loops of [**Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative). 
 CATs' apply an **Architectural Quantum** Domain-Driven Design principle described in 
 [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to reify Data Initiatives.
+(* [**Design Description**](docs/DESIGN.md))
 ![alt_text](images/CATkernel.jpeg)
 
 ### Continuous Data Initiative Reification:
@@ -87,14 +88,14 @@ AWS, GCP, Azure, etc. on a Mesh Network interconnected by IPFS.
 
 CAT Nodes are **Data Products** - peer-nodes on a mesh network that encapsulate components (*) to function as a service 
 providing access to a domain's analytical data as a product; * code, data & metadata, and infrastructure
-![alt_text](images/data_product_domain.jpeg)
-**Image Description:** 
+
+**In the following image:** 
 * Large ovals in the image above represent **Data Products** servicing each other with Data
 * "O" ovals are Operational Data web service endpoints
 * "D" ovals are Analytical Data web service endpoints
-* [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
+* Source: [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
 Dehghani, et al.
-* [**Design Description**](docs/DESIGN.md)
+![alt_text](images/data_product_domain.jpeg)
 
 ## Key Concepts:
 * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification)** - a process for which data is checked for 
