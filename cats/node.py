@@ -13,6 +13,7 @@ node_service = Service(
     )
 )
 
+
 def initFactory(order_request, ipfs_uri):
     # if cod_out is False:
     #     ipfs_uri = f'ipfs://{order_request["invoice"]["data_cid"]}/*csv'
@@ -26,6 +27,7 @@ def initFactory(order_request, ipfs_uri):
     )
     catFactory = Factory(node_service)
     return catFactory, order_request
+
 
 def execute(catFactory, order_request):
     enhanced_bom = catFactory.execute()
@@ -53,12 +55,9 @@ def execute(catFactory, order_request):
 @cat.route('/cat/node/init', methods=['POST'])
 def execute_init_cat():
     try:
-        # Get JSON data from the request
         order_request = request.get_json()
         order_request["order"] = json.loads(node_service.meshClient.cat(order_request["order_cid"]))
         order_request['invoice'] = json.loads(node_service.meshClient.cat(order_request['order']['invoice_cid']))
-        # pprint(order_request["order"])
-        # pprint(order_request['invoice']['data_cid'])
 
         # IPFS checks
         # if 'bom_cid' not in bom:
@@ -75,15 +74,13 @@ def execute_init_cat():
     except Exception as e:
         return jsonify({'error': str(e)})
 
+
 @cat.route('/cat/node/link', methods=['POST'])
 def execute_link_cat():
     try:
-        # Get JSON data from the request
         order_request = request.get_json()
         order_request["order"] = json.loads(node_service.meshClient.cat(order_request["order_cid"]))
         order_request['invoice'] = json.loads(node_service.meshClient.cat(order_request['order']['invoice_cid']))
-        # pprint(order_request["order"])
-        # pprint(order_request['invoice']['data_cid'])
 
         prev_data_cid = order_request['invoice']['data_cid']
         data_cid = node_service.meshClient.linkData(prev_data_cid)
@@ -96,6 +93,7 @@ def execute_link_cat():
 
     except Exception as e:
         return jsonify({'error': str(e)})
+
 
 if __name__ == '__main__':
     # Run the Flask application on http://127.0.0.1:5000/

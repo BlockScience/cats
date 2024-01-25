@@ -1,11 +1,6 @@
-from pprint import pprint
-
-import ray
-from typing import Dict
-import numpy as np
 from ray.data import Dataset
-
 from cats.service import Service
+
 
 class IO:
     def __init__(self, reader, writer):
@@ -39,6 +34,7 @@ class IO:
         self.ds_out = self.processor.process(self.ds_in)
         self.write()
         return self.ds_out
+
 
 class Processor:
     def __init__(self, service: Service):

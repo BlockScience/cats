@@ -17,7 +17,7 @@ efficient way to manage, share, and reference data and data processing via
 
 **Content-Addressing** is a method of uniquely identifying and retrieving data based on its content rather than its 
 location or address. CATs provides verifiable data processing and transport on a Mesh network of CATs interconnected by 
-Content-Addresssing Data Provenance records with [IPFS](https://ipfs.io/) 
+Content-Addressing Data Provenance records with [IPFS](https://ipfs.io/) 
 [**CIDs**](https://docs.ipfs.io/concepts/content-addressing/) (Content-Identifiers) as content addresses issued by IPFS 
 **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** to identify and retrieve inputs, 
 transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs.
@@ -53,9 +53,8 @@ the client-server job submission provided by Ray.
 3. **Test:** [**CAT Mesh Verification**](./docs/TEST.md)
 
 ### CATs' Architectural Quantum:
-Organizations and Collaborators participating in Strategic Partnerships will employ CATs for rapid ratification of 
-service agreements within collaborative feedback loops of 
-[**Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative). 
+Organizations and collaborators participating will employ CATs for rapid ratification of service agreements within 
+collaborative feedback loops of [**Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative). 
 CATs' apply an **Architectural Quantum** Domain-Driven Design principle described in 
 [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to reify Data Initiatives.
 ![alt_text](images/CATkernel.jpeg)
@@ -84,13 +83,13 @@ providing access to a domain's analytical data as a product; * code, data & meta
 * "D" ovals are Analytical Data web service endpoints
 * [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
 Dehghani, et al.
-* [**Design Desciption**](docs/DESIGN.md)
+* [**Design Description**](docs/DESIGN.md)
 
 ### CATs' Data Provenance Record:
 **BOM (Bill of Materials)** are CATs' Content-Addressed Data Provenance record for verifiable data processing and 
 transport on a Mesh network of CATs. BOMs are used as CAT’ input & output that contain CATs’ means of data processing.
 * BOMs employ CIDs for location-agnostic retrieval based on its content as well as processes and 
-[Data Veification](https://en.wikipedia.org/wiki/Data_verification). BOM CIDs can be used to verify the means of processing 
+[Data Verification](https://en.wikipedia.org/wiki/Data_verification). BOM CIDs can be used to verify the means of processing 
 data (input, transformation / process, output, infrastructure-as-code (IaC)) they can also make CATs resilient by 
 enabling re-execution via retrieval. CATs certifies the accuracy of data processing on data products and pipelines by 
 enabling maintenance & reporting of [data and process lineage & provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/) as chains of 
