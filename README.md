@@ -2,18 +2,17 @@
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
 ## Description:
-**Content-Addressable Transformers** (**CATs**) is a unified 
-[**Data Service Collaboration**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
-framework for interoperable parallelized and distributed computing at horizontal & vertical scale. CATs' establish a 
-scalable and self-serviced Data Platform as a Data Mesh network of scalable and interoperable distributed computing
-workloads with Data Provenance. CATs are integration points for workload portability between client-server cloud platforms 
-and p2p mesh networks with minimal rework or modification.
+**Content-Addressable Transformers** (**CATs**) is a unified Data Service Collaboration framework for interoperable 
+parallelized and distributed computing at horizontal & vertical scale. CATs' establish a scalable and self-serviced Data 
+Platform as a Data Mesh network of scalable and interoperable distributed computing workloads with Data Provenance. CATs 
+are integration points for workload portability between client-server cloud platforms and p2p mesh networks with minimal 
+rework or modification.
 
 CATs enables the 
 [continuous reification of **Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
-by providing an interface for Data Service Collaboration between organizations. This interface provides a reliable and 
-efficient way to manage, share, and reference data and data processing via 
-[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) Data Provenance records.
+by providing an interface for [**Data Service Collaboration**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
+between organizations. This interface provides a reliable and efficient way to manage, share, and reference data processes 
+via [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) Data Provenance records.
 
 **Content-Addressing** is a method of uniquely identifying and retrieving data based on its content rather than its 
 location or address. CATs provides verifiable data processing and transport on a Mesh network of CATs interconnected by 
