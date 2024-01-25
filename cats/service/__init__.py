@@ -1,9 +1,7 @@
 import glob, json, os, pickle, subprocess
 from copy import deepcopy
 from pprint import pprint
-
 import pandas as pd
-from pandas import DataFrame
 
 from cats import CATS_HOME
 from cats.service.utils import executeCMD

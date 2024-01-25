@@ -53,9 +53,8 @@ the client-server job submission provided by Ray.
 3. **Test:** [**CAT Mesh Verification**](./docs/TEST.md)
 
 ### CATs' Architectural Quantum:
-Organizations and Collaborators participating in Strategic Partnerships will employ CATs for rapid ratification of 
-service agreements within collaborative feedback loops of 
-[**Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative). 
+Organizations and collaborators participating will employ CATs for rapid ratification of service agreements within 
+collaborative feedback loops of [**Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative). 
 CATs' apply an **Architectural Quantum** Domain-Driven Design principle described in 
 [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to reify Data Initiatives.
 ![alt_text](images/CATkernel.jpeg)
