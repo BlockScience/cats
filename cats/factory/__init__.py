@@ -28,6 +28,9 @@ class Factory:
         enhanced_bom, _ = self.Executor.execute()
         return enhanced_bom
 
+    def produce(self):
+        return self.Executor
+
 
 
 

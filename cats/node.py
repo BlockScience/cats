@@ -30,7 +30,8 @@ def initFactory(order_request, ipfs_uri):
 
 
 def execute(catFactory, order_request):
-    enhanced_bom = catFactory.execute()
+    executor = catFactory.produce()
+    enhanced_bom, _ = executor.execute()
 
     invoice = {}
     enhanced_bom['invoice']['order_cid'] = node_service.ipfsClient.add_str(
