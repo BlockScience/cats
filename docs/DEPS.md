@@ -10,4 +10,5 @@
 5. **[Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)** (>= 1.5.2)
 6. **[IPFS Kubo](https://docs.ipfs.tech/install/command-line/#system-requirements)** (0.24.0)
 7. **[AWS S3](https://aws.amazon.com/s3/)**
-   1. Requires: **[AWS Account](https://aws.amazon.com/free)**
+   1. Requires: [**AWS Account**](https://aws.amazon.com/free)
+   2. Generate [**Access Keys**](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
