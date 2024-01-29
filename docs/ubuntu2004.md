@@ -2,7 +2,6 @@
 This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 LTS.
 
 ### Ubuntu 20.04 Dependencies
-* **Essentials:**
   ```bash
   mkdir ~/install
   cd install
@@ -24,7 +23,7 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
     sudo apt install docker-ce
     docker --version
     ```
-  * **Executing the Docker Command Without Sudo:** Inspired by [this](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+  * [**Manage Docker as a non-root user:**](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
     ```bash
     sudo usermod -aG docker ${USER}
     echo <user password> | su - ${USER}
@@ -46,10 +45,10 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   ```
 
 ### [AWS Account:](https://aws.amazon.com/)
-0. [**Instructions**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
+* [**Instructions**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
 
 ### [AWS S3](https://aws.amazon.com/s3/)
-1. Generate [**Credentials**](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
+* Generate [**Credentials**](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
    * [**Create AWS IAM Users & Access Keys**](https://aws.amazon.com/premiumsupport/knowledge-center/create-access-key/)
    * **Export AWS Access Keys to Bash Profile:**
       ```bash
