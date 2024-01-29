@@ -20,4 +20,4 @@
       1. [**Instructions**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
    2. Generate [**Credentials**](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
       1. [**Create AWS IAM Users & Access Keys**](https://aws.amazon.com/premiumsupport/knowledge-center/create-access-key/)
-         1. [**Ubuntu 20.04 Installation**]()
+         1. [**Ubuntu 20.04 Installation**](https://github.com/BlockScience/cats/blob/cats2/docs/ubuntu2004.md#aws-s3)
