@@ -5,6 +5,7 @@
 .terraform.*
 terraform.*
 cats_vault/
+docs/ws.md
 old
 *.pyc
 .ipynb_checkpoints
