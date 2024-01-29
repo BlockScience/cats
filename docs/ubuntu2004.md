@@ -32,7 +32,7 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
     sudo usermod -aG docker <username>
     ```
 
-### [Kubectl:](https://kubernetes.io/docs/tasks/tools/)
+### [kubectl:](https://kubernetes.io/docs/tasks/tools/)
   ```bash
   curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
   chmod +x ./kubectl
@@ -46,13 +46,12 @@ This is a walk through on how to install dependencies for CATs on Ubuntu 20.04 L
   ```
 
 ### [AWS Account:](https://aws.amazon.com/)
-1. [**AWS S3**](https://aws.amazon.com/s3/)
-   1. [**Instructions**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
+0. [**Instructions**](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
 
-### AWS S3
+### [AWS S3](https://aws.amazon.com/s3/)
 1. Generate [**Credentials**](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
    * [**Create AWS IAM Users & Access Keys**](https://aws.amazon.com/premiumsupport/knowledge-center/create-access-key/)
-   * **Export AWS Access Keys to Bash Profile**
+   * **Export AWS Access Keys to Bash Profile:**
       ```bash
       echo 'export AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>' >> ~/.profile
       echo 'export AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>' >> ~/.profile
