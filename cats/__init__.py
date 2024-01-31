@@ -1,5 +1,6 @@
 import os
 from os.path import dirname, abspath
+
 CATS_HOME = dirname(dirname(abspath(__file__)))
 DATA_HOME = CATS_HOME + '/data'
 CWD = os.getcwd()

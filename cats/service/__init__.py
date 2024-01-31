@@ -32,12 +32,15 @@ class Service:
         self.integration_subproc = None
         self.egress_subproc = None
 
-        self.processCID = None
-        self.process = None
+        self.orderCID = None
         self.dataCID = None
+        self.functionCID = None
+        self.processCID = None
+        self.order = None
+        self.process = None
 
     def cid_to_pandasDF(self, cid, download_dir, format='*.csv', read_dir='/outputs', parrent_dir=CATS_HOME):
-        path = f'{parrent_dir}/{download_dir}'  # or unix / linux / mac path
+        path = f'{parrent_dir}/{download_dir}'
         os.system(f"rm -rf {path}")
         self.meshClient.get(cid, download_dir, parrent_dir)
 
@@ -49,13 +52,13 @@ class Service:
             if df is None:
                 df = dfx
             else:
-                # df.append(dfx)
                 df = pd.concat([df, dfx], ignore_index=True)
         return df
 
-
-
-    def initBOMcar(self, function_cid, init_data_cid, init_bom_filename='bom.car', structure_cid=None, structure_filepath=None):
+    def initBOMcar(self,
+        function_cid, init_data_cid, init_bom_filename='bom.car',
+        structure_cid=None, structure_filepath=None
+    ):
         self.init_bom_car_cid, self.init_bom_json_cid = self.meshClient.initBOMcar(
             # structure_path=self.MeshClient.g,
             structure_cid=structure_cid,
@@ -70,12 +73,6 @@ class Service:
         function_dict = json.loads(self.meshClient.cat(self.functionCID))
         self.processCID = function_dict['process_cid']
         self.process = pickle.loads(self.meshClient.catObj(self.processCID))
-        # self.enhanced_bom['order']['function_cid'] = self.functionCID
-        # self.process = self.ipfsClient.get_pyobj(self.processCID)
-        # order = self.enhanced_bom['order']
-        # order['ingress_cid'] = 'ipfs://QmVMuxtrhEvzYugy9V3cNmG4Hx38hBXMFVkbB6vyUtZzFc:/inputs/data.tar.gz'
-        # order['ingress_cid'] = 'QmVMuxtrhEvzYugy9V3cNmG4Hx38hBXMFVkbB6vyUtZzFc'
-        # self.enhanced_bom['order'] = order
 
         self.order_cid = self.enhanced_bom['invoice']['order_cid']
         self.init_bom_json_cid = self.enhanced_bom['bom_json_cid']
@@ -101,8 +98,6 @@ class Service:
         print()
         response_str = subprocess.check_output(post_cmd, shell=True)
         output_bom = json.loads(response_str)
-        # pprint(output_bom)
-        # exit()
 
         output_bom['POST'] = post_cmd
         return output_bom
@@ -125,7 +120,6 @@ class Service:
             )
         }
         return bom_response
-
 
     def create_order_request(self,
         process_obj, data_dirpath, structure_filepath,
@@ -154,13 +148,6 @@ class Service:
     def linkProcess(self, cat_response, process_obj):
         flattened_bom = self.flatten_bom(cat_response)
         flat_bom = deepcopy(flattened_bom['flat_bom'])
-        # invoice = deepcopy(flat_bom['invoice'])
-        # data_cid = deepcopy(invoice['data_cid'])
-        # order = deepcopy(invoice['order'])
-        # pprint(invoice)
-        # print()
-        # pprint(invoice['order'])
-        # print()
 
         function = {
             'process_cid': self.ipfsClient.add_pyobj(process_obj),
@@ -171,18 +158,12 @@ class Service:
         input_invoice = {'data_cid': invoice['data_cid']}
         new_function_cid = self.ipfsClient.add_str(json.dumps(function))
         new_invoice_cid = self.ipfsClient.add_str(json.dumps(input_invoice))
-        # pprint(new_invoice)
-        # print()
 
         order = invoice['order']
         order['function_cid'] = new_function_cid
         order['invoice_cid'] = new_invoice_cid
         del order['flat']
         order['endpoint'] = 'http://127.0.0.1:5000/cat/node/link'
-        # pprint(order)
-        # print()
 
         order_request = {'order_cid': self.ipfsClient.add_str(json.dumps(order))}
-        # pprint(order)
-        # print()
         return order_request

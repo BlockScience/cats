@@ -1,8 +1,5 @@
-import json
-import os
-import subprocess
+import json, subprocess
 from copy import copy, deepcopy
-from pprint import pprint
 
 from cats import CATS_HOME
 from cats.network.aws import s3_client
@@ -17,7 +14,10 @@ class MeshClient(CoD):
         self.context = ...
         CoD.__init__(self)
 
-    def initBOMjson(self, structure_cid: str, structure_filepath: str, function_cid: str, init_data_cid: str, seed_cid=None):
+    def initBOMjson(self,
+        structure_cid: str, structure_filepath: str, function_cid: str, init_data_cid: str,
+        seed_cid=None
+    ):
         init_invoice = {
             'order_cid': None,
             # 'data_cid': None,
@@ -65,7 +65,6 @@ class MeshClient(CoD):
             stderr=subprocess.STDOUT,
             shell=True
         )
-        # os.rename(cid, filepath)
         return filepath
 
     def cat(self, cid: str):
@@ -91,7 +90,7 @@ class MeshClient(CoD):
         )
         return bom
 
-    def transfer_bom_to_w3(self, bom_cid: str, filepath: str):
+    def BOMcarToIPFS(self, bom_cid: str, filepath: str):
         self.getCar(bom_cid, filepath)
         storage_bom_cid = self.ipfsClient.post_upload(filepath)
         return storage_bom_cid, bom_cid
@@ -148,19 +147,3 @@ class MeshClient(CoD):
             data_json = data
             data_cid = data_json['Hash']
             return data_cid
-
-
-
-# class NetworkClient(CoD):
-#     def __init__(self,
-#         bomURI: str
-#     ):
-#         self.ipfsStorageClient = MeshClient(storageClient)
-#         self.codClient = CoD()
-#         bomURIpath = Path(bomURI)
-#         if bomURIpath.exists() is False and s3_client.s3ObjExist(bomURI) is True:
-#             self.bomURI = None
-#             self.bomCID = self.ipfsStorageClient.cid(bomURI)
-#         elif bomURIpath.exists() is False and s3_client.s3ObjExist(bomURI) is True:
-#             self.bomURI = bomURI
-#             self.bomCID = self.ipfsStorageClient.cid(bomURI)

@@ -1,11 +1,11 @@
 import json
-
-from flask import Flask, request, jsonify
-cat = Flask(__name__)
 import ipfsapi as ipfsApi
 from cats.network import MeshClient
 from cats.service import Service
 from cats.factory import Factory
+from flask import Flask, request, jsonify
+
+cat = Flask(__name__)
 
 node_service = Service(
     meshClient=MeshClient(
