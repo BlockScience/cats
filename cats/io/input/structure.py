@@ -1,35 +1,6 @@
 from cats.service import Service
 
 
-class Plant:
-    def __init__(self,
-        deployment
-    ):
-        self.deployment = deployment
-        self.dep_response: dict = {}
-        self.exe_response: dict = {}
-
-    def deploy(self, deployment=None):
-        if deployment is not None:
-            self.deployment = deployment
-        self.dep_response = self.deployment.deploy()
-        return self.dep_response
-
-
-class InfraStructure:
-    def __init__(self,
-        deployment
-    ):
-        self.deployment = deployment
-        self.response: dict = {}
-
-    def deploy(self, deployment=None):
-        if deployment is not None:
-            self.deployment = deployment
-        self.response = self.deployment.deploy()
-        return self.response
-
-
 class Structure:
     def __init__(self,
         service: Service = None
@@ -64,4 +35,3 @@ class Structure:
         self.destroy()
         self.initialize()
         self.apply()
-        
