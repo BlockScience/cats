@@ -1,5 +1,5 @@
 ---
-name: Issue
+name: Improvement
 about: Improvement to existing functionality
 title: ''
 labels: enhancement
