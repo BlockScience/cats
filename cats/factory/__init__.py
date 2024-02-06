@@ -1,6 +1,3 @@
-import json
-from copy import deepcopy
-
 from cats.executor import Executor
 from cats.service import Service
 
@@ -24,9 +21,8 @@ class Factory:
             init_data_cid=ipfs_uri
         )
 
-    def execute(self):
-        enhanced_bom, _ = self.Executor.execute()
-        return enhanced_bom
+    def produce(self):
+        return self.Executor
 
 
 

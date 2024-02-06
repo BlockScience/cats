@@ -56,8 +56,6 @@ class Processor:
         self.egress_job_id = None
 
     def Ingress(self):
-        # print(self.inDataCID)
-        # exit()
         self.ingress_job_id = self.service.meshClient.ingress(input=self.inDataCID)
         self.service.meshClient.checkStatusOfJob(job_id=self.ingress_job_id)
         return self.ingress_job_id
@@ -65,16 +63,7 @@ class Processor:
     def Integration(self):
         self.ingress_input = self.service.meshClient.integrate(job_id=self.ingress_job_id)
         self.integration_output = "s3://" + self.ingress_input.split('//')[-1].rsplit('/outputs/')[0] + "-integrated"
-        # s3://catstore3/boms/result-20231220-1cc866b0-9b40-48d0-879d-f00684ac89ae/outputs/
-        # print(self.ingress_input)
-        # print(self.integration_output)
-        # exit()
-
         self.process(self.ingress_input, self.integration_output)
-        # ds = ray.data.read_csv(self.ingress_input)
-        # transformed_ds = ds.map_batches(self.process)
-        # print(transformed_ds.show(limit=1))
-        # transformed_ds.write_csv(self.integration_output)
         return self.integration_output
 
     def Egress(self):

@@ -1,11 +1,11 @@
 import json
-
-from flask import Flask, request, jsonify
-cat = Flask(__name__)
 import ipfsapi as ipfsApi
 from cats.network import MeshClient
 from cats.service import Service
 from cats.factory import Factory
+from flask import Flask, request, jsonify
+
+cat = Flask(__name__)
 
 node_service = Service(
     meshClient=MeshClient(
@@ -30,7 +30,8 @@ def initFactory(order_request, ipfs_uri):
 
 
 def execute(catFactory, order_request):
-    enhanced_bom = catFactory.execute()
+    executor = catFactory.produce()
+    enhanced_bom, _ = executor.execute()
 
     invoice = {}
     enhanced_bom['invoice']['order_cid'] = node_service.ipfsClient.add_str(

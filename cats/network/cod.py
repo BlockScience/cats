@@ -4,7 +4,6 @@ from pprint import pprint
 
 class CoD:
     def __init__(self): ...
-
     # checkStatusOfJob checks the status of a Bacalhau job
     def checkStatusOfJob(self, job_id: str) -> str:
         assert len(job_id) > 0
@@ -23,7 +22,6 @@ class CoD:
             print("job not completed: %s - %s" % (job_id, r))
 
         return r
-
 
     def ingress(self, input: str):
         publisher = "s3://catstore3/boms/result-{date}-{jobID}/,opt=region=us-east-2"
@@ -64,7 +62,6 @@ class CoD:
         data_cid = execution['PublishedResults']['CID']
         return data_cid
 
-
     def egress(self, integration_s3_output: str):
         input = f"{integration_s3_output}/,opt=region=us-east-2"
         cmd = f"bacalhau docker run -i {input} --id-only --wait alpine -- sh -c"
@@ -81,32 +78,6 @@ class CoD:
         print("job submitted: %s" % job_id)
 
         return job_id
-
-
-    def egress2(self, job_id: str):
-        cmd = f"bacalhau describe {job_id} --json".split(' ')
-        result = subprocess.run(cmd, stdout=subprocess.PIPE)
-        job_json = json.loads(result.stdout)
-        executions = job_json["State"]["Executions"]
-        execution = list(filter(lambda d: d['State'] in ['Completed'], executions)).pop()
-        s3_key = execution['PublishedResults']['S3']['Key'].rstrip('/')
-
-        input = f"s3://catstore3/{s3_key}/outputs/,opt=region=us-east-2"
-        cmd = f"bacalhau docker run -i {input} --id-only --wait=false alpine -- sh -c"
-        cmd_list = cmd.split(' ') + ['cp -r /inputs/* /outputs/']
-        submit = subprocess.run(
-            cmd_list,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-        )
-        if submit.returncode != 0:
-            print("failed (%d) job: %s" % (submit.returncode, submit.stdout))
-        job_id = submit.stdout.strip()
-        print("job submitted: %s" % job_id)
-
-        return job_id
-
 
     # submitJob submits a job to the Bacalhau network
     def submitJob(self, cid: str) -> str:
@@ -168,14 +139,13 @@ class CoD:
         return ""
 
     # parseHashes splits lines from a text file into a list
-    def parseHashes(filename: str) -> list:
+    def parseHashes(self, filename: str) -> list:
         assert os.path.exists(filename)
         with open(filename, "r") as f:
             hashes = f.read().splitlines()
         return hashes
 
-
-    def main(self, file: str, num_files: int = -1):
+    def parseHashesFromFile(self, file: str, num_files: int = -1):
         # Use multiprocessing to work in parallel
         count = multiprocessing.cpu_count()
         with multiprocessing.Pool(processes=count) as pool:
@@ -206,6 +176,3 @@ class CoD:
                 for f in csv_file:
                     print("moving %s to results" % f)
                     shutil.move(f, "../../results")
-
-# if __name__ == "__main__":
-#     main("../../hashes.txt", 10)

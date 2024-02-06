@@ -2,18 +2,17 @@
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
 ## Description:
-**Content-Addressable Transformers** (**CATs**) is a unified 
-[**Data Service Collaboration**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
-framework for interoperable parallelized and distributed computing at horizontal & vertical scale. CATs' establish a 
-scalable and self-serviced Data Platform as a Data Mesh network of scalable and interoperable distributed computing
-workloads with Data Provenance. CATs are integration points for workload portability between client-server cloud platforms 
-and p2p mesh networks with minimal rework or modification.
+**Content-Addressable Transformers** (**CATs**) is a unified Data Service Collaboration framework for interoperable 
+parallelized and distributed computing at horizontal & vertical scale. CATs' establish a scalable and self-serviced Data 
+Platform as a Data Mesh network of scalable and interoperable distributed computing workloads with Data Provenance. CATs 
+are integration points for workload portability between client-server cloud platforms and p2p mesh networks with minimal 
+rework or modification.
 
 CATs enables the 
 [continuous reification of **Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
-by providing an interface for Data Service Collaboration between organizations. This interface provides a reliable and 
-efficient way to manage, share, and reference data and data processing via 
-[**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) Data Provenance records.
+by providing an interface for [**Data Service Collaboration**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
+between organizations. This interface provides a reliable and efficient way to manage, share, and reference data processes 
+via [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) Data Provenance records.
 
 **Content-Addressing** is a method of uniquely identifying and retrieving data based on its content rather than its 
 location or address. CATs provides verifiable data processing and transport on a Mesh network of CATs interconnected by 
@@ -57,6 +56,7 @@ Organizations and collaborators participating will employ CATs for rapid ratific
 collaborative feedback loops of [**Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative). 
 CATs' apply an **Architectural Quantum** Domain-Driven Design principle described in 
 [**Data Mesh of Data Products**](https://martinfowler.com/articles/data-mesh-principles.html) to reify Data Initiatives.
+(* [**Design Description**](docs/DESIGN.md))
 ![alt_text](images/CATkernel.jpeg)
 
 ### Continuous Data Initiative Reification:
@@ -64,26 +64,6 @@ CATs' apply an **Architectural Quantum** Domain-Driven Design principle describe
 compiled and executed as interconnecting services on a Data Mesh that grows naturally when organizations communicate 
 CATs provenance records within feedback loops of Data Initiatives.
 ![alt_text](images/CATs_bom_ag.jpeg)
-
-### CAT Mesh: CATs Data Mesh platform with Data Provenance
-**CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
-workloads to be portable between client-server cloud platforms and p2p mesh network with minimal rework or modification.
-
-Multi-disciplinary and cross-functional teams can use CAT Nodes to verify and scale distributed computing workloads. 
-Workloads (CATs) executed by CAT Nodes interface cloud service model (SaaS, PaaS, IaaS) offered by providers such as 
-AWS, GCP, Azure, etc. on a Mesh Network interconnected by IPFS. 
-
-CAT Nodes are **Data Products** - peer-nodes on a mesh network that encapsulate components (*) to function as a service 
-providing access to a domain's analytical data as a product; * code, data & metadata, and infrastructure
-![alt_text](images/data_product_domain.jpeg)
-
-**Image Description:** 
-* Large ovals in the image above represent **Data Products** servicing each other with Data
-* "O" ovals are Operational Data web service endpoints
-* "D" ovals are Analytical Data web service endpoints
-* [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
-Dehghani, et al.
-* [**Design Description**](docs/DESIGN.md)
 
 ### CATs' Data Provenance Record:
 **BOM (Bill of Materials)** are CATs' Content-Addressed Data Provenance record for verifiable data processing and 
@@ -97,6 +77,25 @@ evidence using CIDs.
 ![alt_text](images/CATs_bom_activity.jpeg)
 * CAT Mesh is composed by CATs executing BOMs.
 ![alt_text](images/CATs_bom_connect.jpeg)
+
+### CAT Mesh: CATs Data Mesh platform with Data Provenance
+**CAT Mesh** is a self-serviced Data Mesh platform with Data Provenance. **CAT Nodes** are CAT Mesh peers that enable 
+workloads to be portable between client-server cloud platforms and p2p mesh network with minimal rework or modification.
+
+Multi-disciplinary and cross-functional teams can use CAT Nodes to verify and scale distributed computing workloads. 
+Workloads (CATs) executed by CAT Nodes interface cloud service model (SaaS, PaaS, IaaS) offered by providers such as 
+AWS, GCP, Azure, etc. on a Mesh Network interconnected by IPFS. 
+
+CAT Nodes are **Data Products** - peer-nodes on a mesh network that encapsulate components (*) to function as a service 
+providing access to a domain's analytical data as a product; * code, data & metadata, and infrastructure
+
+**In the following image:** 
+* Large ovals in the image above represent **Data Products** servicing each other with Data
+* "O" ovals are Operational Data web service endpoints
+* "D" ovals are Analytical Data web service endpoints
+* Source: [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html) - Zhamak 
+Dehghani, et al.
+![alt_text](images/data_product_domain.jpeg)
 
 ## Key Concepts:
 * **[Data Verification](https://en.wikipedia.org/wiki/Data_verification)** - a process for which data is checked for 
