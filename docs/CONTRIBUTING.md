@@ -11,8 +11,9 @@ If you find an Issue that addresses the problem you're having, please add your o
 existing issue rather than creating a new one.
 
 ### Pull Requests
-Pull-requests (PRs) will be made using a PR template (loaded automatically when a PR is created). PRs will 
-reference issues that will include your fix or improvement slated for the next release.
+Pull-requests (PRs) will be made using a PR [template](../.github/PULL_REQUEST_TEMPLATE/pull_request_template.md) 
+(loaded automatically when a PR is created). PRs will reference issues that will include your fix or improvement slated 
+for the next release:
 - Only fix/add the functionality in question.
 - Include documentation in the repo if applicable.
 
