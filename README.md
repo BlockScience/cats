@@ -51,6 +51,8 @@ the client-server job submission provided by Ray.
 2. **Demo:** [**Establish a CAT Mesh**](./docs/DEMO.md)
 3. **Test:** [**CAT Mesh Verification**](./docs/TEST.md)
 
+### [Contribute!](docs/CONTRIBUTING.md)
+
 ### CATs' Architectural Quantum:
 Organizations and collaborators participating will employ CATs for rapid ratification of service agreements within 
 collaborative feedback loops of [**Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative). 
