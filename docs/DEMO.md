@@ -1,4 +1,4 @@
-## [Establish a CAT Mesh:](../cats_demo.ipynb)
+## [Demo:](./cats_demo.ipynb)
 #### Steps:
 ##### 0. Start IPFS daemon:
 ```bash
@@ -18,7 +18,7 @@ source ./venv/bin/activate
 # (venv) $
 PYTHONPATH=./ python cats/node.py
 ```
-##### 4. Establish Data (CAT) Mesh: [Demo](../cats_demo.ipynb) 
+##### 4. Establish Data (CAT) Mesh: [Demo](./cats_demo.ipynb) 
 Execute a CATs on a single node Mesh.
 ```bash
 # (venv) $
