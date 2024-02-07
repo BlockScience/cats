@@ -16,14 +16,15 @@ reference issues that will include your fix or improvement slated for the next r
 - Only fix/add the functionality in question.
 - Include documentation in the repo if applicable.
 
+### Contribution Steps:
 In general, we follow the ["fork-and-pull"](https://github.com/susam/gitpr) and 
 ["Scaled Trunk Based Development"](https://docs.dxatscale.io/source-code-management/branching-model#scaled-trunk-based-development) 
-Git workflows
+Git workflows.
 
 1. Fork the repository to your own Github account
 2. Clone the project to your machine
-3. Create a branch locally with a succinct but descriptive name
-4. Commit changes to the branch
+3. Create a new branch from the `release` branch locally with a succinct but descriptive name
+4. Commit changes to new branch
 5. Following any formatting and testing guidelines specific to this repo
 6. Push changes to your fork
 7. Open a PR in our repository and follow the PR template so that we can efficiently review the changes.

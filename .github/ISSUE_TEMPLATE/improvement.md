@@ -2,7 +2,7 @@
 name: Improvement
 about: Improvement to existing functionality
 title: ''
-labels: enhancement
+labels: ''
 assignees: ''
 
 ---
