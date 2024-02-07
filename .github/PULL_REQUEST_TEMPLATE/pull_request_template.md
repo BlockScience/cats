@@ -34,7 +34,7 @@
 
 # Merge Checklist:
 - [ ] All other **Checklist** are fulfilled.
-- [ ] At least 1 Type of change is indicated.
+- [ ] At least 1 **Type of Change** is indicated.
 - [ ] Relevant tests are indicated and pass locally.
 - [ ] Creation Checklist are fulfilled.
 - [ ] Corresponding changes have been made to the documentation.
