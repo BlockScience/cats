@@ -17,10 +17,7 @@ for the next release:
 - Only fix/add the functionality in question.
 - Include documentation in the repo if applicable.
 
-### Contribution Steps:
-In general, we follow the ["fork-and-pull"](https://github.com/susam/gitpr) and 
-["Scaled Trunk Based Development"](https://docs.dxatscale.io/source-code-management/branching-model#scaled-trunk-based-development) 
-Git workflows.
+In general, we follow the ["fork-and-pull"](https://github.com/susam/gitpr) Git workflow.
 
 1. Fork the repository to your own Github account
 2. Clone the project to your machine
