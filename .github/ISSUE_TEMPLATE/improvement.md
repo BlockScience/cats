@@ -7,14 +7,17 @@ assignees: ''
 
 ---
 
-**Is your issue related to a problem? Please describe.**
-A description of what the problem is.
+**Is your issue related to a problem? Please describe:**
+<!--- Describe the problem. -->
 
-**Describe the solution you'd like**
-A description of what you want to happen.
+**Describe the solution you'd like:**
+<!--- Describe what you want to happen. -->
 
-**Describe alternatives you've considered**
-A description of any alternative solutions or features you've considered.
+**Describe alternatives you've considered:**
+<!--- Describe any alternative solutions or functionality you've considered. -->
 
-**Additional context**
-Add any other context.
+**Additional Context:**
+<!--- Add any other context. -->
+
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented my code, particularly in hard-to-understand areas
