@@ -1,26 +1,20 @@
 ## Getting Started
-
 Contributions are made to this repo via Issues and Pull Requests (PRs). A few general guidelines that cover both:
-
 - Search for existing Issues and PRs before creating your own.
 
 ### Issues
-
-Issues should be used to report problems with the package and to contribute or discuss potential changes before a PR is 
-created. Create a new Issue using [templates](https://github.com/BlockScience/cats/issues/new/choose) to guide you 
-through collecting and providing the information we need to investigate.
+Issues should be used to report problems with the package or discuss potential changes before a PR is created. Create a 
+new Issue using [templates](https://github.com/BlockScience/cats/issues/new/choose) to guide you through collecting and 
+providing the information we need to investigate.
 
 If you find an Issue that addresses the problem you're having, please add your own reproduction information to the 
 existing issue rather than creating a new one.
 
 ### Pull Requests
-
-PRs to CATs' package are always welcome and can be a quick way to get your fix or improvement slated for the next 
-release. In general, PRs should:
-
+Pull-requests (PRs) will be made using a PR template (loaded automatically when a PR is created). PRs will 
+reference issues that will include your fix or improvement slated for the next release.
 - Only fix/add the functionality in question.
 - Include documentation in the repo if applicable.
-- Be accompanied by a complete Pull Request template (loaded automatically when a PR is created).
 
 In general, we follow the ["fork-and-pull"](https://github.com/susam/gitpr) and 
 ["Scaled Trunk Based Development"](https://docs.dxatscale.io/source-code-management/branching-model#scaled-trunk-based-development) 
