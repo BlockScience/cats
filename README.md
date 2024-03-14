@@ -2,17 +2,21 @@
 ![alt_text](images/CATs_chaordic_kernel.jpeg)
 
 ## Description:
-**Content-Addressable Transformers** (**CATs**) is a unified Data Service Collaboration framework for interoperable 
-parallelized and distributed computing at horizontal & vertical scale. CATs' establish a scalable and self-serviced Data 
-Platform as a Data Mesh network of scalable and interoperable distributed computing workloads with Data Provenance. CATs 
-are integration points for workload portability between client-server cloud platforms and p2p mesh networks with minimal 
-rework or modification.
+**Content-Addressable Transformers** (**CATs**) is a unified Data Service Collaboration framework for organizations. 
+CATs connect collaborators between organizations on a Data Mesh with interoperable parallelized and distributed 
+computing at horizontal & vertical scale. CATs' establish a scalable and self-serviced Data Platform as a Data Mesh 
+network of scalable and interoperable distributed computing workloads with Data Provenance deployable on Kubernetes. 
+These workloads [CAT(s)] enable for Big Data processing with Scientific Computing capabilities. CATs are integration 
+points which enable scaled data processing portability between client-server cloud platforms and mesh (p2p) networks 
+with minimal rework or modification. 
 
 CATs enables the 
 [continuous reification of **Data Initiatives**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
-by providing an interface for [**Data Service Collaboration**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
-between organizations. This interface provides a reliable and efficient way to manage, share, and reference data processes 
-via [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) Data Provenance records.
+by cataloging discoverable, accessable, and re-executable workloads as 
+ [**Data Service Collaboration**](https://github.com/BlockScience/cats?tab=readme-ov-file#continuous-data-initiative-reification) 
+composable records between organizations. These records provide a reliable and efficient way to manage, share, and 
+reference data processes via [**Content-Addressing**](https://en.wikipedia.org/wiki/Content-addressable_storage) Data 
+Provenance records.
 
 **Content-Addressing** is a method of uniquely identifying and retrieving data based on its content rather than its 
 location or address. CATs provides verifiable data processing and transport on a Mesh network of CATs interconnected by 
@@ -21,23 +25,22 @@ Content-Addressing Data Provenance records with [IPFS](https://ipfs.io/)
 **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** to identify and retrieve inputs, 
 transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs.
 ![alt_text](images/cid_example.jpeg)
+![alt_text](images/simple_CAT2.jpeg)
 
 ### Specification:
-CATs' utilizes [Ray](https://www.ray.io/) for interoperable & parallelized distributed computing 
-frameworks deployable on **[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific Computing.
-Ray is a unified compute framework that enables the development of parallel and 
-distributed applications for scalable data transformation, Machine Learning, and AI.
-Ray provides CATs with interoperable computing frameworks with its 
+CATs' utilizes [Ray](https://www.ray.io/) for interoperable & parallelized distributed computing frameworks deployable 
+on **[Kubernetes](https://kubernetes.io/)** for Big Data processing with Scientific Computing. Ray is a unified compute 
+framework that enables the development of parallel and distributed applications for scalable data transformation, 
+Machine Learning, and AI. Ray provides CATs with interoperable computing frameworks with its 
 [ecosystem integrations](https://docs.ray.io/en/latest/ray-overview/ray-libraries.html) such as 
-[Apache Spark](https://spark.apache.org/) & [PyTorch](https://pytorch.org/).
+[Apache Spark](https://spark.apache.org/), and [PyTorch](https://pytorch.org/).
 
-Ray is deployed as an execution middleware on top of [Bacalhau’s](https://www.bacalhau.org/) 
-[Compute Over Data (CoD)](https://github.com/bacalhau-project/bacalhau). CoD enables IPFS to serve as CATs' Data Mesh's 
-network layer to provide parallelized data ingress and egress for IPFS data. This portability closes the gap between 
-data analysis and business operations by connecting the network planes of the cloud service model (SaaS, PaaS, IaaS) 
-with IPFS. Connecting these network planes enables the execution of the cloud services in AWS, GCP, Azure, etc. on a 
-**Data Mesh** network of CATs. CoD enables this connection as p2p distributed-computing job submission in addition to 
-the client-server job submission provided by Ray.
+Ray is deployed as an execution middleware on top of [Bacalhau’s](https://www.bacalhau.org/) [Compute Over Data (CoD)](https://github.com/bacalhau-project/bacalhau). 
+CoD enables IPFS to serve as CATs' Data Mesh's network layer to provide parallelized data ingress and egress for IPFS 
+data. This portability closes the gap between data analysis and business operations by connecting the network planes of 
+the cloud service model (SaaS, PaaS, IaaS) with IPFS. CATs connect these network planes by enabling the instantiation of 
+FaaS with cloud services in AWS, GCP, Azure, etc. on a **Data Mesh** network of CATs. CoD enables this connection as p2p 
+distributed-computing job submission in addition to the client-server job submission provided by Ray.
 
 ### Get Started!:
 0. **Install [Platform Dependencies](./docs/DEPS.md)**
@@ -74,7 +77,8 @@ transport on a Mesh network of CATs. BOMs are used as CAT’ input & output that
 [Data Verification](https://en.wikipedia.org/wiki/Data_verification). BOM CIDs can be used to verify the means of processing 
 data (input, transformation / process, output, infrastructure-as-code (IaC)) they can also make CATs resilient by 
 enabling re-execution via retrieval. CATs certifies the accuracy of data processing on data products and pipelines by 
-enabling maintenance & reporting of [data and process lineage & provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/) as chains of 
+enabling maintenance and reporting of 
+[data and process lineage & provenance](https://bi-insider.com/posts/data-lineage-and-data-provenance/) as chains of 
 evidence using CIDs.
 ![alt_text](images/CATs_bom_activity.jpeg)
 * CAT Mesh is composed by CATs executing BOMs.
@@ -89,7 +93,7 @@ Workloads (CATs) executed by CAT Nodes interface cloud service model (SaaS, PaaS
 AWS, GCP, Azure, etc. on a Mesh Network interconnected by IPFS. 
 
 CAT Nodes are **Data Products** - peer-nodes on a mesh network that encapsulate components (*) to function as a service 
-providing access to a domain's analytical data as a product; * code, data & metadata, and infrastructure
+providing access to a domain's analytical data as a product; * code, data & metadata, and infrastructure.
 
 **In the following image:** 
 * Large ovals in the image above represent **Data Products** servicing each other with Data
