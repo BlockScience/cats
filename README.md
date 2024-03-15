@@ -40,7 +40,7 @@ data. This portability closes the gap between data analysis and business operati
 the cloud service model (SaaS, PaaS, IaaS) with IPFS. CATs connect these network planes by enabling the instantiation of 
 FaaS with cloud services in AWS, GCP, Azure, etc. on a **Data Mesh** network of CATs. CoD enables this connection as p2p 
 distributed-computing job submission in addition to the client-server job submission provided by Ray.
-![alt_text](images/simple_CAT2.jpeg)
+![alt_text](images/simple_CAT2b.jpeg)
 
 ### Get Started!:
 0. **Install [Dependencies](./docs/DEPS.md)**
