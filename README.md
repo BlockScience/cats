@@ -43,11 +43,14 @@ FaaS with cloud services in AWS, GCP, Azure, etc. on a **Data Mesh** network of 
 distributed-computing job submission in addition to the client-server job submission provided by Ray.
 
 ### Get Started!:
-0. **Install [Platform Dependencies](./docs/DEPS.md)**
+0. **Install [Dependencies](./docs/DEPS.md)**
 1. **Install CATs:**
     ```bash
     git clone git@github.com:BlockScience/cats.git
     cd cats
+    # Optional: Create Virtual Environment
+    # python -m venv ./venv
+    # source ./venv/bin/activate
     python -m pip install --upgrade pip
     pip install dist/*.whl
     ```
