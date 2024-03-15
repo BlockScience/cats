@@ -25,7 +25,6 @@ Content-Addressing Data Provenance records with [IPFS](https://ipfs.io/)
 **[client](https://docs.ipfs.io/install/command-line/#official-distributions)** to identify and retrieve inputs, 
 transformations, outputs, and infrastructure (as code [IaC]) for verifying transformation accuracy given CIDs.
 ![alt_text](images/cid_example.jpeg)
-![alt_text](images/simple_CAT2.jpeg)
 
 ### Specification:
 CATs' utilizes [Ray](https://www.ray.io/) for interoperable & parallelized distributed computing frameworks deployable 
@@ -41,6 +40,7 @@ data. This portability closes the gap between data analysis and business operati
 the cloud service model (SaaS, PaaS, IaaS) with IPFS. CATs connect these network planes by enabling the instantiation of 
 FaaS with cloud services in AWS, GCP, Azure, etc. on a **Data Mesh** network of CATs. CoD enables this connection as p2p 
 distributed-computing job submission in addition to the client-server job submission provided by Ray.
+![alt_text](images/simple_CAT2.jpeg)
 
 ### Get Started!:
 0. **Install [Dependencies](./docs/DEPS.md)**
