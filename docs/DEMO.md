@@ -7,9 +7,13 @@ ipfs daemon
 * **Optional:** 
   * Shut down IPFS daemon: `ipfs shutdown`
 ##### 1. [Create Virtual Environment](./docs/ENV.md)
+```bash
+# CATs working directory
+cd cats
+python -m venv ./venv
+```
 ##### 2. Activate Virtual Environment
 ```bash
-cd cats
 source ./venv/bin/activate
 # (venv) $
 ```
