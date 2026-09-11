@@ -3,7 +3,7 @@
 A CAT Node's Structure deploys **InfraStructure [IaaS]** as the Transmission & Distribution (T&D) substrate for Plant
 execution and provenance. That substrate includes both **IPFS** and **MinIO** (plus Docker Compose transport).
 They are not separate Architectural Quantum components — they are two operational stores inside
-**InfraStructure [IaaS]**. See [`PLANTs.md`](./PLANTs.md) and [`BOM.md`](./BOM.md).
+**InfraStructure [IaaS]**. See [`PLANTs.md`](../architecture/PLANTs.md) and [`BOM.md`](../provenance/BOM.md).
 
 **MinIO is [S3-compatible](https://min.io/product/s3-compatibility):** Plant scratch and durable
 Entity Relationship use the S3 API (`s3://…` URIs, bucket/key layout) via InfraStructure’s
@@ -24,13 +24,13 @@ contract; object-store config is **not** a Runtime field — see [`MinIO.md`](./
 **ContentMesh** (`cats.network.content_mesh`) owns content-store mesh I/O and Order compose/submit. Writes (`put_bytes` / `put_json` / `put_tree` / `put_dir` / `put_file`) require **`CATS_HOME`** and go to **CAS-over-HTTP** (`CasHttpStore` + `LocatorIndex`) → `ni:` ([soft Kubo probe](W3C.md#6r-soft-kubo-probe)). Reads resolve `ni:` / hex / `hl:` / `http(s)` via AddressStore (sha256 verify; fail closed). **Legacy CIDs fail closed** ([CAS-only Node](W3C.md#6s-cas-only-node)).
 
 JSON-LD + PROV-O BOM packaging (`build_execution_bom`) with Data Integrity signing (`sign_execution_bom`, `eddsa-jcs-2022`) and Node `node_did` key material live under `cats.network.feedback` / `identity` (Phase 1b — not Plant).
-The Phase 2a **control plane** (Node LDP cache + optional Solid pod dual-write / LDN) publishes signed envelopes at HTTP URIs; the **data plane** is CAS (`ni:` + `/ldp/cas/`) — see [`SOLID.md`](SOLID.md), [`BOM.md`](BOM.md), and [`W3C.md`](W3C.md). The Node-local **BOM registry** is a query index of those envelopes (plus `by-content` locators) — [`BomRegistry.md`](BomRegistry.md).
+The Phase 2a **control plane** (Node LDP cache + optional Solid pod dual-write / LDN) publishes signed envelopes at HTTP URIs; the **data plane** is CAS (`ni:` + `/ldp/cas/`) — see [`SOLID.md`](../provenance/SOLID.md), [`BOM.md`](../provenance/BOM.md), and [`W3C.md`](../provenance/W3C.md). The Node-local **BOM registry** is a query index of those envelopes (plus `by-content` locators) — [`BomRegistry.md`](../provenance/BomRegistry.md).
 
 Optional Kubo: Node `start` / Structure `apply` soft-probe ContentStore; operator heal via `make content-store-ensure` / `node ensure` ([`IPFS.md`](./IPFS.md)).
 
 ### node-up vs content-store-ensure and node-start
 
-Get Started uses [`make node-up`](../Makefile) as a **convenience wrapper** that runs
+Get Started uses [`make node-up`](../../Makefile) as a **convenience wrapper** that runs
 `content-store-ensure` then `node-start`. That does **not** mean the Node owns Kubo lifecycle —
 the wrapper is Make-only; `python -m cats.node start` [soft-probes](W3C.md#6r-soft-kubo-probe) and does not hard-require Kubo.
 
@@ -101,7 +101,7 @@ content-addressed record after the run.
 Post-run retrieval of integration outputs is via **IPFS** and that CID — not by reading scratch
 MinIO. `ObjectStore.snapshot()` records credential-free scratch **and** durable endpoints/buckets
 as `object_store_as_executed_cid` under Invoice `structure_as_executed_cid` (see
-[`BOM.md` Nest tree](BOM.md#cat-node-http-bom-response)). Object-store, Plant, and transport
+[`BOM.md` Nest tree](../provenance/BOM.md#cat-node-http-bom-response)). Object-store, Plant, and transport
 config are **not** Runtime fields. Inspection uses MinIO Consoles / S3 / `obj_store_utils.py`
 CLI — not a CAT Node HTTP API:
 
@@ -111,14 +111,14 @@ uv run python data/input/structure/infrastructure/obj_store_utils.py resolve-er 
 uv run python data/input/structure/infrastructure/obj_store_utils.py gc-er --dry-run
 ```
 
-See [`MinIO.md`](./MinIO.md) and [`BOM.md`](./BOM.md) for Invoice stage CIDs.
+See [`MinIO.md`](./MinIO.md) and [`BOM.md`](../provenance/BOM.md) for Invoice stage CIDs.
 
 ## Related docs
 
-- [`NodeLifeCycle.md`](./NodeLifeCycle.md) — start / stop / status / ensure (Node process lifecycle)
+- [`NodeLifeCycle.md`](../guide/NodeLifeCycle.md) — start / stop / status / ensure (Node process lifecycle)
 - [`INTEROP.md`](./INTEROP.md) — prove Plant/T&D interoperability per AQ component (incl. second Plant)
 - [`MinIO.md`](./MinIO.md) — operate the Structure MinIO shared object store
 - [`IPFS.md`](./IPFS.md) — optional host Kubo content-store facet; CAS-only `TransportContext`
-- [`DASHBOARDS.md`](./DASHBOARDS.md) — MinIO Console and IPFS WebUI
-- [`LineageOfProvenance.md`](./LineageOfProvenance.md) — CIDs as Data Provenance Records
-- [`DESIGN.md`](./DESIGN.md#how-the-architectural-quantum-is-realized-as-content-addressed-cids) — Order CID graph
+- [`DASHBOARDS.md`](../guide/DASHBOARDS.md) — MinIO Console and IPFS WebUI
+- [`LineageOfProvenance.md`](../provenance/LineageOfProvenance.md) — CIDs as Data Provenance Records
+- [`DESIGN.md`](../architecture/DESIGN.md#how-the-architectural-quantum-is-realized-as-content-addressed-cids) — Order CID graph

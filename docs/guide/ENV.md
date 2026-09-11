@@ -16,7 +16,7 @@ uv sync                       # base install
 uv sync --extra ops           # + Ray, pandas, Marimo (mesh demo)
 uv sync --group dev           # + pytest, build (contributor tooling)
 ```
-The [MAC experiment](../experiments/mac/MAC.md) isn't a package extra — it's installed separately with
+The [MAC experiment](../../experiments/mac/MAC.md) isn't a package extra — it's installed separately with
 `uv pip install -r experiments/mac/requirements-mac.txt` into the same `.venv`, since it's experiment-only
 and not part of the `cats` package's published dependencies.
 
@@ -40,7 +40,8 @@ To add new operator keys, copy lines from `.env.example` into the existing `.env
 | `IPFS_API_HOST` / `IPFS_API_PORT` | `127.0.0.1` / `5001` | Optional Kubo HTTP API |
 | `CATS_IO_PARTITIONS` | `1` | Process IoPort partition count |
 | `CATS_IO_VIA_JOB` | unset (false) | IoPort via Ray job when `1`/`true`/`yes`/`on` |
-| `SOLID_*` | unset (Solid off) | Control-plane pod; see [`SOLID.md`](./SOLID.md) |
+| `CATS_SBOM` | unset (false) | Order eBOM stems (`function_sbom` / `structure_sbom` / `input_data_sbom`) and Invoice `runtime_sbom` when `1`/`true`/`yes`/`on`; default CFL demos stay off |
+| `SOLID_*` | unset (Solid off) | Control-plane pod; see [`SOLID.md`](../provenance/SOLID.md) |
 
 `.env` is gitignored. Do **not** put `CATS_HOME`, `TF_DATA_DIR`,
 `INTEGRATION_INPUT_DATA_CACHE`, `RAY_ENABLE_UV_RUN_RUNTIME_ENV`, or

@@ -52,7 +52,7 @@ Both attach to the external `kind` network so Ray pods reach S3 via the kind gat
 | Default user | `cats-scratch` | `cats-durable` |
 | Default password | `cats-scratch-secret` | `cats-durable-secret` |
 
-Change credentials before exposing consoles. See [`DASHBOARDS.md`](./DASHBOARDS.md).
+Change credentials before exposing consoles. See [`DASHBOARDS.md`](../guide/DASHBOARDS.md).
 
 #### Object layout
 
@@ -115,5 +115,5 @@ Env overrides: `MINIO_SCRATCH_*` (scratch; `MINIO_*` still accepted as fallback)
 
 - [`STORAGE.md`](./STORAGE.md) — scratch vs durable Entity Relationship vs IPFS
 - [`IPFS.md`](./IPFS.md) — host Kubo content-store facet
-- [`DASHBOARDS.md`](./DASHBOARDS.md) — both MinIO Consoles
-- [`BOM.md`](./BOM.md#cat-node-http-bom-response) — `object_store_as_executed_cid` / log correlators
+- [`DASHBOARDS.md`](../guide/DASHBOARDS.md) — both MinIO Consoles
+- [`BOM.md`](../provenance/BOM.md#cat-node-http-bom-response) — `object_store_as_executed_cid` / log correlators

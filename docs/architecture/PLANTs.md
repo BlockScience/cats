@@ -1,6 +1,6 @@
 # What kind of "Plant" is a CAT Node?
 
-CATs' architecture is built around the "Plant" family of engineering analogies referenced throughout `[README.md](../README.md)`, `[COMPONENTS.md](COMPONENTS.md)`, and `[ControlFeedbackLoop.md](ControlFeedbackLoop.md)`. This article answers a more literal version of that question: mapped against Wikipedia's own **[Plant (disambiguation) - Heavy industry and engineering](https://en.wikipedia.org/wiki/Plant_(disambiguation)#Heavy_industry_and_engineering)** listed a s follows:
+CATs' architecture is built around the "Plant" family of engineering analogies referenced throughout `[README.md](../../README.md)`, `[COMPONENTS.md](COMPONENTS.md)`, and `[ControlFeedbackLoop.md](ControlFeedbackLoop.md)`. This article answers a more literal version of that question: mapped against Wikipedia's own **[Plant (disambiguation) - Heavy industry and engineering](https://en.wikipedia.org/wiki/Plant_(disambiguation)#Heavy_industry_and_engineering)** listed a s follows:
 
 - **Represented Plants:**
   - [Plant (control theory)](https://en.wikipedia.org/wiki/Plant_(control_theory)) - the combination of process and actuator & analogous to CAT Node's Function [FaaS]
@@ -32,7 +32,7 @@ generation / Transmission & Distribution (T&D) architecture.
 For CATs, the meaningful match is the **Power Station** sense: `Plant [SaaS]` generates compute
 (Ray/KubeRay), `InfraStructure [IaaS]` is the Transmission & Distribution (T&D) substrate (IPFS/MinIO/Docker Compose)
 the generated results move through. Job **landing** (hotF entrypoint + `ComputePort` / `IoPort` adapters) is Plant-owned
-under `plant_uri` (`RayComputePort`, `RayIoPort`); scratch correlators (`ObjectStore` / `JobHandle`) stay IaaS — see [`INTEROP.md`](./INTEROP.md).
+under `plant_uri` (`RayComputePort`, `RayIoPort`); scratch correlators (`ObjectStore` / `JobHandle`) stay IaaS — see [`INTEROP.md`](../storage/INTEROP.md).
 The Physical-Plant-internal "Power plants" taxonomy doesn't map onto that
 generation / Transmission & Distribution (T&D) split; at most, its primary-systems/balance-of-plant-systems distinction loosely echoes
 `Plant [SaaS]` (generation-specific core) vs. `InfraStructure [IaaS]` (generic supporting substrate reusable
@@ -116,4 +116,4 @@ the Manufacturing-plant output (a composed Function+Structure pair) and those co
 See also: `[COMPONENTS.md](COMPONENTS.md)` for the Node's top-level Architectural Components,
 `[ControlFeedbackLoop.md](ControlFeedbackLoop.md)` for how they're exercised per execution,
 `[DESIGN.md](DESIGN.md)` for how the Architectural Quantum is realized as content-addressed `ni:` / HTTP `*_uri`, and
-`[INTEROP.md](INTEROP.md)` for proving Plant/T&D interoperability across AQ components.
+`[INTEROP.md](../storage/INTEROP.md)` for proving Plant/T&D interoperability across AQ components.

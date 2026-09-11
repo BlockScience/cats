@@ -3,8 +3,8 @@
 Plans to **prove** interoperability for every Architectural Quantum (AQ) component and
 sub-component — not only that ports exist for today’s KubeRay demo.
 
-See [`COMPONENTS.md`](./COMPONENTS.md), [`ControlFeedbackLoop.md`](./ControlFeedbackLoop.md),
-[`PLANTs.md`](./PLANTs.md), [`BOM.md`](./BOM.md), and [`STORAGE.md`](./STORAGE.md).
+See [`COMPONENTS.md`](../architecture/COMPONENTS.md), [`ControlFeedbackLoop.md`](../architecture/ControlFeedbackLoop.md),
+[`PLANTs.md`](../architecture/PLANTs.md), [`BOM.md`](../provenance/BOM.md), and [`STORAGE.md`](./STORAGE.md).
 
 ## What “proved” means
 
@@ -57,12 +57,12 @@ These seams are how interoperability is supposed to work without rewriting Funct
 **Partition I/O:** set `CATS_IO_PARTITIONS=n` (`n=1` default keeps TransportPort.migrate). For `n>1`, ingress/egress use IoPort and produce/consume a directory of opaque `part-00000` … `part-{n-1:05d}` files or directories (stable shuffle keys; CAS digest-keyed manifest via `put_dir` — [opaque partition layout](W3C.md#6p-opaque-partition-layout), no Kubo `add`/`dag_export`). Legacy layouts may still contain `part-*.car` (read-only one cycle). Invoice stage fields remain single root content ids (`ni:`) plus Phase 2b companion `*_uri` when minted. Invoice `seed_cid` now *records* the `num_partitions` observed for the run (plus a Process/NumPy-usable `rng_seed` int a second Plant's `ComputePort` may map to its own engine RNG); `CATS_IO_PARTITIONS` remains the demo-fallback *selector* of `n` until the Executor reads it from Seed instead ([#187](https://github.com/DynamicalSystemsGroup/cats/issues/187); see [`populate_invoice_seed_field`](../.cursor/plans/populate_invoice_seed_field_c499fe02.plan.md) plan).
 
 Process public surface is locked by `process.__all__` and
-[`tests/test_process_public_surface.py`](../tests/test_process_public_surface.py)
+[`tests/test_process_public_surface.py`](../../tests/test_process_public_surface.py)
 (named imports only; `TYPE_CHECKING` port types for Ray unpickle).
 
 ## Interop status by AQ component
 
-### Top-level Node components ([`COMPONENTS.md`](./COMPONENTS.md))
+### Top-level Node components ([`COMPONENTS.md`](../architecture/COMPONENTS.md))
 
 | Component | Interop role | Status | Prove plan |
 |-----------|--------------|--------|------------|
@@ -111,10 +111,10 @@ adapter modules).
    apply-complete `structure_cid`; **`linkOrder()`** mutates Function and/or Structure in one
    lineage step (single Invoice `data_cid` chain). Each accepts `cat_response` **or**
    `bom_cid=` / `data_cid=` via the Node-local BOM registry
-   ([`BomRegistry.md`](./BomRegistry.md)). A-la-carte helpers remain
-   (see [`LineageOfProvenance.md`](./LineageOfProvenance.md)). Available as Order ops for proving
+   ([`BomRegistry.md`](../provenance/BomRegistry.md)). A-la-carte helpers remain
+   (see [`LineageOfProvenance.md`](../provenance/LineageOfProvenance.md)). Available as Order ops for proving
    2f; second Plant adapters still required for a full interop prove. The registry-first walk in
-   [`DEMO.md`](./DEMO.md) (`cats_demo.py`) is **demo-proved `linkProcess` only**;
+   [`DEMO.md`](../guide/DEMO.md) (`cats_lineage_demo.py`) is **demo-proved `linkProcess` only**;
    `linkStructure`, mesh-federated registry, and a second-Structure inspect path are listed there
    under **Not in this notebook**.
 7. **Executor / Factory adapter-blind CI:** Function modules are grep-guarded against Ray /
@@ -184,12 +184,12 @@ Treat remaining soft edges (`job_endpoint` shape) as cleanup with the first non-
 
 ## Related docs
 
-- [`PLANTs.md`](./PLANTs.md) — Plant analogies and generation vs T&D
+- [`PLANTs.md`](../architecture/PLANTs.md) — Plant analogies and generation vs T&D
 - [`STORAGE.md`](./STORAGE.md) — content-store vs T&D facets; TransportPort / ComputePort / PlantPort / JobHandle
-- [`BOM.md`](./BOM.md) — Order Function/Structure CIDs; named Process imports
-- [`DEMO.md`](./DEMO.md) — registry-first notebook is demo-proved `linkProcess` on one Structure; **Not in this notebook** is the 2f / federation remainder
-- [`BomRegistry.md`](./BomRegistry.md) — Node-local BOM index; `link*` without a caller-held `cat_response`
-- [`LineageOfProvenance.md`](./LineageOfProvenance.md) — `linkProcess` / `linkStructure` / `linkOrder` Order lineage; **2f** still needs second Plant adapters
+- [`BOM.md`](../provenance/BOM.md) — Order Function/Structure CIDs; named Process imports
+- [`DEMO.md`](../guide/DEMO.md) — registry-first notebook is demo-proved `linkProcess` on one Structure; **Not in this notebook** is the 2f / federation remainder
+- [`BomRegistry.md`](../provenance/BomRegistry.md) — Node-local BOM index; `link*` without a caller-held `cat_response`
+- [`LineageOfProvenance.md`](../provenance/LineageOfProvenance.md) — `linkProcess` / `linkStructure` / `linkOrder` Order lineage; **2f** still needs second Plant adapters
 - [`IPFS.md`](./IPFS.md) — optional host Kubo; CAS-only transport
 - [`MinIO.md`](./MinIO.md) — dual MinIO (scratch + durable Entity Relationship) / JobHandle / `gc-er`
-- [`DESIGN.md`](./DESIGN.md) — AQ as content-addressed CIDs
+- [`DESIGN.md`](../architecture/DESIGN.md) — AQ as content-addressed CIDs

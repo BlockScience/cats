@@ -39,18 +39,18 @@ Both are resolved as one `ObjectStore` from `InfraStructure.obj_store_context()`
 Runtime fields. BOM `log` may record `object_store_result_uri` (scratch) and optional
 `durable_er_uri` / `durable_er_pointer`; credential-free endpoints land in Invoice
 `object_store_as_executed_cid` via `ObjectStore.snapshot()` (see
-[`BOM.md`](./BOM.md#cat-node-http-bom-response)). No CAT Node HTTP API — Consoles, S3, or:
+[`BOM.md`](../provenance/BOM.md#cat-node-http-bom-response)). No CAT Node HTTP API — Consoles, S3, or:
 
 ```bash
 uv run python data/input/structure/infrastructure/obj_store_utils.py list-jobs
 uv run python data/input/structure/infrastructure/obj_store_utils.py resolve-er <name>
 ```
 
-Details: [`MinIO.md`](./MinIO.md), roles: [`STORAGE.md`](./STORAGE.md).
+Details: [`MinIO.md`](../storage/MinIO.md), roles: [`STORAGE.md`](../storage/STORAGE.md).
 
 ### [IPFS WebUI](http://127.0.0.1:5001/webui) (optional)
 
 - **URL:** http://127.0.0.1:5001/webui
 - Optional host Kubo daemon UI when you run Kubo for operator tooling (not required for
-  CAS-only Orders). See [`IPFS.md`](./IPFS.md) / `make content-store-ensure`.
+  CAS-only Orders). See [`IPFS.md`](../storage/IPFS.md) / `make content-store-ensure`.
 - Live content-store reads/writes use Node CAS (`GET /ldp/cas/<hex>`), not the gateway.

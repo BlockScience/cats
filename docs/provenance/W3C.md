@@ -102,8 +102,8 @@ Stage products (`ingress_data_uri`, `integration_data_uri`, `data_uri`, `structu
 | **Announce to mesh** | — | Best-effort [LDN](https://www.w3.org/TR/ldn/) Announce (`content_id`, `bom_solid_uri`) when Solid configured |
 | **ACL on write** | N/A (no Solid) | Solid [WAC](https://solid.github.io/web-access-control-spec/) (Node Write; readers / public Read); Node LDP **and** registry PUT stay **405** |
 | **Discovery / reverse lookup** | Gap — `init` needed out-of-band `order_cid`; `link*` needed a caller-held `cat_response` ([`LineageOfProvenance.md`](LineageOfProvenance.md)) | **Node-local registry** ([`BomRegistry.md`](BomRegistry.md) / `GET /ldp/registry/…`); `init` / `link*` accept `order_uri` / `bom_uri` / unique `content_id` / `data_uri` (legacy `*_cid` → 400; ambiguous → 409 `{bom_ids}`). Mesh federation still deferred |
-| **Intra-run stage lineage** | Invoice stage CIDs only | Same `ni:` / `*_uri` addresses on Invoice; signed BOM also carries `stageLineage` PROV entities (`wasDerivedFrom`; reachable after envelope verify via [AddressStore](IPFS.md)) |
-| **Large payloads** | [MinIO](https://min.io/) + IPFS CIDs | Same discipline — envelope never embeds stage bytes; fetch is CAS-over-HTTP ([`STORAGE.md`](STORAGE.md)) |
+| **Intra-run stage lineage** | Invoice stage CIDs only | Same `ni:` / `*_uri` addresses on Invoice; signed BOM also carries `stageLineage` PROV entities (`wasDerivedFrom`; reachable after envelope verify via [AddressStore](../storage/IPFS.md)) |
+| **Large payloads** | [MinIO](https://min.io/) + IPFS CIDs | Same discipline — envelope never embeds stage bytes; fetch is CAS-over-HTTP ([`STORAGE.md`](../storage/STORAGE.md)) |
 
 ### Discovery (Node-local BOM registry)
 
@@ -206,6 +206,6 @@ Full contract, record shape, disk layout, and routes: [`BomRegistry.md`](BomRegi
 - [`BomRegistry.md`](BomRegistry.md) — Node-local query index (not the envelope store)
 - [`SOLID.md`](SOLID.md) — Solid dual-write, WebID/WAC, LDN (`bom_solid_uri`)
 - [`BOM.md`](BOM.md) — signed envelope, Invoice/Order `*_uri` nest, HTTP response
-- [`ControlFeedbackLoop.md`](ControlFeedbackLoop.md) — Order-from-BOM intake
+- [`ControlFeedbackLoop.md`](../architecture/ControlFeedbackLoop.md) — Order-from-BOM intake
 - [`LineageOfProvenance.md`](LineageOfProvenance.md) — `ni:` chain + reverse lookup
-- [`IPFS.md`](IPFS.md) / [`STORAGE.md`](STORAGE.md) — AddressStore / data plane (unchanged by this path)
+- [`IPFS.md`](../storage/IPFS.md) / [`STORAGE.md`](../storage/STORAGE.md) — AddressStore / data plane (unchanged by this path)

@@ -53,8 +53,8 @@ print(ensure_solid_bom_acl())
 
 ## Environment
 
-Set these in the repo-root `.env` (see [`.env.example`](../.env.example) /
-[`ENV.md`](./ENV.md)). `cats` loads that file on import; already-exported
+Set these in the repo-root `.env` (see [`.env.example`](../../.env.example) /
+[`ENV.md`](../guide/ENV.md)). `cats` loads that file on import; already-exported
 shell variables win. Unset `SOLID_POD_BASE_URL` leaves Solid off.
 
 | Variable | Required | Description |
@@ -75,6 +75,6 @@ This repo does **not** host a Solid server — run [Community Solid Server](http
 
 - [`BOM.md`](BOM.md) — HTTP response fields `bom_cid`, `bom_ldp_uri`, `bom_solid_uri`
 - [`BomRegistry.md`](BomRegistry.md) — Node-local query index (not the envelope store)
-- [`NodeLifeCycle.md`](NodeLifeCycle.md) — Node LDP cache + registry query routes
-- [`STORAGE.md`](STORAGE.md) — ContentStore / MinIO (data plane; unchanged by Solid)
-- [`ControlFeedbackLoop.md`](ControlFeedbackLoop.md) — Control-Feedback Loop + registry intake
+- [`NodeLifeCycle.md`](../guide/NodeLifeCycle.md) — Node LDP cache + registry query routes
+- [`STORAGE.md`](../storage/STORAGE.md) — ContentStore / MinIO (data plane; unchanged by Solid)
+- [`ControlFeedbackLoop.md`](../architecture/ControlFeedbackLoop.md) — Control-Feedback Loop + registry intake

@@ -2,7 +2,7 @@
 
 `BomRegistry` (`cats/network/registry/`) is the Node-local **query index** of verified
 [ExecutionBom](BOM.md#cat-node-http-bom-response) envelopes. It is how the
-[Control-Feedback Loop](ControlFeedbackLoop.md) discovers the next **Order** from a
+[Control-Feedback Loop](../architecture/ControlFeedbackLoop.md) discovers the next **Order** from a
 prior BOM (`content_id` → Order equality id) and recovers *which* BOM produced a given
 output (`data` / `content_id` → `[bom_ids, …]`) without a caller-held HTTP `cat_response`.
 
@@ -324,19 +324,19 @@ rejection, unsigned/tampered `build_record`, Invoice `data` equality (not a lyin
 hint), Flask GET / PUT 405, `init` legacy `*_cid` → 400 / `{content_id}` /
 `{data_uri}` / 409, and `linkProcess(content_id=…)` (rejects `bom_cid=` /
 `data_cid=`). Runtime execute indexing is asserted in
-[`tests/test_ldp_bom_control_plane.py`](../tests/test_ldp_bom_control_plane.py).
-CAS put/get/verify, manifests, and locators: [`tests/test_cas_http.py`](../tests/test_cas_http.py).
-Phase 2b URI + [URI-only](W3C.md#6d-uri-only-graph) hard-drop: [`tests/test_phase2b_uri.py`](../tests/test_phase2b_uri.py).
+[`tests/test_ldp_bom_control_plane.py`](../../tests/test_ldp_bom_control_plane.py).
+CAS put/get/verify, manifests, and locators: [`tests/test_cas_http.py`](../../tests/test_cas_http.py).
+Phase 2b URI + [URI-only](W3C.md#6d-uri-only-graph) hard-drop: [`tests/test_phase2b_uri.py`](../../tests/test_phase2b_uri.py).
 
-See also [`TEST.md`](TEST.md).
+See also [`TEST.md`](../guide/TEST.md).
 
 ## Related docs
 
 - [`BOM.md`](BOM.md) — signed envelope, Invoice/Order `*_uri` nest, HTTP response
-- [`ControlFeedbackLoop.md`](ControlFeedbackLoop.md) — Order-from-BOM intake (notes 2 & 5)
+- [`ControlFeedbackLoop.md`](../architecture/ControlFeedbackLoop.md) — Order-from-BOM intake (notes 2 & 5)
 - [`LineageOfProvenance.md`](LineageOfProvenance.md) — data→BOM reverse lookup; `link*`
-- [`NodeLifeCycle.md`](NodeLifeCycle.md) — Flask routes served by `node-start`
+- [`NodeLifeCycle.md`](../guide/NodeLifeCycle.md) — Flask routes served by `node-start`
 - [`SOLID.md`](SOLID.md) — envelope locators vs this index
 - [`W3C.md`](W3C.md) — provenance discovery; CAS-over-HTTP + Phase 2b MVP landed; remaining federation / hard-drop `*_cid`
-- [`DESIGN.md`](DESIGN.md) — next Order discovered via registry, not only out-of-band `order_uri`
-- [`INTEROP.md`](INTEROP.md) — `link*` as Structure-lineage ops for second-Plant prove
+- [`DESIGN.md`](../architecture/DESIGN.md) — next Order discovered via registry, not only out-of-band `order_uri`
+- [`INTEROP.md`](../storage/INTEROP.md) — `link*` as Structure-lineage ops for second-Plant prove

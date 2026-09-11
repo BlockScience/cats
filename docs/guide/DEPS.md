@@ -1,7 +1,7 @@
 ##### Platform Dependencies:
 
 > **Quick install:** `make deps` installs everything below automatically on macOS & Linux (see the
-> [`Makefile`](../Makefile) at the repo root). It always installs the latest release of each tool (not a pin),
+> [`Makefile`](../../Makefile) at the repo root). It always installs the latest release of each tool (not a pin),
 > warns if an already-installed tool is older than the floor documented here, and falls back to that floor only
 > if it can't detect the latest release (e.g. no network). Run `make help` for all targets — `make deps-all` also
 > installs optional `helm` and Graphviz (`dot`), and `make print-versions` audits what's currently installed. The
@@ -47,13 +47,13 @@
   # > (Use absolute paths; docker-compose treats relative volume paths as named volumes.)
   ```
 6. [**Go**](https://go.dev/dl/) (>= v3.13.1) (`make deps-go`)
-7. [**IPFS Kubo**](https://docs.ipfs.tech/install/command-line/#system-requirements) (>= 0.21.0) (`make deps-ipfs`) — **optional** operator tooling (CAS-only Node). See [`IPFS.md`](./IPFS.md).
+7. [**IPFS Kubo**](https://docs.ipfs.tech/install/command-line/#system-requirements) (>= 0.21.0) (`make deps-ipfs`) — **optional** operator tooling (CAS-only Node). See [`IPFS.md`](../storage/IPFS.md).
 * [**helm**](https://helm.sh/docs/intro/install/) (>= 3.12.1) — optional; `terraform apply` manages Helm
   releases itself via the `hashicorp/helm` provider, which talks to the Helm SDK directly and doesn't shell
   out to a `helm` binary. Only install this CLI if you want to manually inspect releases with commands like
   `helm list` / `helm get` against the `kind-cats` cluster. (`make deps-helm`, or `make deps-all` to include it
   alongside everything else.)
 * [**Graphviz**](https://graphviz.org/download/) — optional; required for PNG output from
-  [Diagramming](../README.md#diagramming) (`make diagrams`, `code2flow` / `pyreverse`). Provides `dot`
+  [Diagramming](../../README.md#diagramming) (`make diagrams`, `code2flow` / `pyreverse`). Provides `dot`
   on `PATH`. (`make deps-graphviz`, or `make deps-all` to include it with helm.) Not installed by `uv`
   or core `make deps`.

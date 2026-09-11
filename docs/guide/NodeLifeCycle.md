@@ -47,7 +47,7 @@ make node-down               # node-stop then ipfs shutdown (full local teardown
 - **AQ ownership:** InfraStructure / the operator heal optional host Kubo tooling; the Node client soft-probes and does not own Kubo lifecycle.
 - **Ops flexibility:** Skip ensure for CAS-only Orders (default). Use `node-up` when you also want Kubo tooling online. Use `node-stop` when Kubo should keep running; use `node-down` for full local teardown.
 
-Details: [`STORAGE.md`](./STORAGE.md#node-up-vs-content-store-ensure-and-node-start). Content-store phases and heal behavior: [`IPFS.md`](./IPFS.md).
+Details: [`STORAGE.md`](../storage/STORAGE.md#node-up-vs-content-store-ensure-and-node-start). Content-store phases and heal behavior: [`IPFS.md`](../storage/IPFS.md).
 
 ## Commands
 
@@ -78,8 +78,8 @@ make node-start
 - Fails loud if the port is still held by a non-`cats.node` process — set `CAT_NODE_PORT` (e.g. `5002`) when macOS AirPlay owns `:5000`.
 - On SIGINT / SIGTERM, exits without stopping host Kubo.
 - Serves Order entry at `POST /cat/node/init`, Phase 2a LDP control plane, registry,
-  and CAS-over-HTTP data plane (Solid dual-write is separate — see [`SOLID.md`](SOLID.md);
-  registry: [`BomRegistry.md`](BomRegistry.md); storage: [`STORAGE.md`](STORAGE.md)):
+  and CAS-over-HTTP data plane (Solid dual-write is separate — see [`SOLID.md`](../provenance/SOLID.md);
+  registry: [`BomRegistry.md`](../provenance/BomRegistry.md); storage: [`STORAGE.md`](../storage/STORAGE.md)):
   - `GET /ldp/boms/` — Basic Container listing published BOM URIs
   - `GET /ldp/boms/<content_id>` — signed ExecutionBom JSON-LD (publish via `Runtime.execute` only; HTTP PUT → 405)
   - `GET /ldp/registry/` — BOM registry container (Node-local index)
@@ -137,7 +137,7 @@ Make-only convenience: runs `node-stop`, then `ipfs shutdown`. Does **not** live
 - [`INSTALL.md`](./INSTALL.md) / [`ENV.md`](./ENV.md) — clone, `uv sync`, environment
 - [`DEMO.md`](./DEMO.md) — mesh demo after the Node is up
 - [`TEST.md`](./TEST.md) — integration tests that need a live Node
-- [`BomRegistry.md`](./BomRegistry.md) — Node-local BOM query index (`GET /ldp/registry/…`)
-- [`STORAGE.md`](./STORAGE.md) — content-store vs scratch ownership; why ensure ≠ start
-- [`IPFS.md`](./IPFS.md) — optional host Kubo facet, two-phase ensure (no Docker peers)
+- [`BomRegistry.md`](../provenance/BomRegistry.md) — Node-local BOM query index (`GET /ldp/registry/…`)
+- [`STORAGE.md`](../storage/STORAGE.md) — content-store vs scratch ownership; why ensure ≠ start
+- [`IPFS.md`](../storage/IPFS.md) — optional host Kubo facet, two-phase ensure (no Docker peers)
 - [`DASHBOARDS.md`](./DASHBOARDS.md) — Ray / MinIO / IPFS WebUI once Structure is deployed

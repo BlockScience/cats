@@ -3,7 +3,7 @@
 **CAS-over-HTTP** is the content-store address of record for live Orders.
 Host [Kubo](https://docs.ipfs.tech/install/command-line/#system-requirements) is **optional**
 operator tooling (`ContentStore.ensure` / `make content-store-ensure` / `node ensure`) — not required
-for Node start, Structure apply, or Process migrate/stage. See [`DEPS.md`](./DEPS.md) and
+for Node start, Structure apply, or Process migrate/stage. See [`DEPS.md`](../guide/DEPS.md) and
 [`STORAGE.md`](./STORAGE.md).
 
 **ContentMesh** writes (`put_bytes` / `put_json` / `put_tree` / `put_dir` / `put_file`) require
@@ -33,7 +33,7 @@ Order submit URLs use `CAT_NODE_HOST` / `CAT_NODE_PORT` (default `http://127.0.0
 #### Ownership
 
 Optional host Kubo lifecycle helpers live in
-[`data/input/structure/infrastructure/content_store_utils.py`](../data/input/structure/infrastructure/content_store_utils.py).
+[`data/input/structure/infrastructure/content_store_utils.py`](../../data/input/structure/infrastructure/content_store_utils.py).
 The CAT Node and ContentMesh are **clients** only — they must not `ipfs shutdown` on process exit.
 Structure `terraform destroy` tears down MinIO scratch / Plant; it does **not** stop host Kubo if you
 left one running for tooling.
@@ -66,7 +66,7 @@ make node-status            # flask=up|down + content_store=ready|not_ready
 uv run python -m cats.node ensure
 ```
 
-See [`NodeLifeCycle.md`](./NodeLifeCycle.md). Node `status` exits 0 only when Flask is up **and**
+See [`NodeLifeCycle.md`](../guide/NodeLifeCycle.md). Node `status` exits 0 only when Flask is up **and**
 ContentStore reports ready (useful when you still run Kubo for tooling).
 
 #### Manual start (optional)
@@ -79,7 +79,7 @@ ipfs shutdown
 
 ### Process transport (CAS-only)
 
-[`transport_utils.py`](../data/input/structure/infrastructure/transport_utils.py) → `TransportContext`
+[`transport_utils.py`](../../data/input/structure/infrastructure/transport_utils.py) → `TransportContext`
 exposes `migrate` / `stage_for_plant` for Function-owned `TransportPort`. Docker Kubo peer Compose /
 `ensure_peered` / `assert_ready` are **removed**. Legacy CIDs fail closed.
 
